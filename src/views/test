@@ -1,0 +1,456 @@
+<template>
+  <div class="">
+       <button
+        class="text-lg ml-1 w-60 bg-gray-300 px-1 rounded tracking-wider"
+        style=""
+        @click.once="inputModal"
+      >
+        <svg
+          class="h-6 w-10 inline-block"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+         Start conversation
+      </button><br/>
+      <input v-if="inputShow" v-model="name" @keyup.enter="nameModal" type="text" placeholder="Enter your name" class="ml-10 mt-6 w-60 h-10 px-10 rounded-lg">
+    <div v-if="nameShow" class="bg-gray-50 bg-opacity-75 rounded w-96 mt-1 ml-10 p-2">
+        
+      <h1 class="text-xl tracking-wider ml-10 uppercase">{{name}}</h1>
+      <button @click.once="textModal" class="focus:outline-none">Add issue</button><br />
+      <form class="mt-1" action="" @submit.prevent="addConversation">
+       <textarea
+        v-if="textShow"
+        name=""
+        v-model="newConversation"
+        class="rounded w-72 mt-1 focus:outline-none"
+        id=""
+        cols="30"
+        rows="3"
+      ></textarea>
+      <input  v-if="textShow" class="border ml-4 h-5 p-5 shadow-lg mb-2 outline-none" type="text" placeholder="Add a Conversation" v-model="newConversation" />
+</form>
+      <!-- <div class=""> -->
+      <ul class=" focus:outline-none shadow-lg mt-2 bg-gray-200 border  border-gray-300 p-1 tracking-wider px-3 rounded w-72">
+          <li class=" "  v-for="(conversation,index) in conversations" :key="index">
+         {{conversation}}
+         <svg
+          class=" w-5 h-5 ml-56 hover:bg-gray-100 rounded "
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+          />  </svg> 
+           <button class="text-white inline-block ml-72 mb-5  bg-red-900 w-16 h-8 rounded">
+        Status
+      </button>  
+                </li>
+          </ul>
+    <!-- </div> -->
+
+      <!-- <button
+        v-if="editShow"
+        class="inline-block focus:outline-none shadow-lg bg-gray-200 border border-gray-300 p-1 tracking-wider px-3 rounded w-56"
+      >
+        {{textarea}}
+        <svg
+          class="inline-block w-5 h-5 ml-16 hover:bg-gray-100 rounded "
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+          />
+        </svg>
+      </button> -->
+      <!-- <button v-if="editShow" class="text-white ml-2  bg-red-900 w-16 h-8 rounded">
+        Status
+      </button> -->
+    </div>
+  </div>
+</template>
+
+<script>
+import {mapMutations, mapState} from 'vuex'
+export default {
+    data:()=>{
+        return{
+            name:'',
+            // textarea:'',
+            inputShow:false,
+            nameShow:false,
+            textShow:false,
+            editShow:false
+            // inputShow:true,
+            // nameShow:true,
+            // textShow:true,
+            // editShow:true
+        }
+    },
+     computed: mapState([
+        'conversations'
+    ]),
+    methods:{
+      ...mapMutations([
+        'ADD_CONVERSATION'
+      ]),
+        inputModal:function(){
+            this.inputShow = !this.inputShow
+        },
+        nameModal:function(){
+            this.nameShow = !this.nameShow
+        },
+        textModal:function(){
+          this.textShow =!this.textShow
+            // this.ADD_CONVERSATIONS(this.textShow)
+            // this.textarea = ''
+        },
+        addConversation:function(){
+            this.ADD_CONVERSATION(this.newConversation)
+            this.newConversation = ''
+        }
+    }
+};
+</script>
+
+
+
+
+
+
+
+DASHBOARD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+<template>
+  <div class="bg-yellow-500 h-screen w-full flex items-center justify-center">
+    <!-- <div  class="w-full max-w-lg rounded-lg shadow-2xl overflow-hidden relative"> -->
+ <div class="" style="">
+              <Header />
+      </div>
+<!--   
+    <div
+      class="back h-screen w-full flex items-center justify-center absolute"
+         
+    ></div> -->
+    <!-- <div class="inset-0 bg-gray-900 bg-opacity-75"></div> -->
+    <div class="p-1 bg-green-300 " >
+      <p
+        class="dash text-3xl uppercase ml-96 mb-96 text-white rounded tracking-wider"
+       
+      >
+        dashboard
+      </p>
+      <br />
+    </div>
+    <br />
+    <div class="modal mr-40" style="">
+      <projectModal />
+    </div>
+    <div class="" style="margin-bottom:2000px; margin-right:1000px;">
+    <input v-if="isSearch"
+      class="search h-10 w-96 border border-gray-400 focus:outline-none absolute rounded-lg ml-96 mt-32 px-5"
+      type="text"
+      v-model="search"
+      placeholder="search projects"
+      style="margin-left:200px; width:500px;"
+    />
+    <svg @click="searching"
+      class="iconsearch cursor-pointer h-10 w-10 ml-0"
+      style="margin-bottom:100px"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="white"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+    </div>
+    <div
+      class=" scroll mt-0 fixed w-11/12 bg-pink-800  grid grid-cols-4 gap-y-48 "
+      style=" margin-top:200px; margin-left:10px;"
+    >
+      <div class="mon ml-5" style="" v-for="(project,index) in filteredProjects" :key="index">
+        <div
+          class="h-72 w-80 mt-0 leading-10 items-center rounded-t-2xl shadow-xl absolute hover:border-4 hover:border-gray-100  border-t-4 border-red-500"
+        >
+          <div>
+            <!-- <div class="w-200 h-40"></div> -->
+            <div
+              class=" w-80 h-40 hover:bg-white hover:bg-opacity-25  hover:text-gray-50 text-white text-2xl  border-gray-700 border-b border-l border-r rounded-xl mb-10 lighten-2 absolute"
+            >
+              <button
+                class="focus:outline-none mt-10 ml-4 m-auto transform hover:scale-110"
+              >
+                {{project}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</template>
+
+<script>
+import Header from "@/components/Header";
+import smixin from '../components/mixin.js'
+import projectModal from "@/views/projectModal";
+import {mapState} from 'vuex'
+export default {
+  name: "projects",
+  data: () =>({
+      search: "",
+      isSearch:false
+     }),        
+   computed: mapState([
+        'projects'
+    ]),
+    methods:{
+      searching:function(){
+        this.isSearch = !this.isSearch
+      }
+    },
+  components: {
+    projectModal,
+    Header
+  },
+   mixins:[smixin]
+};
+</script>
+
+<style scoped>
+/*   */
+.scroll {
+  width: 1500px;
+  height: 600px;
+  overflow: scroll;
+}
+ ::-webkit-scrollbar {
+  background: transparent;
+  width: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #ec190a);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #efffeb);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+ .back{
+     /* background: url("/mike.jpg"); */
+     background-image:
+    linear-gradient(to bottom, rgba(29, 30, 31, 0.52), rgba(39, 38, 39, 0.73)),
+    url('/mike.jpg');
+ }
+/*
+@media (max-width: 2100px){
+  .scroll {
+  width: 1500px;
+  height: 600px;
+  overflow: scroll;
+  background: lightblue;
+	margin-bottom: 20px;
+   margin:0px 0px 200px auto;
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #ec190a);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #efffeb);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+.iconsearch{
+   margin-left:820px
+}
+.table{
+  display:grid;
+  grid-template-columns:30% 30% 30% 30%;
+  grid-column-gap: 0px;
+  margin-left:100px;
+}
+.search{
+  margin-right: 3px;
+}
+.iconsearch{
+   margin-left:830px
+}
+}
+@media (max-width: 1600px){
+   .scroll {
+  width: 1100px;
+  height: 400px;
+  overflow: scroll;
+  background: lightblue;
+	margin-bottom: 20px; 
+  margin:0px 0px 200px auto;
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #ec190a);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #efffeb);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+
+.table{
+  display:grid;
+  grid-template-columns:30% 30% 30%;
+  grid-column-gap: 0px;
+  margin-left:100px;
+}
+.dash{
+  margin-left: 200px;
+}
+.search{
+  margin-right: 300px;
+}
+.iconsearch{
+  margin-left: 680px;
+}
+.modal{
+  margin-left: 900px;
+}
+}
+@media (max-width: 1500px){
+   .scroll {
+  width: 1000px;
+  height: 600px;
+  overflow: scroll;
+ 
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #ec190a);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #efffeb);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+.table{
+  display:grid;
+  grid-template-columns:30% 30% 30%;
+  grid-column-gap: 0px;
+  margin-left:100px;
+}
+.dash{
+  margin-left: 600px;
+}
+.modal{
+  margin-left: 700px;
+}
+.search{
+  margin-right: 800px;
+}
+.iconsearch{
+  margin-left:430px;
+}
+}
+@media (max-width: 1000px){
+.table{
+  display:grid;
+  grid-template-columns:30% 30%;
+  grid-column-gap: 0px;
+  margin-left:300px;
+}
+.dash{
+  margin-left: 800px;
+}
+.modal{
+  margin-left: 650px;
+}
+}
+@media (max-width: 900px){
+ .scroll {
+  width: 500px;
+  height: 600px;
+  overflow: scroll;
+ }
+::-webkit-scrollbar {
+  background: transparent;
+  width: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #ec190a);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #efffeb);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+.table{
+  display:grid;
+  grid-template-columns:100%;
+  margin-left:500px;
+}
+.dash{
+  margin-left: 1000px;
+  margin-top: 200px;
+}
+.modal{
+  margin-left: 470px;
+}
+.search{
+  margin-right: 1100px;
+}
+.iconsearch{
+  margin-left: 280px;
+}
+} */
+</style>
