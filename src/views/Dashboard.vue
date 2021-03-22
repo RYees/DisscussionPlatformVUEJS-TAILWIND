@@ -1,51 +1,65 @@
 <template>
   <div class="back h-screen w-full flex items-center justify-center">
-     <div class="flex justify-between" style="width:1800px; margin-bottom:650px; height:200px">
-    <div class="p-3 h-10" >
-      <p
-        class="dash text-4xl uppercase  mb-96 text-white rounded tracking-wider"
+    <!-- <div class="" style="margin-bottom:937px">
+          <Header />
+      </div> -->
+    <div
+      class="flex justify-between"
+      style="width:1800px; margin-bottom:650px; height:200px"
     >
-        dashboard
-      </p>
+      <div class="p-3 h-10">
+        <p
+          class="dash text-4xl uppercase  mb-96 text-white rounded tracking-wider"
+        >
+          dashboard
+        </p>
+        <br />
+      </div>
       <br />
-    </div>
-    <br />
-    <div class="modal mr-96" style="margin-right:450px">
-      <projectModal />
-    </div>
-    <div class="flex" style="">
-      <div>
-    <input v-if="isSearch"
-      class="search h-12 w-96 border border-gray-400 focus:outline-none rounded-lg mt-4 px-5"
-      type="text"
-      v-model="search"
-      placeholder="search projects"
-      style="margin-left:0px; right:300px; width:500px;"
-    /></div>
-    <div class="p-3">
-    <svg @click="searching"
-      class="iconsearch cursor-pointer h-14 w-14 ml-0"
-      style=""
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="white"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-    </div>
-    </div>
+      <div style="margin-right:450px;">
+        <projectModal />
+      </div>
+      <div class="flex" style="">
+        <div>
+          <input
+            v-if="isSearch"
+            class="search h-12 w-96 border border-gray-400 focus:outline-none rounded-lg mt-4 px-5"
+            type="text"
+            v-model="search"
+            placeholder="search projects"
+            style="margin-left:0px; right:300px; width:500px;"
+          />
+        </div>
+        <div class="p-3">
+          <svg
+            @click="searching"
+            class="iconsearch cursor-pointer h-14 w-14 ml-0"
+            style=""
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="white"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </div>
+      </div>
     </div>
     <div
       class=" scroll mt-0 fixed w-11/12 grid grid-cols-4 gap-y-48 "
       style=" margin-top:100px; margin-left:0px; width:1500px;"
     >
-      <div class="mon ml-5" style="" v-for="(project,index) in filteredProjects" :key="index">
+      <div
+        class="mon ml-5"
+        style=""
+        v-for="(project, index) in filteredProjects"
+        :key="index"
+      >
         <div
           class="h-72 w-80 mt-0 leading-10 items-center rounded-t-2xl shadow-xl absolute hover:border-4 hover:border-gray-100  border-t-4 border-red-500"
         >
@@ -57,7 +71,7 @@
               <button
                 class="focus:outline-none mt-10 ml-4 m-auto transform hover:scale-110"
               >
-                {{project}}
+                {{ project }}
               </button>
             </div>
           </div>
@@ -70,28 +84,26 @@
 
 <script>
 //import Header from "@/components/Header";
-import smixin from '../components/mixin.js'
+import smixin from "../components/mixin.js";
 import projectModal from "@/views/projectModal";
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
 export default {
   name: "projects",
-  data: () =>({
-      search: "",
-      isSearch:false
-     }),        
-   computed: mapState([
-        'projects'
-    ]),
-    methods:{
-      searching:function(){
-        this.isSearch = !this.isSearch
-      }
+  data: () => ({
+    search: "",
+    isSearch: false,
+  }),
+  computed: mapState(["projects"]),
+  methods: {
+    searching: function() {
+      this.isSearch = !this.isSearch;
     },
+  },
   components: {
     projectModal,
-  //  Header
+   // Header,
   },
-   mixins:[smixin]
+  mixins: [smixin],
 };
 </script>
 
@@ -102,7 +114,7 @@ export default {
   height: 600px;
   overflow: scroll;
 }
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
   background: transparent;
   width: 12px;
 }
@@ -117,12 +129,15 @@ export default {
   border-radius: 20px;
   background: lightgray;
 }
- .back{
-     /* background: url("/mike.jpg"); */
-     background-image:
-    linear-gradient(to bottom, rgba(29, 30, 31, 0.52), rgba(39, 38, 39, 0.73)),
-    url('/mike.jpg');
- }
+.back {
+  /* background: url("/mike.jpg"); */
+  background-image: linear-gradient(
+      to bottom,
+      rgba(29, 30, 31, 0.52),
+      rgba(39, 38, 39, 0.73)
+    ),
+    url("/mike.jpg");
+}
 /*
 @media (max-width: 2100px){
   .scroll {

@@ -1,5 +1,5 @@
 <template>
-  <div class=" ">
+  <div class="flex justify-center items-center ">
     <div class="" style="">
       <button
         class="tracking-wider px-5 transform hover:scale-110 border border-white p-2 cursor-pointer rounded  text-white text-3xl mt-20"
@@ -22,21 +22,21 @@
           /></svg
         >create project
       </button>
-    
-    <div class="" style="right:500px;">
-     <form action=""  @submit.prevent="addProject">
+    </div>
+    <!-- <div class="flex justify-center" style=""> -->
+     
     <div
       v-if="isShow"
-      class="bg-white absolute border border-gray-600 rounded-lg h-40 mb-96 mt-16  p-6 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full"
-      style="top:0px; height:205px;"
+      class="flex justify-center z-40 bg-white bg-opacity-95 absolute border border-gray-600 rounded-lg h-40 p-6 overflow-hidden shadow-xl transform transition-all"
+      style="top:300px; height:305px; right:760px;"
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"
     >
- 
+  <form action=""  @submit.prevent="addProject">
       <input
         type="text"
-        class="w-80 rounded px-4 h-14 border border-indgo-300 focus:outline-none"
+        class="w-80 hover:bg-white hover:bg-opacity-30 hover:text-dark rounded-lg px-4 h-14 border border-indgo-300 focus:outline-none"
         name=""
         id=""
         placeholder="Project Name"
@@ -45,14 +45,14 @@
       />
       
       <div class="inline-block">
-        <button
-          class=" hover:bg-green-700 hover:text-6xl px-2 w-40 h-10 mt-16 transform hover:scale-110 tracking-wider focus:outline-none rounded text-white bg-blue-500"
+        <button 
+          class=" hover:bg-green-700 hover:text-6xl px-2 w-32 ml-4 h-11 mt-16 transform hover:scale-110 tracking-wider focus:outline-none rounded-lg text-white bg-blue-500"
            
         >
           Create Project
         </button>
         </div> 
-        <div class="inline-block mt-16 ml-32 absolute">  
+        <div class=" mt-24 ml-3 absolute">  
     <button class="  focus:outline-none" @click.prevent="showModal">
                   <svg
                     class="h-10 w-10 "
@@ -68,10 +68,10 @@
                   </svg>
                 </button>
     </div>
-      
-    </div></form>
-    </div> 
+      </form>
     </div>
+    <!-- </div>  -->
+
   </div>
 </template>
 <script>

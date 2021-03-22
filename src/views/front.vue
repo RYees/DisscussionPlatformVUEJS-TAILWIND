@@ -13,13 +13,13 @@
   </div>
 </template>
 <script>
-//import Header from "@/components/Header";
+//import Login from "@/views/Login";
 import Header from '../components/Header.vue';
 export default {
   name: "header",
   components: {
-  Header
-  //  Header
+  Header,
+  //Login
   },
 };
 </script>

@@ -1,46 +1,51 @@
 <template>
   <div class="bac p-6 h-screen w-full overflow-y-hidden">
+    <!-- <div class="" style="bottom:900px">
+          <Header />
+      </div> -->
     <div class="mt-0 mb-96 flex p-0">
-         <p
-        class="text-5xl mt-7 ml-20 text-white rounded tracking-wider"
-    
-      >
-       Share your <br> opinions!
-      </p><br/>
+      <p class="text-5xl mt-7 ml-20 text-white rounded tracking-wider">
+        Share your <br />
+        opinions!
+      </p>
+      <br />
+    </div>
+    <div class="h-screen flex items-center justify-center">
+      <div class="scroll mt-1 p-0" style="margin-top:0px; margin-bottom:900px;">
+        <comment />
       </div>
-        <div class="h-screen flex items-center justify-center">
-       <div class="scroll mt-1 p-0"  style="margin-top:0px; margin-bottom:900px;"><comment/></div>   
-  </div>
+    </div>
   </div>
 </template>
 
 <script>
-//import Header from "@/components/Header";
-import comment from "@/views/comment";
+//import Header from '../components/Header.vue';
+import comment from "@/views/comment.vue";
 export default {
-  data:()=>{
-    return{
-
-    }
+  data: () => {
+    return {};
   },
-  components:{
+  components: {
     comment,
     //Header
-  }
+  },
 };
 </script>
 
 <style scoped>
-.bac{
-     /* background: url("/mike.jpg"); */
-     background-image:
-    linear-gradient(to bottom, rgba(29, 30, 31, 0.52), rgba(39, 38, 39, 0.73)),
-    url('/mike.jpg');
-     /* height: 3000px; */
- }
+.bac {
+  /* background: url("/mike.jpg"); */
+  background-image: linear-gradient(
+      to bottom,
+      rgba(29, 30, 31, 0.52),
+      rgba(39, 38, 39, 0.73)
+    ),
+    url("/mike.jpg");
+  /* height: 3000px; */
+}
 .scroll {
-  width:3099px;
-  margin-left:50px;
+  width: 3099px;
+  margin-left: 50px;
   height: 770px;
   overflow-y: hidden;
 }
@@ -59,7 +64,7 @@ export default {
   border-radius: 20px;
   background: lightgray;
 }
- /* @media (max-width: 2100px){
+/* @media (max-width: 2100px){
   .scroll {
   width:2099px;
   margin-left:50px;

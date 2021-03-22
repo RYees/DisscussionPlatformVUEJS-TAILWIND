@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="flex justify-end">
     <div class="profile">
     <button
-      class="h-9 w-10 p-1 px-1 text-xl tracking-wider bg-white focus:outline-none "
+      class="h-11 w-11 mr-1 p-1 px-1 text-xl tracking-wider bg-white focus:outline-none "
       style="border-radius:50%;"
       @click.prevent="showModal"
     >
@@ -11,8 +11,8 @@
 </div>
     <div
       v-if="isShow"
-      class="z-40 mod absolute bg-white h-64 mb-80 p-0 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full"
-      style="margin-left:576px; top:48px"
+      class="z-40 absolute bg-white h-64 mb-80 p-0 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full"
+      style="margin-left:576px; top:49px"
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"
