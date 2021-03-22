@@ -1,21 +1,10 @@
 <template>
   <div class="back h-screen w-full flex items-center justify-center">
-    <!-- <div  class="w-full max-w-lg rounded-lg shadow-2xl overflow-hidden relative"> -->
- <!-- <div class="" style="">
-              <Header />
-      </div> -->
-<!--   
-    <div
-      class="back h-screen w-full flex items-center justify-center absolute"
-         
-    ></div> -->
-    <!-- <div class="inset-0 bg-gray-900 bg-opacity-75"></div> -->
-    <div class="flex justify-between" style="width:1800px; margin-bottom:650px; height:200px">
-    <div class="p-1 h-10" >
+     <div class="flex justify-between" style="width:1800px; margin-bottom:650px; height:200px">
+    <div class="p-3 h-10" >
       <p
-        class="dash text-3xl uppercase  mb-96 text-white rounded tracking-wider"
-       
-      >
+        class="dash text-4xl uppercase  mb-96 text-white rounded tracking-wider"
+    >
         dashboard
       </p>
       <br />
@@ -27,13 +16,13 @@
     <div class="flex" style="">
       <div>
     <input v-if="isSearch"
-      class="search h-10 w-96 border border-gray-400 focus:outline-none rounded-lg mt-0 px-5"
+      class="search h-12 w-96 border border-gray-400 focus:outline-none rounded-lg mt-4 px-5"
       type="text"
       v-model="search"
       placeholder="search projects"
       style="margin-left:0px; right:300px; width:500px;"
     /></div>
-    <div>
+    <div class="p-3">
     <svg @click="searching"
       class="iconsearch cursor-pointer h-14 w-14 ml-0"
       style=""

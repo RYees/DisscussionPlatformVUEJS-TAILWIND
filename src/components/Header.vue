@@ -1,9 +1,10 @@
 <template>
   <div
-    class="z-10 cursor-pointer fixed inset-x-0 w-full bg-gray-50 bg-opacity-75"
+    class="z-10 cursor-pointer fixed inset-x-0 w-full bg-gray-50 bg-opacity-75 flex justify-between"
 
   >
-    <p class="inline-block">
+  <div class="flex">
+        <p class="inline-block">
       <router-link to="/dashboard" >
       <svg
         class="h-12 py-1 w-12 ml-5"
@@ -44,6 +45,23 @@
     >
     Project name
     </button></router-link>
+  </div>
+
+<!-- <p>
+     <button
+      class="h-11 w-11 p-1 mt-0 px-1 text-xl tracking-wider bg-white focus:outline-none float-left mr-1"
+      style="border-radius:50%;"
+      @click.prevent="showModal"
+    >
+      RY
+    </button>
+    </p> -->
+     <div class="">
+     <profile />
+     </div>
+    
+  
+     
     <!-- <p
       class="inline-block ml-96 text-xl tracking-wider mt-1 absolute mb-5"
       style="margin-bottom:1000px"
@@ -71,9 +89,7 @@
     >
     RY 
   </p> -->
-  <div class="profile inline-block absolute">
-     <profile />
-  </div>
+ 
   </div>
 </template>
 

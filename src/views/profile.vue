@@ -11,8 +11,8 @@
 </div>
     <div
       v-if="isShow"
-      class="z-40 mod bg-white h-64 mb-80 mt-2 p-0 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full"
-      style="margn:left:1190px; top:0px"
+      class="z-40 mod absolute bg-white h-64 mb-80 p-0 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full"
+      style="margin-left:576px; top:48px"
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"

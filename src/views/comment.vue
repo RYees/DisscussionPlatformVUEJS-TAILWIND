@@ -1,7 +1,7 @@
 <template>
   <div class="board p-0 h-full" style="">
     <div id="pop-up" class="column flex w-80 mb-6"
-       style="margin-top:0px; margin-left:100px"> 
+       style="margin-top:0px; margin-left:300px;"> 
   
     <input
       type="text"
