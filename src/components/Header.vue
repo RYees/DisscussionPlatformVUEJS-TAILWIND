@@ -38,60 +38,22 @@
             /></svg
         ></router-link>
       </p>
-      <router-link to="/board">
-        <button
-          class="inline-block ml-48 text-xl tracking-wider mt-1 absolute mb-5"
+        <div
+          v-for="(project,index) in projects" :key="index"
+          class="inline-block ml-96 animate-bounce text-xl tracking-wider mt-1 absolute mb-5"
           style="margin-bottom:1000px"
         >
-          Project name
-        </button></router-link
-      >
+          {{ project }}
+        </div>
     </div>
-
-    <!-- <p>
-     <button
-      class="h-11 w-11 p-1 mt-0 px-1 text-xl tracking-wider bg-white focus:outline-none float-left mr-1"
-      style="border-radius:50%;"
-      @click.prevent="showModal"
-    >
-      RY
-    </button>
-    </p> -->
     <div class="">
       <profile />
     </div>
-
-    <!-- <p
-      class="inline-block ml-96 text-xl tracking-wider mt-1 absolute mb-5"
-      style="margin-bottom:1000px"
-    >
-      <svg
-        class="h-9 py-1 w-10 ml-96 inline-block"
-        style="margin-left:850px"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-        />
-      </svg>
-      Logout
-    </p> -->
-    <!-- <p
-      class="inline-block ml-96 h-9 w-10 p-1 px-2 text-xl tracking-wider mt-1 absolute mb-10 bg-white"
-      style="margin-bottom:1000px; border-radius:50%; margin-left:1340px;"
-    >
-    RY 
-  </p> -->
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import profile from "@/views/profile";
 export default {
   data: () => {
@@ -103,7 +65,8 @@ export default {
   computed:{
     showHeader(){
       return this.$route.name !== 'login';
-    }
+    },
+  computed: mapState(["projects"]),
   }
 };
 </script>

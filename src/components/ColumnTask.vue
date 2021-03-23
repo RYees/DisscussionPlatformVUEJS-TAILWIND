@@ -1,5 +1,5 @@
 <template>
-  <!-- <AppDrop
+  <AppDrop
     @drop="moveTaskOrColumn"
   >
     <AppDrag
@@ -10,30 +10,29 @@
         fromTaskIndex: taskIndex
       }"
       @click.native="goToTask(task)"
-    > -->
+    >
     <div class="flex items-center flex-wrap shadow mb-2 py-2 px-2 tracking-tight rounded bg-white text-gray-500 no-underline">
       <span class=" flex-no-shrink font-bold">
         {{ task.name }}
       </span>
-      <button class="text-white inline-block ml-72 bg-red-900 w-16 h-8 rounded">
-        Status
-      </button>
-      <!-- <p
+       <!-- <p
         v-if="task.description"
         class="w-full flex-no-shrink mt-1 text-sm"
       >
         {{ task.description }}
       </p> -->
     </div>
+    </AppDrag>
+  </AppDrop>
 </template>
 
 <script>
 import movingTasksAndColumnsMixin from '@/mixins/movingTasksAndColumnsMixin'
-// import AppDrag from './AppDrag'
-// import AppDrop from './AppDrop'
+import AppDrag from './AppDrag'
+import AppDrop from './AppDrop'
 
 export default {
-  //components: { AppDrag, AppDrop },
+  components: { AppDrag, AppDrop },
   mixins: [movingTasksAndColumnsMixin],
   props: {
     task: {
@@ -46,9 +45,9 @@ export default {
     }
   },
   methods: {
-    // goToTask (task) {
-    //   this.$router.push({ name: 'task', params: { id: task.id } })
-    // }
+    goToTask (task) {
+      this.$router.push({ name: 'task', params: { id: task.id } })
+    }
   }
 }
 </script>

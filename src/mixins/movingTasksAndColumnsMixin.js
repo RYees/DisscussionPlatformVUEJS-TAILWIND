@@ -8,7 +8,7 @@ export default {
       type: Number,
       required: true
     },
-    board: {
+    conv: {
       type: Object,
       required: true
     }
@@ -22,8 +22,7 @@ export default {
       }
     },
     moveTask ({ fromColumnIndex, fromTaskIndex }) {
-      const fromTasks = this.board.columns[fromColumnIndex].tasks
-
+      const fromTasks = this.conv.columns[fromColumnIndex].tasks
       this.$store.commit('MOVE_TASK', {
         fromTasks,
         fromTaskIndex,

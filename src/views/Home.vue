@@ -4,7 +4,7 @@
           <Header />
       </div> -->
     <div class="mt-0 mb-96 flex p-0">
-      <p class="text-5xl mt-7 ml-20 text-white rounded tracking-wider">
+      <p class="text-5xl mt-7 animate-pulse ml-20 text-white rounded tracking-wider">
         Share your <br />
         opinions!
       </p>

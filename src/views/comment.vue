@@ -1,5 +1,5 @@
 <template>
-  <div class="board p-0 h-full" style="">
+  <div class="p-0 h-full" style="">
     <div id="pop-up" class="column flex w-80 mb-6"
        style="margin-top:0px; margin-left:300px;"> 
   
@@ -13,8 +13,6 @@
     />
     </div> 
    <div class="grid grid-rows-1 grid-flow-col" style="">
-     <!-- <div class="grid grid-rows-1 grid-flow-col overflow-x-auto overflow-y-none h-96" style="height:800px"> TO CREATE A SCROLL-->
-     <!-- <div class="wrapper"> -->
       <BoardColumn
       class="" style=""
       v-for="(column, $columnIndex) of conv.columns"
@@ -25,20 +23,20 @@
       />
     </div>
 
-    <!-- <div
+    <div
       class="task-bg bg-white text-white pin absolute"
       v-if="isTaskOpen"
       @click.self="close"
     >
       <router-view/>
-    </div> -->
+    </div>
 </div>
   
   
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex'
+import {mapState} from 'vuex'
 import BoardColumn from '@/components/BoardColumn'
 export default {
   components: { BoardColumn },
@@ -48,14 +46,20 @@ export default {
             newColumnName: '',
           }
     },
-     computed: mapState([
-        'conversations',
-        'conv'
-    ]),
+    //  computed: mapState([
+    //     'conversations',
+    //     'conv'
+    // ]),
+    computed: {
+    ...mapState(['conv']),
+    isTaskOpen () {
+      return this.$route.name === 'task'
+    }
+  },
     methods:{
-      ...mapMutations([
-        'ADD_CONVERSATION'
-      ]),
+      close () {
+      this.$router.push({ name: 'comment' })
+    },
       createColumn () {
       this.$store.commit('CREATE_COLUMN', {
         name: this.newColumnName
@@ -63,21 +67,7 @@ export default {
 
       this.newColumnName = ''
     },
-        inputModal:function(){
-            this.inputShow = !this.inputShow
-        },
-        nameModal:function(){
-            this.nameShow = !this.nameShow
-        },
-        textModal:function(){
-          this.textShow =!this.textShow
-            // this.ADD_CONVERSATIONS(this.textShow)
-            // this.textarea = ''
-        },
-        addConversation:function(){
-            this.ADD_CONVERSATION(this.newConversation)
-            this.newConversation = ''
-        }
+       
     }
 };
 </script>

@@ -2,24 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Dashboard from '../views/Dashboard.vue'
-//import Board from '../views/Board.vue'
-//import Task from '../views/Task.vue'
+import singleDash from '../views/singleDash.vue'
 import Login from '../views/Login.vue'
+import Task from '../views/Task.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
-//   {
-//     path: '/board',
-//       name: 'board',
-//       component: Board,
-//    children: [
-//     {
-//       path: 'task/:id',
-//       name: 'task',
-//       component: Task
-//     }
-//   ]
-//  }, 
 {   path: '/',
     name: 'login',
     component: Login
@@ -28,12 +17,12 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    // children: [
-    //   {
-    //     path: 'task/:id',
-    //     name: 'task',
-    //     component: Task
-    //   }]
+    children: [
+      {
+        path: 'task/:id',
+        name: 'task',
+        component: Task
+      }]
   },
   {
     path: '/about',
@@ -52,6 +41,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component:Dashboard
   },
+  {
+    path: '/dashboard/:id',
+    name: 'singleDash',
+    component: singleDash,
+},
 ]
 
 const router = new VueRouter({

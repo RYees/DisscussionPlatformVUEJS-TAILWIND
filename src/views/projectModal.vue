@@ -33,7 +33,7 @@
       aria-modal="false"
       aria-labelledby="modal-headline"
     >
-  <form action=""  @submit.prevent="addProject">
+  <form action=""  @submit.prevent="createProject">
       <input
         type="text"
         class="w-80 hover:bg-white hover:bg-opacity-30 hover:text-dark rounded-lg px-4 h-14 border border-indgo-300 focus:outline-none"
@@ -79,13 +79,14 @@ import { mapMutations, mapState } from "vuex";
 export default {
   data: () => {
     return {
+      newProject:'',
       isShow: false,
     };
   },
   computed: mapState([
       'projects'
       ]),
-  methods: {
+   methods: {
     ...mapMutations([
         'ADD_PROJECT'
         ]),
@@ -96,6 +97,13 @@ export default {
       this.ADD_PROJECT(this.newProject);
       this.newProject = '';
     },
-  },
-};
+     createProject (e, projects) {
+      this.$store.commit('ADD_PROJECT', {
+        projects,
+        name: e.target.value
+      })
+      e.target.value = ''
+    }
+  }
+  };
 </script>

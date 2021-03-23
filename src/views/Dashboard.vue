@@ -57,7 +57,7 @@
       <div
         class="mon ml-5"
         style=""
-        v-for="(project, index) in filteredProjects"
+        v-for="(project,index) in filteredProjects"
         :key="index"
       >
         <div
@@ -68,11 +68,13 @@
             <div
               class=" w-80 h-40 hover:bg-white hover:bg-opacity-25  hover:text-gray-50 text-white text-2xl  border-gray-700 border-b border-l border-r rounded-xl mb-10 lighten-2 absolute"
             >
+             <router-link :to="{name:'singleDash',params:{id:project.id}}">
               <button
                 class="focus:outline-none mt-10 ml-4 m-auto transform hover:scale-110"
               >
-                {{ project }}
+                {{ project.name }}
               </button>
+              </router-link>
             </div>
           </div>
         </div>

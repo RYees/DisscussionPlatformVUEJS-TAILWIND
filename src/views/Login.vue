@@ -17,34 +17,6 @@
         
 </div>
 </div>
-<!-- <section class="container-fluid ml-96">
- <div class="row justify-content-center">
-     <div class="col-lg-4">
-         <div class="login-panel bg-white text-left">
-             <div class="alert alert-primary">
-                 Login successfully. <small>Waiting for redirect</small>
-             </div>
-             <h1 class="display-3 font-weight-bold">Login</h1>
-             <p class="font-weight-bold">Welcome back</p>
-             <br>
-             <form action="">
-                 <div class="form-group">
-                     <label for="email" class="input-label">Email</label>
-                     <input type="email" class="form-control" placeholder="Email" name="" id="">
-                 </div>
-                  <div class="form-group">
-                     <label for="password" class="input-label">Email</label>
-                     <input type="password" class="form-control" placeholder="Password" name="" id="">
-                 </div>
-                 <br>
-                 <div class="form-group d-flex">
-                     <button class="btn btn-primary w-24" v-if="!isLoggingIn" @click="login">Login</button>
-                 </div>
-             </form>
-         </div>
-     </div>
- </div>
-</section>  -->
 </template>
 
 <script>

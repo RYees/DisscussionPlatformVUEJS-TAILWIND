@@ -1,17 +1,17 @@
 <template>
-  <!-- <AppDrop
+  <AppDrop
     @drop="moveTaskOrColumn"
-  > -->
-    <!-- <AppDrag
-      class="column ml-60  bg-gray-100 p-2 mr-4 text-left shadow rounded"
+  >
+    <AppDrag
+      class="bg-gray-50 bg-opacity-30 ml-20 rounded mt-0 p-2"
       :transferData="{
         type: 'column',
         fromColumnIndex: columnIndex
       }"
-    > -->
+    >
     <!-- <div> -->
-    <div class="bg-gray-50 bg-opacity-30 ml-20 rounded mt-0 w-96 p-2" style="height:680px;"
-     > 
+    <!-- <div class="bg-gray-50 bg-opacity-30 ml-20 rounded mt-0 p-2" style="height:680px; width:450px;"
+     >  -->
       <div class="grid grid-rows-1 grid-flow-col text-white ml-4 tracking-wider transform 
       uppercase mb-2 font-bold"
      style=""
@@ -38,34 +38,34 @@
           @keyup.enter="createTask($event, column.tasks)"
         />
         </div>
-        </div>
+      
       <!-- </div> -->
       <!-- </div> -->
-    <!-- </AppDrag>
-  </AppDrop> -->
+    </AppDrag>
+  </AppDrop>
 </template>
 
 <script>
 import ColumnTask from './ColumnTask'
-// import AppDrag from './AppDrag'
-// import AppDrop from './AppDrop'
+import AppDrag from './AppDrag'
+import AppDrop from './AppDrop'
 import movingTasksAndColumnsMixin from '@/mixins/movingTasksAndColumnsMixin'
 
 export default {
   components: {
      ColumnTask,
-    // AppDrag,
-    // AppDrop
+    AppDrag,
+    AppDrop
   },
   mixins: [movingTasksAndColumnsMixin],
   methods: {
-    // pickupColumn (e, fromColumnIndex) {
-    //   e.dataTransfer.effectAllowed = 'move'
-    //   e.dataTransfer.dropEffect = 'move'
+    pickupColumn (e, fromColumnIndex) {
+      e.dataTransfer.effectAllowed = 'move'
+      e.dataTransfer.dropEffect = 'move'
 
-    //   e.dataTransfer.setData('from-column-index', fromColumnIndex)
-    //   e.dataTransfer.setData('type', 'column')
-    // },
+      e.dataTransfer.setData('from-column-index', fromColumnIndex)
+      e.dataTransfer.setData('type', 'column')
+    },
     createTask (e, tasks) {
       this.$store.commit('CREATE_TASK', {
         tasks,
@@ -79,19 +79,17 @@ export default {
 
 <style scoped>
 .scroll {
-
-  height: 520px;
+  width:420px;
+  margin-left:10px;
+  height: 640px;
   overflow: scroll;
-  /* background: lightblue; */
-	/* margin-bottom: 20px;
-  margin:0px 0px 200px auto; */
-}
+  }
 ::-webkit-scrollbar {
   background: transparent;
-  width: 10px;
+  width: 15px;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #ec190a);
+  background: linear-gradient(transparent, #141414);
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
