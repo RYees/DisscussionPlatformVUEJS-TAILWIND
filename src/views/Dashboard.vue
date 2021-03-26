@@ -53,8 +53,8 @@
     <div
       class="scroll fixed w-11/12 
       2xl:grid 2xl:grid-cols-6 2xl:grid-flow-row 2xl:gap-56
-      xl:grid xl:grid-cols-5 xl:grid-flow-row xl:gap-56
-      lg:grid lg:grid-cols-4 lg:grid-flow-row lg:gap-56
+      xl:grid xl:grid-cols-4 xl:grid-flow-row xl:gap-56
+      lg:grid lg:grid-cols-3 lg:grid-flow-row lg:gap-56
       md:grid md:grid-cols-2 md:grid-flow-row md:gap-56
       sm:grid sm:grid-cols-1 sm:grid-flow-row sm:gap-56"
       style=" margin-top:100px; margin-left:0px;"
@@ -66,16 +66,25 @@
         :key="index"
       >
         <div
-          class="h-72 w-80 mt-0 leading-10 items-center rounded-t-2xl shadow-xl absolute hover:border-4 hover:border-gray-100  border-t-4 border-red-500"
+          class="2xl:h-72 2xl:w-80 mt-0 leading-10 items-center rounded-t-2xl shadow-xl
+           absolute hover:border-4 hover:border-gray-100  2xl:border-t-4 2xl:border-red-500
+           sm:w-96 sm:h-96 sm:border-t-4 sm:border-red-500 lg:w-96 lg:h-96 lg:border-t-4 lg:border-red-500
+           md:w-96 md:h-96 md:border-t-4 md:border-red-500  xl:w-96 xl:h-96 xl:border-t-4 xl:border-red-500
+           "
         >
           <div>
             <!-- <div class="w-200 h-40"></div> -->
             <div
-              class=" w-80 h-40 hover:bg-white hover:bg-opacity-25  hover:text-gray-50 text-white text-2xl  border-gray-700 border-b border-l border-r rounded-xl mb-10 lighten-2 absolute"
+              class="sm:w-96 sm:border 2xl:w-80 h-40 
+                2xl:border-b 2xl:border-l 2xl:border-r 2xl:rounded-xl
+                sm:border-b sm:border-l sm:border-r sm:rounded-xl
+                md:w-96 lg:w-96 xl:w-96
+                hover:bg-white hover:bg-opacity-25
+                hover:text-gray-50 text-white text-2xl  border-gray-700 mb-10 lighten-2 absolute"
             >
              <router-link :to="{name:'singleDash',params:{id:project.id}}">
               <button
-                class="focus:outline-none mt-10 ml-4 m-auto transform hover:scale-110"
+                class="sm:px-5 focus:outline-none mt-10 ml-4 m-auto transform hover:scale-110"
               >
                 {{ project.name }}
               </button>
@@ -149,7 +158,7 @@ export default {
 @media (max-width: 1536px){
  .scroll {
   width: 1500px;
-  height: 720px;
+  height: 690px;
   overflow: scroll;
 }
 ::-webkit-scrollbar {
@@ -171,7 +180,7 @@ export default {
 @media (max-width: 1280px){
   .scroll {
   width: 1200px;
-  height: 720px;
+  height: 690px;
   overflow: scroll;
 }
 ::-webkit-scrollbar {
@@ -256,6 +265,5 @@ export default {
   background: lightgray;
 }
 }
-
 
 </style>

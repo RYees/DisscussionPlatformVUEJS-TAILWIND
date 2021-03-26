@@ -45,6 +45,7 @@ export default {
   width: 3099px;
   margin-left: 1000px;
   height: 770px;
+  /* overflow:scroll; */
   /* overflow-y: hidden; */
 }
 ::-webkit-scrollbar {
@@ -61,5 +62,103 @@ export default {
 ::-webkit-scrollbar-corner {
   border-radius: 20px;
   background: lightgray;
+}
+
+
+@media (max-width: 1536px){
+  .scroll {
+  width: 3099px;
+  margin-left: 1000px;
+  height: 770px;
+  /* overflow:scroll; */
+  /* overflow-y: hidden; */
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 20px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #f54040);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #f6f8f6);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+ }
+@media (max-width: 1280px){
+ .scroll {
+  width: 3099px;
+  margin-left: 1900px;
+  height: 770px;
+  /* overflow:scroll; */
+  /* overflow-y: hidden; */
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 20px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #f54040);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #f6f8f6);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+}
+@media (max-width: 1024px){
+ .scroll {
+  width: 3099px;
+  margin-left: 1000px;
+  height: 770px;
+  /* overflow:scroll; */
+  /* overflow-y: hidden; */
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 20px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #f54040);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #f6f8f6);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+}
+@media (max-width: 768px){
+.scroll {
+  width: 3099px;
+  margin-left: 2200px;
+  height: 770px;
+  /* overflow:scroll; */
+  /* overflow-y: hidden; */
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 20px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #f54040);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #f6f8f6);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
 }
 </style>

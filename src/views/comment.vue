@@ -5,13 +5,17 @@
   
     <input
       type="text"
-      class="p-2 px-16 mt-0 w-80 rounded  shadow-xl hover:bg-red-900 hover:bg-opacity-30 border border-white bg-white text-white text-xl tracking-wider flex-grow mr-1"
+      class="p-2 px-16 mt-0 w-80 rounded shadow-xl hover:bg-red-900 hover:bg-opacity-30 border border-white bg-white text-white text-xl tracking-wider flex-grow mr-1"
       placeholder="Enter your name"
       v-model="newColumnName"
       required 
       @keyup.enter="createColumn"
     />
     </div> 
+    <!-- <div class="2xl:grid 2xl:grid-rows-1 2xl:grid-flow-col xl:grid xl:grid-rows-2 xl:grid-flow-col
+               lg:grid lg:grid-rows-1 lg:grid-flow-col md:grid md:grid-rows-1 md:grid-flow-col
+               sm:grid sm:grid-rows-1 sm:grid-flow-col
+   " style=""> -->
    <div class="grid grid-rows-1 grid-flow-col" style="">
       <BoardColumn
       class="" style=""
@@ -85,64 +89,4 @@ export default {
   
 }
 
-@media (max-width: 2100px){
-.tab{
-  display:grid;
-  grid-template-rows:30% ;
-  grid-row-gap: 0px;
-   grid-row-gap: 0px;
-  margin-left:100px;
-}
-}
-@media (max-width: 1600px){
-.table{
-  display:grid;
-  grid-template-columns:30% 30% 30%;
-  grid-column-gap: 0px;
-  margin-left:100px;
-}
-.dash{
-  margin-left: 200px;
-}
-.search{
-  margin-right: 300px;
-}
-.iconsearch{
-  margin-left: 680px;
-}
-.modal{
-  margin-left: 900px;
-}
-}
-@media (max-width: 1500px){
-.tab{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-flow:row;
-  grid-auto-rows:minmax(600px,auto);
-  grid-column-gap:0px;
-  /* grid-row-gap: 0px; */
-  margin-left:330px;
-}
-}
-@media (max-width: 1000px){
-.tab{
-  display:grid;
-  grid-auto-flow:row;
-  grid-auto-rows:minmax(600px,auto);
-  /* grid-column-gap:2px; */
-  grid-row-gap: 0px;
-  margin-left:630px;
-}
-}
-@media (max-width: 900px){
-.tab{
-  display:grid;
-  grid-auto-flow:row;
-  grid-auto-rows:minmax(680px,auto);
-  /* grid-column-gap:2px; */
-  grid-row-gap: 0px;
-  margin-left:630px;
-}
-}
 </style>
