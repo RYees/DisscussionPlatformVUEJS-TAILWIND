@@ -4,26 +4,26 @@
           <Header />
       </div> -->
     <div
-      class="flex justify-between"
-      style="width:1800px; margin-bottom:650px; height:200px"
+      class="flex justify-evenly flex-wrap"
+      style="width:2000px; margin-bottom:600px; height:200px"
     >
       <div class="p-3 h-10">
         <p
-          class="dash text-4xl uppercase  mb-96 text-white rounded tracking-wider"
+          class="animate-pulse sm:text-3xl md:ml-20 sm:ml-52 md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl uppercase  mb-96 text-white rounded tracking-wider"
         >
           dashboard
         </p>
         <br />
       </div>
       <br />
-      <div style="margin-right:450px;">
+      <div class="mr-96" style="">
         <projectModal />
       </div>
       <div class="flex" style="">
-        <div>
+        <div class="">
           <input
             v-if="isSearch"
-            class="search h-12 w-96 border border-gray-400 focus:outline-none rounded-lg mt-4 px-5"
+            class="h-12 w-96 border border-gray-400 focus:outline-none rounded-lg mt-4 px-5"
             type="text"
             v-model="search"
             placeholder="search projects"
@@ -51,8 +51,13 @@
       </div>
     </div>
     <div
-      class=" scroll mt-0 fixed w-11/12 grid grid-cols-4 gap-y-48 "
-      style=" margin-top:100px; margin-left:0px; width:1500px;"
+      class="scroll fixed w-11/12 
+      2xl:grid 2xl:grid-cols-6 2xl:grid-flow-row 2xl:gap-56
+      xl:grid xl:grid-cols-5 xl:grid-flow-row xl:gap-56
+      lg:grid lg:grid-cols-4 lg:grid-flow-row lg:gap-56
+      md:grid md:grid-cols-2 md:grid-flow-row md:gap-56
+      sm:grid sm:grid-cols-1 sm:grid-flow-row sm:gap-56"
+      style=" margin-top:100px; margin-left:0px;"
     >
       <div
         class="mon ml-5"
@@ -112,13 +117,13 @@ export default {
 <style scoped>
 /*   */
 .scroll {
-  width: 1500px;
-  height: 600px;
+  width: 2000px;
+  height: 730px;
   overflow: scroll;
 }
 ::-webkit-scrollbar {
   background: transparent;
-  width: 12px;
+  width: 20px;
 }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(transparent, #ec190a);
@@ -140,101 +145,16 @@ export default {
     ),
     url("/mike.jpg");
 }
-/*
-@media (max-width: 2100px){
-  .scroll {
-  width: 1500px;
-  height: 600px;
-  overflow: scroll;
-  background: lightblue;
-	margin-bottom: 20px;
-   margin:0px 0px 200px auto;
-}
-::-webkit-scrollbar {
-  background: transparent;
-  width: 12px;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #ec190a);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #efffeb);
-}
-::-webkit-scrollbar-corner {
-  border-radius: 20px;
-  background: lightgray;
-}
-.iconsearch{
-   margin-left:820px
-}
-.table{
-  display:grid;
-  grid-template-columns:30% 30% 30% 30%;
-  grid-column-gap: 0px;
-  margin-left:100px;
-}
-.search{
-  margin-right: 3px;
-}
-.iconsearch{
-   margin-left:830px
-}
-}
-@media (max-width: 1600px){
-   .scroll {
-  width: 1100px;
-  height: 400px;
-  overflow: scroll;
-  background: lightblue;
-	margin-bottom: 20px; 
-  margin:0px 0px 200px auto;
-}
-::-webkit-scrollbar {
-  background: transparent;
-  width: 12px;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #ec190a);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #efffeb);
-}
-::-webkit-scrollbar-corner {
-  border-radius: 20px;
-  background: lightgray;
-}
 
-.table{
-  display:grid;
-  grid-template-columns:30% 30% 30%;
-  grid-column-gap: 0px;
-  margin-left:100px;
-}
-.dash{
-  margin-left: 200px;
-}
-.search{
-  margin-right: 300px;
-}
-.iconsearch{
-  margin-left: 680px;
-}
-.modal{
-  margin-left: 900px;
-}
-}
-@media (max-width: 1500px){
-   .scroll {
-  width: 1000px;
-  height: 600px;
+@media (max-width: 1536px){
+ .scroll {
+  width: 1500px;
+  height: 720px;
   overflow: scroll;
- 
 }
 ::-webkit-scrollbar {
   background: transparent;
-  width: 12px;
+  width: 20px;
 }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(transparent, #ec190a);
@@ -247,48 +167,60 @@ export default {
   border-radius: 20px;
   background: lightgray;
 }
-.table{
-  display:grid;
-  grid-template-columns:30% 30% 30%;
-  grid-column-gap: 0px;
-  margin-left:100px;
+ }
+@media (max-width: 1280px){
+  .scroll {
+  width: 1200px;
+  height: 720px;
+  overflow: scroll;
 }
-.dash{
-  margin-left: 600px;
+::-webkit-scrollbar {
+  background: transparent;
+  width: 20px;
 }
-.modal{
-  margin-left: 700px;
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #ec190a);
+  border-radius: 6px;
 }
-.search{
-  margin-right: 800px;
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #efffeb);
 }
-.iconsearch{
-  margin-left:430px;
-}
-}
-@media (max-width: 1000px){
-.table{
-  display:grid;
-  grid-template-columns:30% 30%;
-  grid-column-gap: 0px;
-  margin-left:300px;
-}
-.dash{
-  margin-left: 800px;
-}
-.modal{
-  margin-left: 650px;
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
 }
 }
-@media (max-width: 900px){
- .scroll {
+@media (max-width: 1024px){
+  .scroll {
+  width: 800px;
+  height: 600px;
+  overflow: scroll;
+}
+::-webkit-scrollbar {
+  background: transparent;
+  width: 29px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #ec190a);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #efffeb);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+}
+@media (max-width: 768px){
+  .scroll {
   width: 500px;
   height: 600px;
   overflow: scroll;
- }
+}
 ::-webkit-scrollbar {
   background: transparent;
-  width: 12px;
+  width: 30px;
 }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(transparent, #ec190a);
@@ -301,23 +233,29 @@ export default {
   border-radius: 20px;
   background: lightgray;
 }
-.table{
-  display:grid;
-  grid-template-columns:100%;
-  margin-left:500px;
 }
-.dash{
-  margin-left: 1000px;
-  margin-top: 200px;
+@media (max-width: 640px){
+  .scroll {
+  width: 200px;
+  height: 600px;
+  overflow: scroll;
 }
-.modal{
-  margin-left: 470px;
+::-webkit-scrollbar {
+  background: transparent;
+  width: 30px;
 }
-.search{
-  margin-right: 1100px;
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #ec190a);
+  border-radius: 6px;
 }
-.iconsearch{
-  margin-left: 280px;
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #efffeb);
 }
-} */
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+}
+
+
 </style>

@@ -12,6 +12,7 @@
 export default {
   methods: {
     onDrop (e) {
+      console.log(e);
       const transferData = JSON.parse(e.dataTransfer.getData('payload'))
 
       this.$emit('drop', transferData)

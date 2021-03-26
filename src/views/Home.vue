@@ -47,7 +47,7 @@ export default {
   width: 3099px;
   margin-left: 50px;
   height: 770px;
-  overflow-y: hidden;
+
 }
 ::-webkit-scrollbar {
   background: transparent;

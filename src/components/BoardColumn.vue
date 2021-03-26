@@ -70,7 +70,7 @@ export default {
       this.$store.commit('CREATE_TASK', {
         tasks,
         name: e.target.value
-      })
+     }) 
       e.target.value = ''
     }
   }

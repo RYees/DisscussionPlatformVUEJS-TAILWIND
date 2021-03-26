@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center ">
     <div class="" style="">
       <button
-        class="tracking-wider px-5 transform hover:scale-110 border border-white p-2 cursor-pointer rounded  text-white text-3xl mt-20"
+        class="tracking-wider transform hover:scale-110 border border-white p-1 cursor-pointer rounded text-white text-3xl mt-5"
         style=""
         @click.prevent="showModal"
       >
@@ -27,8 +27,7 @@
      
     <div
       v-if="isShow"
-      class="flex justify-center z-40 bg-white bg-opacity-95 absolute border border-gray-600 rounded-lg h-40 p-6 overflow-hidden shadow-xl transform transition-all"
-      style="top:300px; height:305px; right:760px;"
+      class="flex justify-center sm:ml-96 z-40 bg-white bg-opacity-95 absolute border border-gray-600 rounded-lg h-60 mt-96 p-6 overflow-hidden shadow-xl transform transition-all"
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"
@@ -46,19 +45,19 @@
       
       <div class="inline-block">
         <button 
-          class=" hover:bg-green-700 hover:text-6xl px-2 w-32 ml-4 h-11 mt-16 transform hover:scale-110 tracking-wider focus:outline-none rounded-lg text-white bg-blue-500"
+          class="sm:ml-12 hover:bg-green-700 hover:text-6xl px-2 w-32 ml-4 h-11 mt-16 transform hover:scale-110 tracking-wider focus:outline-none rounded-lg text-white bg-blue-500"
            
         >
           Create Project
         </button>
         </div> 
-        <div class=" mt-24 ml-3 absolute">  
-    <button class="  focus:outline-none" @click.prevent="showModal">
+        <div class="sm:mt-4 mt-14 absolute">  
+    <button class="focus:outline-none" @click.prevent="showModal">
                   <svg
                     class="h-10 w-10 "
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
-                    fill="red"
+                    fill="dark"
                   >
                     <path
                       fill-rule="evenodd"

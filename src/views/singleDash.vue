@@ -1,8 +1,13 @@
 <template>
    <div class="user p-6 h-screen w-full overflow-y-hidden">
-    <router-link class="text-3xl text-center text-white animate-none uppercase mt-8 absolute ml-60" to="/dashboard">back</router-link>
-    <div v-if="project">
-        <h1 class="text-4xl text-white absolute mt-20 ml-0">{{project.name}}</h1>
+    <!-- <router-link class="text-3xl text-center text-white animate-none uppercase mt-8 absolute ml-60" to="/dashboard">back</router-link> -->
+   <div class="flex justify-start mt-10 absolute">
+    <div class="" v-if="project">
+        <h1 class="2xl:text-4xl xl:text-3xl lg:text-2xl md:text-xl text-white animate-bounce absolute ml-0">{{project.name}}</h1>
+    </div>
+    <div class="">
+      <Invitation/>
+    </div>
     </div>
       <div class="h-screen flex items-center justify-center">
       <div class="scroll mt-1 p-0" style="margin-top:100px; margin-bottom:0px;">
@@ -14,6 +19,7 @@
 </template>
 <script>
 import comment from "@/views/comment.vue";
+import Invitation from './Invitation.vue';
 export default {
      computed:{
         project(){
@@ -21,7 +27,8 @@ export default {
         }
     },
     components:{
-        comment
+        comment,
+        Invitation
     }
 }
 </script>

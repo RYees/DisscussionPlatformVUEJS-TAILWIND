@@ -17,9 +17,9 @@
       class="" style=""
       v-for="(column, $columnIndex) of conv.columns"
         :key="$columnIndex"
-        :column="column"
-        :columnIndex="$columnIndex"
-        :conv="conv"
+        v-bind:column="column"
+        v-bind:columnIndex="$columnIndex"
+        v-bind:conv="conv"
       />
     </div>
 
