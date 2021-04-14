@@ -1,44 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import Dashboard from '../views/Dashboard.vue'
 import singleDash from '../views/singleDash.vue'
-import Login from '../views/Login.vue'
-import Task from '../views/Task.vue'
+// import Registration from '../views/Registration.vue'
+import LogReg from '../views/LogReg.vue'
+
 
 Vue.use(VueRouter)
 
 const routes = [
-{   path: '/',
-    name: 'login',
-    component: Login
+  {   path: '/',
+    name: 'logreg',
+    component: LogReg
 },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home,
-    children: [
-      {
-        path: 'task/:id',
-        name: 'task',
-        component: Task
-      }]
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
   {
     path: '/dashboard',
     name: 'Dashboard',
-   
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component:Dashboard
   },
   {

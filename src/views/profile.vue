@@ -44,11 +44,13 @@
         >
           RY
         </p>
+        <!-- <div v-for="user in user" :key="user"> -->
         <p class="p-3 inline-block ml-5 text-lg">
-          Mary Popins
-          <small class="ml-1 text-gray-200 leading-tight">mary@gmail.com</small
+          {{user.username}}
+          <small class="ml-1 text-gray-500 leading-tight">{{user.email}}</small
           ><br />
         </p>
+        <!-- </div> -->
         <hr />
         <p class="p-5 text-lg tracking-wider">Help</p>
         <hr />
@@ -60,29 +62,48 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+  props:["user"],
   data: () => {
     return {
+      //user:'',
       isShow: false,
       isLoggingOut:false
     };
   },
+  // created(){
+  //     this.user=this.users;
+  // },
   methods: {
     showModal: function() {
       this.isShow = !this.isShow;
     },
-      logout(){
-            this.isLoggingOut = true
-            setTimeout(()=>{
-                this.isLoggingOut = false
-                setTimeout(()=>this.redirect(),1000)
-            },)
-          },
-        redirect(){
-            this.$router.push({name:'login'})
-        },
-  },
-};
+    logout(){
+      let token = localStorage.getItem('token');
+      if(!token){
+          return false;
+      }
+      // if(!token){
+      //     this.$router.push({name:'logreg'});
+      // }
+      axios.get("http://127.0.0.1:8000/api/logout?api_token="+token)
+      .then(response => {
+        console.log(response);
+        localStorage.removeItem('token');
+        this.$router.push({name:'logreg'});
+      });
+    },
+  //  created(){
+  //     let token = localStorage.getItem('token');
+  //   axios.get("http://localhost:8000/users/"+token+"?api_token="+token)
+  //     .then(response => {
+  //       console.log(response);
+  //       this.user = response.data.user;
+  //     });
+  // }
+},
+}
 </script>
 <style>
 @media (max-width: 2100px){

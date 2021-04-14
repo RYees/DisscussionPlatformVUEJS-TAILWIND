@@ -1,92 +1,236 @@
 <template>
-  <div class="p-0 h-full" style="">
-    <div id="pop-up" class="column flex w-80 mb-6"
-       style="margin-top:0px; margin-left:300px;"> 
-  
-    <input
-      type="text"
-      class="p-2 px-16 mt-0 w-80 rounded shadow-xl hover:bg-red-900 hover:bg-opacity-30 border border-white bg-white text-white text-xl tracking-wider flex-grow mr-1"
-      placeholder="Enter your name"
-      v-model="newColumnName"
-      required 
-      @keyup.enter="createColumn"
-    />
-    </div> 
-    <!-- <div class="2xl:grid 2xl:grid-rows-1 2xl:grid-flow-col xl:grid xl:grid-rows-2 xl:grid-flow-col
-               lg:grid lg:grid-rows-1 lg:grid-flow-col md:grid md:grid-rows-1 md:grid-flow-col
-               sm:grid sm:grid-rows-1 sm:grid-flow-col
-   " style=""> -->
-   <div class="grid grid-rows-1 grid-flow-col" style="">
-      <BoardColumn
-      class="" style=""
-      v-for="(column, $columnIndex) of conv.columns"
-        :key="$columnIndex"
-        v-bind:column="column"
-        v-bind:columnIndex="$columnIndex"
-        v-bind:conv="conv"
+  <div
+    class="p-0 h-full"
+    style=""
+    @click.stop="
+      upModal = false;
+      deleteModal = true;
+      updateListId = null;
+    "
+  >
+    <div class="w-8 mb-6 bg-white" style="margin-right:4000px; margin-top:110px;">
+      <input
+        type="text"
+        class="p-2 px-16 mt-0 w-80 rounded shadow-xl hover:bg-red-900 hover:bg-opacity-30 border border-white bg-white text-white text-xl tracking-wider"
+        placeholder="Enter your name"
+        v-model="listName"
+        required
+        @keyup.enter="createList"
       />
     </div>
+      <draggable
+          class="grid grid-rows-1 grid-flow-col gap-5 rounded p-2"
+          v-model="lists"
+          :options="{ group: 'lists' }"
+          @add="onAdd"
+          @change="onAddLists"
+        >
+      <div
+        class="text-white bg-gray-50 bg-opacity-30 font-bold"
+        v-for="list in lists"
+        :key="list"
+        style="height:650px; width:450px;"
+      >
+        
+          <div
+            v-if="deleteListId == list.id"
+            @click.stop="deleteList();  deleteModal= fa;"
+            class="inline-block ml-2 bg-white shadow-xl border border-gray-400 hover:bg-red-500 hover:text-white z-40 w-20 h-10 cursor-pointer rounded text-gray-900 text-xl p-1 "
+          >
+            Delete
+          </div>
 
-    <div
-      class="task-bg bg-white text-white pin absolute"
-      v-if="isTaskOpen"
-      @click.self="close"
-    >
-      <router-view/>
+          <button
+            class="focus:outline-none cursor-pointer"
+           @click="deleteListId = list.id"
+           v-else 
+          >
+            <svg
+              class="w-10 h-10"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+              />
+            </svg>
+          </button>
+
+          <input
+            type="text"
+            @click.stop
+            v-model="listName"
+            class="text-gray-600 h-10 mb-1 w-80"
+            label="list.name"
+            v-if="updateListId == list.id"
+            @keyup.enter="updateList"
+          />
+
+          <div
+            class="inline-block tracking-wider transform uppercase ml-40 text-xl"
+            @click="updateListId = list.id"
+            @click.stop="upModal = true"
+            v-else
+          >
+            {{ list.name }}
+          </div>
+        
+        <board-column class="" :list="list" v-on:cardcreated="getData" ></board-column>
+      </div></draggable>
     </div>
-</div>
-  
-  
 </template>
 
 <script>
-import {mapState} from 'vuex'
-import BoardColumn from '@/components/BoardColumn'
+import BoardColumn from "@/components/BoardColumn";
+import axios from "axios";
+import draggable from "vuedraggable";
 export default {
-  components: { BoardColumn },
-    data:()=>{
-        return{
-            name:'',
-            newColumnName: '',
-          }
-    },
-    //  computed: mapState([
-    //     'conversations',
-    //     'conv'
-    // ]),
-    computed: {
-    ...mapState(['conv']),
-    isTaskOpen () {
-      return this.$route.name === 'task'
-    }
+  components: { "board-column": BoardColumn, draggable },
+  data: () => {
+    return {
+      boards: "",
+      lists:"",
+      cards: "",
+      boardId: "",
+      listId: "",
+      name: "",
+      newColumnName: "",
+      listName:"",
+      deleteMode: false,
+      updateListId: "",
+      deleteListId: "",
+      upModal: false,
+      deleteModal:false
+    };
   },
-    methods:{
-      close () {
-      this.$router.push({ name: 'comment' })
+  created() {
+    this.boardId = this.$route.params.id;
+    console.log(this.boardId);
+    this.getData();
+  },
+  methods: {
+    deleteModal() {
+      this.deleteMode = !this.deleteMode;
     },
-      createColumn () {
-      this.$store.commit('CREATE_COLUMN', {
-        name: this.newColumnName
-      })
+    getLists() {
+      this.boards.map((board) => {
+        if (board.id == this.boardId) {
+          return (this.lists = board.lists);
+        }
+      });
+    },
+    getData() {
+      let token = localStorage.getItem("token");
+      // console.log(token);
+      axios
+        .get("http://localhost:8000/api/boards?api_token=" + token)
+        .then((response) => {
+           
+          this.boards = response.data.boards;
+          this.getLists();console.log(response);
+        });
+    },
+    createList() {
+      let token = localStorage.getItem("token");
+      //console.log(token);
+      axios
+        .post(
+          "http://localhost:8000/api/boards/" +
+            this.boardId +
+            "/list?api_token=" +
+            token,
+          {
+            name: this.listName,
+          }
+        )
+        .then((response) => {
+          let newList = response.data.list;
+          this.lists.push(newList);
+          this.listName ="";
+          console.log(response);
+       });
+    },
+    updateList() {
+      let token = localStorage.getItem("token");
+      axios
+        .put(
+          "http://localhost:8000/api/boards/" +
+            this.boardId +
+            "/list/" +
+            this.updateListId +
+            "?api_token=" +
+            token,
+          { name: this.listName }
+        )
+        .then((response) => {
+          console.log(response);
+          this.updateListId = null;
+          this.listName = "";
 
-      this.newColumnName = ''
+          this.getData();
+        });
     },
-       
-    }
+    deleteList() {
+      let token = localStorage.getItem("token");
+      axios
+        .delete(
+          "http://localhost:8000/api/boards/" +
+            this.boardId +
+            "/list/" +
+            this.deleteListId +
+            "?api_token=" +
+            token
+        )
+        .then((response) => {
+          console.log(response);
+           this.deleteListId = null;
+          this.getData();
+        });
+    },
+
+      updateCard(listId) {
+      let token = localStorage.getItem("token");
+      console.log(listId);
+          axios
+        .put("http://localhost:8000/api/list/" + this.list.id + "?api_token=" + token, {
+          id: this.list.id,
+        })
+        .then((response) => {
+          console.log(response);
+        });
+    },
+    // destroyCard(cardId) {
+    //   let token = localStorage.getItem("token");
+    //   axios
+    //     .delete("http://127.0.0.1:8000/api/card/" + cardId + "?api_token=" + token)
+    //     .then((response) => {
+    //       console.log(response);
+    //     });
+    // },
+   },
 };
 </script>
 
-
 <style scoped>
-.column {
-  margin-left:-200px;
-  animation:drop 0.5s ease forwards;
+/* .column {
+  margin-left: -200px;
+  animation: drop 0.5s ease forwards;
 }
-@keyframes drop{
-  0%{opacity: 0}
-  70%{transform: translateX(800px)}
-  100%{transform: translateX(750px); opacity: 1;}
-  
-}
-
+@keyframes drop {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(800px);
+  }
+  100% {
+    transform: translateX(750px);
+    opacity: 1;
+  }
+} */
 </style>

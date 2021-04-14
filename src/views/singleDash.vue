@@ -2,35 +2,36 @@
    <div class="user p-6 h-screen w-full overflow-y-hidden">
     <!-- <router-link class="text-3xl text-center text-white animate-none uppercase mt-8 absolute ml-60" to="/dashboard">back</router-link> -->
    <div class="flex justify-start mt-10 absolute">
-    <div class="" v-if="project">
-        <h1 class="2xl:text-4xl xl:text-3xl lg:text-2xl md:text-xl text-white animate-bounce absolute ml-0">{{project.name}}</h1>
+    <div class="">
+        <h1 class="2xl:text-4xl xl:text-3xl lg:text-2xl md:text-xl text-white animate-bounce absolute ml-0">{{board.name}}</h1>
     </div>
     <div class="">
       <Invitation/>
     </div>
     </div>
-      <div class="h-screen flex items-center justify-center">
-      <div class="scroll mt-1 p-0" style="margin-top:100px; margin-bottom:0px;">
+      <!-- <div class="h-screen flex items-center justify-center"> -->
+      <div class="scroll" style="">
         <comment />
       </div>
-    </div>
+    <!-- </div> -->
 </div>
 
 </template>
 <script>
+//import axios from 'axios';
 import comment from "@/views/comment.vue";
 import Invitation from './Invitation.vue';
 export default {
-     computed:{
-        project(){
-            return this.$store.getters.project(parseInt(this.$route.params.id));
-        }
-    },
-    components:{
+  data(){
+    return{
+       board:'',
+     }
+  },
+   components:{
         comment,
         Invitation
-    }
-}
+    },
+  }
 </script>
 <style>
 .user{
@@ -42,8 +43,8 @@ export default {
     url("/mike.jpg");
 }
 .scroll {
-  width: 3099px;
-  margin-left: 1000px;
+  width: 9px;
+  margin-left: 10px;
   height: 770px;
   /* overflow:scroll; */
   /* overflow-y: hidden; */

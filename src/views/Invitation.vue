@@ -3,7 +3,7 @@
     <div class="">
       <button 
       @click.prevent="Invite"
-      class="bg-red-400 bg-opacity-30 h-14 focus:outline-none rounded-lg px-2 text-2xl mt-0 text-white" style="margin-left:500px">
+      class="bg-red-400 hover:bg-gray-500 hover:bg-opacity-30 bg-opacity-30 h-14 focus:outline-none rounded-lg px-2 text-2xl mt-0 text-white" style="margin-left:500px">
       InviteMembers
       </button>
     </div>
@@ -15,18 +15,29 @@
       aria-modal="false"
       aria-labelledby="modal-headline"
     >
-      <form action="" @submit.prevent="addEmail">
+      <form action="" @submit.prevent="createInvitation">
           <div>
          <input type="email" value="" class="shadow-2xl text-gray-900 px-5 h-20 w-80" placeholder="Email address"
          v-model="newEmail"
          /></div>
-         <div class="scroll">
+         <!-- <div v-for="(find,index) in finds" :key="index">
+         <input type="email" value="" class="shadow-2xl text-gray-900 px-5 h-20 w-80" placeholder="Email address"
+         v-model="find.value"
+         /></div> -->
+         <!-- <div class="scroll">
+             <ul >
+                 <li class="mt-1 text-gray-900 text-xl">
+                     {{find.value}}
+                 </li>
+             </ul>
+         </div> -->
+         <!-- <div class="scroll">
              <ul >
                  <li class="mt-1 text-gray-900 text-xl" v-for="(email,index) in emails" :key="index">
                      {{email}}
                  </li>
              </ul>
-         </div>
+         </div> -->
          <div class="mt-6">
              <button class="bg-green-500 transform hover:scale-110 focus:outline-none p-2 rounded text-white text-xl">
                 sendMember
@@ -38,16 +49,23 @@
 </template>
 <script>
 import {mapMutations, mapState} from 'vuex'
+import axios from 'axios'
 export default {
+  props:["board"],
     data:()=>{
         return{
             isInvite:false,
-            newEmail:''
+            newEmail:"",
         }
     },
     computed: mapState([
        'emails'
     ]),
+    created() {
+    this.boardId = this.$route.params.id;
+    console.log(this.boardId);
+    this.getData();
+  },
     methods:{
         ...mapMutations([
             'ADD_EMAIL'
@@ -58,6 +76,22 @@ export default {
         addEmail: function() {
         this.ADD_EMAIL(this.newEmail)
         this.newEmail= ''
+    },
+    createInvitation() {
+      let token = localStorage.getItem("token");
+    
+      axios.post("http://localhost:8000/api/users/invite/"+this.boardId+"?api_token=" + token,
+          {
+            email: this.newEmail,       
+          }
+        )
+        .then((response) => {
+          let itoken=response.data.invite.token;
+          localStorage.setItem('token',itoken);
+          this.newEmail="";
+          console.log(response);
+          console.log(itoken);
+        });
     },
     }
 }

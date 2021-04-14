@@ -17,7 +17,7 @@
       </div>
       <br />
       <div class="mr-96" style="">
-        <projectModal />
+        <projectModal v-on:boardcreated="getData"></projectModal>
       </div>
       <div class="flex" style="">
         <div class="">
@@ -62,7 +62,7 @@
       <div
         class="mon ml-5"
         style=""
-        v-for="(project,index) in filteredProjects"
+        v-for="(board, index) in filteredProjects"
         :key="index"
       >
         <div
@@ -82,12 +82,14 @@
                 hover:bg-white hover:bg-opacity-25
                 hover:text-gray-50 text-white text-2xl  border-gray-700 mb-10 lighten-2 absolute"
             >
-             <router-link :to="{name:'singleDash',params:{id:project.id}}">
-              <button
-                class="sm:px-5 focus:outline-none mt-10 ml-4 m-auto transform hover:scale-110"
+              <router-link
+                :to="{ name: 'singleDash', params:{id:board.id} }"
               >
-                {{ project.name }}
-              </button>
+                <button
+                  class="sm:px-5 focus:outline-none mt-10 ml-4 m-auto transform hover:scale-110"
+                >
+                  {{ board.name }}
+                </button>
               </router-link>
             </div>
           </div>
@@ -99,27 +101,35 @@
 </template>
 
 <script>
-//import Header from "@/components/Header";
-import smixin from "../components/mixin.js";
+//import axios from 'axios';
+import boardMixin from '@/mixins/boardMixin';
+import {searchName} from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
-import { mapState } from "vuex";
+//import { mapState } from "vuex";
 export default {
-  name: "projects",
   data: () => ({
+    boards: [],
+    user:null,
     search: "",
     isSearch: false,
   }),
-  computed: mapState(["projects"]),
+  // computed: mapState(["projects"]),
   methods: {
     searching: function() {
       this.isSearch = !this.isSearch;
     },
+    },
+  
+  mounted() {
+    this.getData();
   },
+
   components: {
     projectModal,
-   // Header,
+  
   },
-  mixins: [smixin],
+  mixins: [boardMixin,searchName],
+//mixins: [smixin],
 };
 </script>
 
@@ -155,115 +165,114 @@ export default {
     url("/mike.jpg");
 }
 
-@media (max-width: 1536px){
- .scroll {
-  width: 1500px;
-  height: 690px;
-  overflow: scroll;
-}
-::-webkit-scrollbar {
-  background: transparent;
-  width: 20px;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #ec190a);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #efffeb);
-}
-::-webkit-scrollbar-corner {
-  border-radius: 20px;
-  background: lightgray;
-}
- }
-@media (max-width: 1280px){
+@media (max-width: 1536px) {
   .scroll {
-  width: 1200px;
-  height: 690px;
-  overflow: scroll;
+    width: 1500px;
+    height: 690px;
+    overflow: scroll;
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 20px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #ec190a);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #efffeb);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
 }
-::-webkit-scrollbar {
-  background: transparent;
-  width: 20px;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #ec190a);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #efffeb);
-}
-::-webkit-scrollbar-corner {
-  border-radius: 20px;
-  background: lightgray;
-}
-}
-@media (max-width: 1024px){
+@media (max-width: 1280px) {
   .scroll {
-  width: 800px;
-  height: 600px;
-  overflow: scroll;
+    width: 1200px;
+    height: 690px;
+    overflow: scroll;
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 20px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #ec190a);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #efffeb);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
 }
-::-webkit-scrollbar {
-  background: transparent;
-  width: 29px;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #ec190a);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #efffeb);
-}
-::-webkit-scrollbar-corner {
-  border-radius: 20px;
-  background: lightgray;
-}
-}
-@media (max-width: 768px){
+@media (max-width: 1024px) {
   .scroll {
-  width: 500px;
-  height: 600px;
-  overflow: scroll;
+    width: 800px;
+    height: 600px;
+    overflow: scroll;
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 29px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #ec190a);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #efffeb);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
 }
-::-webkit-scrollbar {
-  background: transparent;
-  width: 30px;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #ec190a);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #efffeb);
-}
-::-webkit-scrollbar-corner {
-  border-radius: 20px;
-  background: lightgray;
-}
-}
-@media (max-width: 640px){
+@media (max-width: 768px) {
   .scroll {
-  width: 200px;
-  height: 600px;
-  overflow: scroll;
+    width: 500px;
+    height: 600px;
+    overflow: scroll;
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 30px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #ec190a);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #efffeb);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
 }
-::-webkit-scrollbar {
-  background: transparent;
-  width: 30px;
+@media (max-width: 640px) {
+  .scroll {
+    width: 200px;
+    height: 600px;
+    overflow: scroll;
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 30px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #ec190a);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #efffeb);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
 }
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #ec190a);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #efffeb);
-}
-::-webkit-scrollbar-corner {
-  border-radius: 20px;
-  background: lightgray;
-}
-}
-
 </style>

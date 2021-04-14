@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     emails:['youright@gmail.com'],
     conv,
+    boards:[],
     projects:[
       {id:1, name: 'Bus tailing developmett apain' },
       {id:2, name: 'Simuni development apran' },
@@ -82,7 +83,7 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-      ADD_EMAIL:(state,email) => {
+    ADD_EMAIL:(state,email) => {
       state.emails.push(email)
     },
     ADD_PROJECT:(state,{name})=>{
@@ -102,6 +103,12 @@ export default new Vuex.Store({
       state.conv.columns.push({
         name,
         tasks: []
+      })
+    },
+    CREATE_LISTS (state, { name }) {
+      state.boards.lists.push({
+        name,
+        cards: []
       })
     },
     UPDATE_TASK (state, { task, key, value }) {
@@ -134,9 +141,11 @@ export default new Vuex.Store({
         }
       }
     },
+    board:state=>id=>{
+      return state.boards.find(board=>board.id == id);
+    },
     project:state=>id=>{
       return state.projects.find(project=>project.id == id);
     },
-   
   }
 })

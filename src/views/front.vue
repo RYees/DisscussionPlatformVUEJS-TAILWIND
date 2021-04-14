@@ -2,7 +2,7 @@
   <div class="w-full h-screen bg-yellow-500 flex">
      <div class="w-full bg-gray-900 h-full ">
        <div class="bg-gray-900" style="">
-          <Header />
+          <navbar :user="user"></navbar>
       </div>
       <div class="row bg-white" style="height:100%">
         <transition name="slide" mode="out-in">
@@ -13,14 +13,31 @@
   </div>
 </template>
 <script>
-//import Login from "@/views/Login";
-import Header from '../components/Header.vue';
+//import axios from "axios";
+import navbar from '@/components/navbar.vue';
 export default {
-  name: "header",
+  props:["user"],
+   data: () => {
+    return {user:null};
+  },
   components: {
-  Header,
+  navbar,
   //Login
   },
+  // created(){
+  //   this.CurrentUserData(); 
+  // },
+  // methods:{
+  //   CurrentUserData(){
+  //   let token = localStorage.getItem('token');
+  //   axios.get("http://127.0.0.1:8000/api/users/"+token+"?api_token="+token)
+  //     .then(response => {
+  //       console.log(response);
+  //       this.user = response.data.user;
+  //     });
+  //   }
+  // }
+  
 };
 </script>
 

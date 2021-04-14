@@ -134,13 +134,334 @@ export default {
 
 
 
+COMMENT>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<template>
+  <div class="p-0 h-full" style="">
+    <div id="pop-up" class="column flex w-80 mb-6"
+       style="margin-top:0px; margin-left:300px;"> 
+  
+    <input
+      type="text"
+      class="p-2 px-16 mt-0 w-80 rounded shadow-xl hover:bg-red-900 hover:bg-opacity-30 border border-white bg-white text-white text-xl tracking-wider flex-grow mr-1"
+      placeholder="Enter your name"
+      v-model="listName"
+      required 
+      @keyup.enter="createList"
+    />
+    </div> 
+    <!-- <div class="2xl:grid 2xl:grid-rows-1 2xl:grid-flow-col xl:grid xl:grid-rows-2 xl:grid-flow-col
+               lg:grid lg:grid-rows-1 lg:grid-flow-col md:grid md:grid-rows-1 md:grid-flow-col
+               sm:grid sm:grid-rows-1 sm:grid-flow-col
+   " style=""> -->
+   <div class="grid grid-rows-1 grid-flow-col" style="">
+      <BoardColumn
+        v-for="(column, $columnIndex) of conv.columns"
+        :key="$columnIndex"
+        v-bind:column="column"
+        v-bind:coulmnIndex="$column"
+        v-bind:conv="conv"
+      />
+    </div>
+<!-- <div>
+  class="" style=""
+      v-for="(list,$listIndex) of boards.lists"
+      :key="$listIndex"
+      v-bind:list="list"
+      v-bind:listIndex="$list"
+      v-bind:boards="boards"
+  
+  
+  v-for="(column, $columnIndex) of conv.columns"
+        :key="$columnIndex"
+        v-bind:column="column"
+        v-bind:coulmnIndex="$column"
+        v-bind:conv="conv"</div> -->
+    <div
+      class="task-bg bg-white text-white pin absolute"
+      v-if="isTaskOpen"
+      @click.self="close"
+    >
+      <router-view/>
+    </div>
+</div>
+  
+  
+</template>
+
+<script>
+///import boardMixin from '@/mixins/boardMixin';
+import {mapState} from 'vuex'
+import BoardColumn from '@/components/BoardColumn'
+import axios from 'axios';
+//import axios from "axios";
+export default {
+  components: { BoardColumn },
+    data:()=>{
+        return{
+            boards:'',
+            lists:'',
+            boardId:'',
+            name:'',
+            newColumnName: '',
+            listName:''
+          }
+    },
+    //  computed: mapState([
+    //     'conversations',
+    //     'conv'
+    // ]),
+  created(){
+     this.boardId=this.$route.params.id;
+     this.getData();
+     
+    },
+   
+    computed: {
+    ...mapState(['conv']),
+    isTaskOpen () {
+      return this.$route.name === 'task'
+    }
+  },
+    methods:{
+     getLists(){
+        this.boards.map((board)=>{
+          if(board.id==this.boardId){
+            return this.lists=board.lists;
+          }
+        })
+      },
+      getData() {
+         let token = localStorage.getItem("token");
+        // console.log(token);
+        axios
+          .get("http://localhost:8000/boards?api_token=" + token)
+          .then((response) => {
+           // console.log(response);
+            this.boards = response.data.boards;
+            this.getLists();
+          });
+        },
+
+      close () {
+      this.$router.push({ name: 'comment' })
+    },
+      createColumn () {
+      this.$store.commit('CREATE_COLUMN', {
+        name: this.newColumnName
+      })
+
+      this.newColumnName = ''
+    },
+        createList () {
+      // this.$store.commit('CREATE_LISTS', {
+      //   name: this.newListName
+      // })
+      alert('wooooo');
+      console.log(this.boardId);
+      let token = localStorage.getItem("token");
+        console.log(token);
+      axios.post('http://localhost:8000/boards/'+this.boardId +'/list?api_token='+token,
+       {
+         name:this.listName,
+         //board_id:this.boardId
+       })
+       .then(response=>{
+         let newList = response.data.list;
+         this.lists.push(newList);
+         this.listName=''
+        console.log(response);
+          //this.boards = response.data.boards;
+      });
+    },
+    }
+};
+</script>
+
+
+<style scoped>
+.column {
+  margin-left:-200px;
+  animation:drop 0.5s ease forwards;
+}
+@keyframes drop{
+  0%{opacity: 0}
+  70%{transform: translateX(800px)}
+  100%{transform: translateX(750px); opacity: 1;}
+  
+}
+
+</style>
+
+
+BOARDCOLUMN>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<template>
+  <!-- <AppDrop
+    @drop="moveTaskOrColumn"
+  >
+    <AppDrag
+      class="bg-gray-50 bg-opacity-30 ml-20 rounded mt-0 p-2"
+      :transferData="{
+        type: 'column',
+        fromColumnIndex: columnIndex
+      }"
+    > -->
+    <div>
+    <div class="bg-gray-50 bg-opacity-30 ml-20 rounded mt-0 p-2" style="height:680px; width:450px;"
+     >  
+      <div class="grid grid-rows-1 grid-flow-col text-white ml-4 tracking-wider transform 
+      uppercase mb-2 font-bold"
+      
+     style=""
+      >
+        {{column.name}}
+      </div>
+      
+        <div class="scroll" style="">
+        <!-- <ColumnTask
+          v-for="(task, $taskIndex) of column.tasks"
+          :key="$taskIndex"
+          :task="task"
+          :taskIndex="$taskIndex"
+          :column="column"
+          :columnIndex="columnIndex"
+          :conv="conv"
+        /> -->
+      <!-- <div> 
+           v-for="(task, $taskIndex) of list.tasks"
+          :key="$taskIndex"
+          :task="task"
+          :taskIndex="$taskIndex"
+          :list="list"
+          :listIndex="listIndex"
+          :boards="boards"
+
+
+         v-for="(task, $taskIndex) of column.tasks"
+          :key="$taskIndex"
+          :task="task"
+          :taskIndex="$taskIndex"
+          :column="column"
+          :columnIndex="columnIndex"
+          :conv="conv"</div> -->
+        <!-- <div class="mb-96 list-reset" style="margin-bottom:1500px;"> -->
+        <input
+          type="text"
+          class="p-2 w-full hover:bg-red-900 hover:bg-opacity-30 border border-white bg-white text-white text-xl tracking-wider"
+          placeholder="+ Enter new issue" 
+          @keyup.enter="createTask($event, column.tasks)"
+        />
+        </div>
+      
+      </div>
+      </div>
+    <!-- </AppDrag>
+  </AppDrop> -->
+</template>
+
+<script>
+//import ColumnTask from './ColumnTask'
+// import AppDrag from './AppDrag'
+// import AppDrop from './AppDrop'
+import axios from "axios";
+import movingTasksAndColumnsMixin from '@/mixins/movingTasksAndColumnsMixin'
+
+export default {
+  data(){
+    return{
+      boards:'',
+      lists:'',
+      boardId:'',
+      
+    }
+  },
+  components: {
+    // ColumnTask,
+    // AppDrag,
+    // AppDrop
+  },
+  mixins: [movingTasksAndColumnsMixin],
+  created(){
+     this.boardId=this.$route.params.id;
+     this.getData();
+     //console.log(this.boards);
+    },
+  methods: {
+    getLists(){
+        this.boards.map((board)=>{
+          if(board.id==this.boardId){
+            return this.lists=board.lists;
+          }
+        })
+      },
+      getData() {
+         let token = localStorage.getItem("token");
+        // console.log(token);
+        axios
+          .get("http://localhost:8000/boards?api_token=" + token)
+          .then((response) => {
+           // console.log(response);
+            this.boards = response.data.boards;
+            this.getLists();
+          });
+        },
+    pickupColumn (e, fromColumnIndex) {
+      e.dataTransfer.effectAllowed = 'move'
+      e.dataTransfer.dropEffect = 'move'
+
+      e.dataTransfer.setData('from-column-index', fromColumnIndex)
+      e.dataTransfer.setData('type', 'column')
+    },
+    createTask (e, tasks) {
+      this.$store.commit('CREATE_TASK', {
+        tasks,
+        name: e.target.value
+     }) 
+      e.target.value = ''
+    }
+  }
+}
+</script>
+
+<style scoped>
+.scroll {
+  width:420px;
+  margin-left:10px;
+  height: 640px;
+  overflow: scroll;
+  }
+::-webkit-scrollbar {
+  background: transparent;
+  width: 15px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #141414);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #efffeb);
+}
+::-webkit-scrollbar-corner {
+  border-radius: 20px;
+  background: lightgray;
+}
+</style>
+
+
 
 
 
 
 DASHBOARD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
+ // mounted(){
+  //   let token=localStorage.getItem('token');
+  //   console.log(token);
+  //   axios.get("http://localhost:8000/boards?api_token="+token)
+  //   .then(response=>{
+  //      console.log(response);
+  //      this.boards=response.data.boards;
+  //   });
+  // },
 
 <template>
   <div class="bg-yellow-500 h-screen w-full flex items-center justify-center">

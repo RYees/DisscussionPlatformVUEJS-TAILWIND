@@ -22,7 +22,7 @@
         ></router-link>
       </p>
       <p class="inline-block ml-2">
-        <router-link to="/home">
+        <router-link to="/BO">
           <svg
             class="h-12 py-1 w-12 ml-3"
             xmlns="http://www.w3.org/2000/svg"
@@ -38,87 +38,37 @@
             /></svg
         ></router-link>
       </p>
-        <div
+        <!-- <div
           v-for="(project,index) in projects" :key="index"
           class="inline-block ml-96 animate-bounce text-xl tracking-wider mt-1 absolute mb-5"
           style="margin-bottom:1000px"
         >
           {{ project }}
-        </div>
+        </div> -->
     </div>
     <div class="">
-      <profile />
+      <profile :user="user"></profile>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+//import axios from "axios";
 import profile from "@/views/profile";
 export default {
+  props:["user"],
   data: () => {
-    return {};
+    return {user:null};
   },
   components: {
     profile,
   },
   computed:{
-    showHeader(){
-      return this.$route.name !== 'login';
+      showHeader(){
+      return this.$route.name !== 'logreg';
     },
-  computed: mapState(["projects"]),
+ // computed: mapState(["projects"]),
   }
 };
 </script>
-<style>
-/* @media (max-width: 2100px){
-.header{
-  width:2100px;
-}
 
-}
-@media (max-width: 1900px){
- .header{
-  width:1890px;
-}
-
-}
-@media (max-width: 1800px){
- .header{
-  width:1710px;
-}
-
-}
-@media (max-width: 1700px){
- .header{
-  width:1590px;
-}
-
-}
-@media (max-width: 1600px){
- .header{
-  width:1530px;
-}
-}
-@media (max-width: 1550px){
- .header{
-  width:1490px;
-}
-}
-
-@media (max-width: 1500px){
-.header{
-  width:1240px;
-}
-}
-@media (max-width: 1000px){
-.header{
-  width:930px;
-}
-}
-@media (max-width: 900px){
-.header{
-  width:716px;
-}
-} */
-</style>

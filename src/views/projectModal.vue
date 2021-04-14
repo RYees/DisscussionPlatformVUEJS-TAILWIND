@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center ">
+  <div class="flex justify-center items-center">
     <div class="" style="">
       <button
         class="tracking-wider transform hover:scale-110 border border-white p-1 cursor-pointer rounded text-white text-3xl mt-5"
@@ -23,16 +23,17 @@
         >create project
       </button>
     </div>
+
     <!-- <div class="flex justify-center" style=""> -->
      
-    <div
+    <form @submit.prevent="createBoard"
       v-if="isShow"
       class="flex justify-center sm:ml-96 z-40 bg-white bg-opacity-95 absolute border border-gray-600 rounded-lg h-60 mt-96 p-6 overflow-hidden shadow-xl transform transition-all"
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"
     >
-  <form action=""  @submit.prevent="createProject">
+  <div>
       <input
         type="text"
         class="w-80 hover:bg-white hover:bg-opacity-30 hover:text-dark rounded-lg px-4 h-14 border border-indgo-300 focus:outline-none"
@@ -43,14 +44,13 @@
         required
       />
       
-      <div class="inline-block">
-        <button 
-          class="sm:ml-12 hover:bg-green-700 hover:text-6xl px-2 w-32 ml-4 h-11 mt-16 transform hover:scale-110 tracking-wider focus:outline-none rounded-lg text-white bg-blue-500"
+      <span class="inline-block">
+        <button type="submit" class="sm:ml-12 hover:bg-green-700 hover:text-6xl px-2 w-32 ml-4 h-11 mt-16 transform hover:scale-110 tracking-wider focus:outline-none rounded-lg text-white bg-blue-500"
            
         >
           Create Project
         </button>
-        </div> 
+      </span> 
         <div class="sm:mt-4 mt-14 absolute">  
     <button class="focus:outline-none" @click.prevent="showModal">
                   <svg
@@ -67,42 +67,48 @@
                   </svg>
                 </button>
     </div>
-      </form>
-    </div>
+      </div>
+    </form>
     <!-- </div>  -->
 
   </div>
 </template>
 <script>
-import { mapMutations, mapState } from "vuex";
+//import boardMixin from '@/mixins/boardMixin';
+import axios from 'axios';
+//import { mapMutations, mapState } from "vuex";
 export default {
+  props:["user"],
   data: () => {
     return {
       newProject:'',
+      // boards:[],
       isShow: false,
+      
     };
   },
-  computed: mapState([
-      'projects'
-      ]),
+  
    methods: {
-    ...mapMutations([
-        'ADD_PROJECT'
-        ]),
     showModal: function() {
       this.isShow = !this.isShow;
     },
-    addProject: function() {
-      this.ADD_PROJECT(this.newProject);
-      this.newProject = '';
-    },
-     createProject (e, projects) {
-      this.$store.commit('ADD_PROJECT', {
-        projects,
-        name: e.target.value
-      })
-      e.target.value = ''
-    }
-  }
-  };
+     createBoard() {
+      let token = localStorage.getItem("token");
+         axios.post("http://localhost:8000/api/boards/"+"?api_token=" + token,
+          {
+            name: this.newProject,
+          }
+        )
+        .then((response) => {
+          let board_token = response.data.board.board_token;
+          localStorage.setItem('board_token',board_token);
+           console.log(response);
+           this.newProject = "";
+         this.$emit("boardcreated"); 
+        })
+      },
+   
+},
+  
+};
 </script>
