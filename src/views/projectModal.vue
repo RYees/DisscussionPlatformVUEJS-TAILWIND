@@ -84,17 +84,25 @@ export default {
       newProject:'',
       // boards:[],
       isShow: false,
-      
+      usersss:null
     };
   },
-  
+   created(){
+    let token = localStorage.getItem("token");
+    axios.get("http://localhost:8000/api/users/"+token+"?api_token="+token)
+    .then(response => {
+     // console.log(response);
+      this.usersss = response.data.user;
+      console.log(this.usersss);
+    });
+  },
    methods: {
     showModal: function() {
       this.isShow = !this.isShow;
     },
      createBoard() {
       let token = localStorage.getItem("token");
-         axios.post("http://localhost:8000/api/boards/"+"?api_token=" + token,
+         axios.post("http://localhost:8000/api/boards/"+this.usersss.id +"?api_token=" + token,
           {
             name: this.newProject,
           }

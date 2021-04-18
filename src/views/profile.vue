@@ -46,7 +46,7 @@
         </p>
         <!-- <div v-for="user in user" :key="user"> -->
         <p class="p-3 inline-block ml-5 text-lg">
-          {{user.username}}
+          {{user.username}}{{user.roles}}
           <small class="ml-1 text-gray-500 leading-tight">{{user.email}}</small
           ><br />
         </p>
@@ -84,14 +84,12 @@ export default {
       if(!token){
           return false;
       }
-      // if(!token){
-      //     this.$router.push({name:'logreg'});
-      // }
-      axios.get("http://127.0.0.1:8000/api/logout?api_token="+token)
+      axios.get("http://localhost:8000/api/logout?api_token="+token)
       .then(response => {
         console.log(response);
         localStorage.removeItem('token');
         this.$router.push({name:'logreg'});
+       // Event.$emit('logout');
       });
     },
   //  created(){

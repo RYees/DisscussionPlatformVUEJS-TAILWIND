@@ -16,7 +16,7 @@
         <br />
       </div>
       <br />
-      <div class="mr-96" style="">
+      <div class="mr-96" style="" v-if="this.roles[0].pivot.role_id == 2">
         <projectModal v-on:boardcreated="getData"></projectModal>
       </div>
       <div class="flex" style="">
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-//import axios from 'axios';
+import axios from 'axios';
 import boardMixin from '@/mixins/boardMixin';
 import {searchName} from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
@@ -109,25 +109,43 @@ import projectModal from "@/views/projectModal";
 export default {
   data: () => ({
     boards: [],
-    user:null,
+    roles:null,
     search: "",
     isSearch: false,
   }),
   // computed: mapState(["projects"]),
+  created(){
+    let token = localStorage.getItem("token");
+    axios.get("http://localhost:8000/api/usersroles/"+token+"?api_token="+token)
+    .then(response => {
+      //console.log(response);
+      this.roles = response.data.user;
+      console.log(this.roles[0].pivot.role_id);
+    });
+  },
   methods: {
     searching: function() {
       this.isSearch = !this.isSearch;
     },
+  //   created(){
+  //   this.CurrentUserData(); 
+  // },
+  //   CurrentUserData(){
+  //   let token = localStorage.getItem('token');
+  //   axios.get("http://localhost:8000/api/users/"+token+"?api_token="+token)
+  //     .then(response => {
+  //       console.log(response);
+  //       this.user = response.data.user;
+  //     });
+  //   }
     },
-  
   mounted() {
     this.getData();
   },
 
   components: {
     projectModal,
-  
-  },
+    },
   mixins: [boardMixin,searchName],
 //mixins: [smixin],
 };

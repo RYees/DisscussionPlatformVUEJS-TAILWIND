@@ -70,13 +70,13 @@
             v-if="updateListId == list.id"
             @keyup.enter="updateList"
           />
-
           <div
             class="inline-block tracking-wider transform uppercase ml-40 text-xl"
             @click="updateListId = list.id"
             @click.stop="upModal = true"
             v-else
           >
+             
             {{ list.name }}
           </div>
         

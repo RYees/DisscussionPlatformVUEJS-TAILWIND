@@ -33,25 +33,26 @@ export default {
         return {
             invites: null,
             register: {},
+            //invites:{},
             submitted: false,
             
         }
     },
     mounted(){
         //console.log(this.$route.fullPath);
-        let path = this.$route.fullPath.split('=',2)
+       let path = this.$route.fullPath.split('=',2)
         let token = path[1];
         console.log(this.$route.fullPath);
         axios.get("http://localhost:8000/api/registration/"+token)
                 .then(response => {
                    this.invites=response.data[0];
-                    //console.log(response);
-                    //console.log(this.invites);
+                    console.log(response);
+                    console.log(this.invites);
              });
-          },
+          }, 
     methods:{
                registerIt(){
-                axios.post('http://localhost:8000/api/register', 
+                axios.post('http://localhost:8000/api/register/'+ this.invites.board_id,
                 {
                     username:this.register.username,
                     email:this.invites.email,

@@ -47,6 +47,7 @@ export default {
                     localStorage.setItem('user',JSON.stringify(user));
                     Event.$emit('login',user);
                     this.$router.push('/dashboard');
+                   // console.log(user.pivot);
                 });
               },
           

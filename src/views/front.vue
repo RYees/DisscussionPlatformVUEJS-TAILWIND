@@ -16,7 +16,7 @@
 //import axios from "axios";
 import navbar from '@/components/navbar.vue';
 export default {
-  props:["user"],
+ // props:["user"],
    data: () => {
     return {user:null};
   },

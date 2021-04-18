@@ -53,7 +53,7 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import profile from "@/views/profile";
 export default {
   props:["user"],
@@ -67,7 +67,20 @@ export default {
       showHeader(){
       return this.$route.name !== 'logreg';
     },
- // computed: mapState(["projects"]),
+  // computed: mapState(["projects"]),
+  },
+  created(){
+    this.CurrentUserData(); 
+  },
+  methods:{
+    CurrentUserData(){
+    let token = localStorage.getItem('token');
+    axios.get("http://localhost:8000/api/users/"+token+"?api_token="+token)
+      .then(response => {
+        console.log(response);
+        this.user = response.data.user;
+      });
+    }
   }
 };
 </script>

@@ -9,24 +9,27 @@
       <Invitation/>
     </div>
     </div>
-      <!-- <div class="h-screen flex items-center justify-center"> -->
+      <!-- <div class="h-screen flex items-center justify-center"> v-if="user.role === 'admin'"-->
       <div class="scroll" style="">
-        <comment />
+        <comment/>
       </div>
     <!-- </div> -->
 </div>
 
 </template>
 <script>
-//import axios from 'axios';
+//import axios from 'axios'; 
+localStorage.getItem('user');
 import comment from "@/views/comment.vue";
 import Invitation from './Invitation.vue';
 export default {
+  // props: ['role'],
   data(){
     return{
        board:'',
-     }
+      }
   },
+          
    components:{
         comment,
         Invitation
