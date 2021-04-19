@@ -1,33 +1,29 @@
-import axios from "axios";
-export default{
+//import axios from "axios";
+export default {
   data: () => {
-    return{
-      // users:null,
-      // userId:""
-    }
+    return {};
   },
-  // mounted(){
-  //   let token = localStorage.getItem("token");
-  //   axios.get("http://localhost:8000/api/users/"+token+"?api_token="+token)
-  //   .then(response => {
-  //     //console.log(response);
-  //     this.users = response.data.user;
-  //     console.log(this.users.id);
-  //   });
+  computed: {
+    currentUserBoard: {
+      get() {
+        return this.$store.state.admin.boards;
+      },
+    },
+  },
+  created() {
+    this.$store.dispatch("admin/getBoardData");
+  },
+  // methods: {
+  //   getData() {
+  //     let token = localStorage.getItem("token");
+  //     axios
+  //       .get("http://localhost:8000/api/boards/?api_token=" + token)
+  //       .then((response) => {
+  //         console.log(response);
+  //         this.boards = response.data.boards;
+
+  //         //Event.$emit('boardsLoaded',this.boards);
+  //       });
+  //   },
   // },
-methods:{
-     getData() {
-        let token = localStorage.getItem("token");
-        //console.log(this.user.id);   .get("http://localhost:8000/api/boards/"+this.user.id+"?api_token=" + token)
-       // console.log(this.users);
-        axios
-          .get("http://localhost:8000/api/boards/?api_token=" + token)
-          .then((response) => {
-            console.log(response);
-            this.boards = response.data.boards;
-            
-            //Event.$emit('boardsLoaded',this.boards);
-          });
-        }
-}
-}
+};

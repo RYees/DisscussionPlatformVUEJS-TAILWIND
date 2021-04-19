@@ -64,7 +64,7 @@ export default {
     created() {
     this.boardId = this.$route.params.id;
     console.log(this.boardId);
-    this.getData();
+    //this.getData();
   },
     methods:{
         ...mapMutations([

@@ -1,9 +1,6 @@
 <template>
   <div class="back h-screen w-full flex items-center justify-center">
-    <!-- <div class="" style="margin-bottom:937px">
-          <Header />
-      </div> -->
-    <div
+      <div
       class="flex justify-evenly flex-wrap"
       style="width:2000px; margin-bottom:600px; height:200px"
     >
@@ -16,7 +13,7 @@
         <br />
       </div>
       <br />
-      <div class="mr-96" style="" v-if="this.roles[0].pivot.role_id == 2">
+      <div class="mr-96" style="" v-if="currentRole[0].pivot.role_id == 1">
         <projectModal v-on:boardcreated="getData"></projectModal>
       </div>
       <div class="flex" style="">
@@ -62,7 +59,7 @@
       <div
         class="mon ml-5"
         style=""
-        v-for="(board, index) in filteredProjects"
+        v-for="(currentUserBoard, index) in filteredProjects"
         :key="index"
       >
         <div
@@ -83,12 +80,12 @@
                 hover:text-gray-50 text-white text-2xl  border-gray-700 mb-10 lighten-2 absolute"
             >
               <router-link
-                :to="{ name: 'singleDash', params:{id:board.id} }"
+                :to="{ name: 'singleDash', params:{id:currentUserBoard.id} }"
               >
                 <button
                   class="sm:px-5 focus:outline-none mt-10 ml-4 m-auto transform hover:scale-110"
                 >
-                  {{ board.name }}
+                  {{ currentUserBoard.name }}
                 </button>
               </router-link>
             </div>
@@ -97,48 +94,32 @@
       </div>
     </div>
   </div>
-  <!-- </div> -->
 </template>
 
 <script>
-import axios from 'axios';
 import boardMixin from '@/mixins/boardMixin';
 import {searchName} from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
-//import { mapState } from "vuex";
 export default {
   data: () => ({
-    boards: [],
-    roles:null,
     search: "",
     isSearch: false,
   }),
-  // computed: mapState(["projects"]),
-  created(){
-    let token = localStorage.getItem("token");
-    axios.get("http://localhost:8000/api/usersroles/"+token+"?api_token="+token)
-    .then(response => {
-      //console.log(response);
-      this.roles = response.data.user;
-      console.log(this.roles[0].pivot.role_id);
-    });
+  computed:{
+    currentRole: {
+      get(){
+        return this.$store.state.users.role
+      }
+    }
   },
+  created(){
+   this.$store.dispatch('users/currrentUserRole');
+    },
   methods: {
     searching: function() {
       this.isSearch = !this.isSearch;
     },
-  //   created(){
-  //   this.CurrentUserData(); 
-  // },
-  //   CurrentUserData(){
-  //   let token = localStorage.getItem('token');
-  //   axios.get("http://localhost:8000/api/users/"+token+"?api_token="+token)
-  //     .then(response => {
-  //       console.log(response);
-  //       this.user = response.data.user;
-  //     });
-  //   }
-    },
+  },
   mounted() {
     this.getData();
   },
@@ -147,7 +128,7 @@ export default {
     projectModal,
     },
   mixins: [boardMixin,searchName],
-//mixins: [smixin],
+
 };
 </script>
 

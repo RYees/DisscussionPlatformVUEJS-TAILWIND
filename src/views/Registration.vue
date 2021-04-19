@@ -33,7 +33,6 @@ export default {
         return {
             invites: null,
             register: {},
-            //invites:{},
             submitted: false,
             
         }

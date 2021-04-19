@@ -22,9 +22,7 @@
           class="grid grid-rows-1 grid-flow-col gap-5 rounded p-2"
           v-model="lists"
           :options="{ group: 'lists' }"
-          @add="onAdd"
-          @change="onAddLists"
-        >
+       >
       <div
         class="text-white bg-gray-50 bg-opacity-30 font-bold"
         v-for="list in lists"
@@ -80,7 +78,7 @@
             {{ list.name }}
           </div>
         
-        <board-column class="" :list="list" v-on:cardcreated="getData" ></board-column>
+        <board-column class="" :list="list" v-on:cardcreated="getData"></board-column>
       </div></draggable>
     </div>
 </template>
@@ -135,6 +133,16 @@ export default {
           this.getLists();console.log(response);
         });
     },
+// computed: {
+//     currentUserBoard: {
+//       get() {
+//         return this.$store.state.admin.boards;
+//       },
+//     },
+//   },
+//   created() {
+//     this.$store.dispatch("admin/getBoardData");
+// },
     createList() {
       let token = localStorage.getItem("token");
       //console.log(token);

@@ -2,7 +2,7 @@
   <div class="w-full h-screen bg-yellow-500 flex">
      <div class="w-full bg-gray-900 h-full ">
        <div class="bg-gray-900" style="">
-          <navbar :user="user"></navbar>
+          <navbar></navbar>
       </div>
       <div class="row bg-white" style="height:100%">
         <transition name="slide" mode="out-in">

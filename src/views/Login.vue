@@ -6,14 +6,12 @@
             <div class="w-11/12">
              <h1 class="text-white text-center text-3xl ml-2 mb-5 ">Login</h1><br>
             <div class="ml-10">
-            <!-- <label class="block ml-10 mt-10 text-xl text-gray-600">Email:</label> -->
             <br>
             <input type="email" v-model="login.email" placeholder="Enter your email" class="text-xl w-full h-12 ml-10 rounded border border-gray-100 focus:outline-none"   required /><br>
-            <!-- <label class="block mt-10 ml-10 text-xl text-gray-600">Password:</label> -->
             <br><hr>
             <input v-model="login.password" placeholder="Enter your password" class=" text-xl w-full h-12 ml-10 rounded border border-gray-100 focus:outline-none" type="password"  required /><br>
             </div><br>
-                <button class="ml-40 h-12 w-24 px-4 p-4 mt-10 text-white bg-blue-900 rounded-lg border-gray-400 border"  @click="enter" >Login</button>
+                <button class="ml-40 h-12 w-24 px-4 p-4 mt-10 text-white bg-blue-900 rounded-lg border-gray-400 border"  @click="enterIt" >Login</button>
       
         </div>
         
@@ -22,7 +20,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
     components: {
         
@@ -37,20 +34,9 @@ export default {
         }
     },
     methods: {
-        enter(){
-                axios.post('http://localhost:8000/api/login',this.login)
-                .then(response => {
-                    let token = response.data.user.api_token;
-                    window.token=token;
-                    let user= response.data.user;
-                    localStorage.setItem('token',token);
-                    localStorage.setItem('user',JSON.stringify(user));
-                    Event.$emit('login',user);
-                    this.$router.push('/dashboard');
-                   // console.log(user.pivot);
-                });
-              },
-          
+             enterIt(){
+             this.$store.dispatch('users/enter',this.login);
+         } 
     }
 }
 </script>

@@ -46,8 +46,8 @@
         </p>
         <!-- <div v-for="user in user" :key="user"> -->
         <p class="p-3 inline-block ml-5 text-lg">
-          {{user.username}}{{user.roles}}
-          <small class="ml-1 text-gray-500 leading-tight">{{user.email}}</small
+          {{currentUser.username}}
+          <small class="ml-1 text-gray-500 leading-tight">{{currentUser.email}}</small
           ><br />
         </p>
         <!-- </div> -->
@@ -64,7 +64,7 @@
 <script>
 import axios from 'axios';
 export default {
-  props:["user"],
+  //props:["user"],
   data: () => {
     return {
       //user:'',
@@ -72,10 +72,14 @@ export default {
       isLoggingOut:false
     };
   },
-  // created(){
-  //     this.user=this.users;
-  // },
-  methods: {
+  computed:{
+    currentUser:{
+      get(){
+        return this.$store.state.users.user;
+      }
+    }
+  },
+   methods: {
     showModal: function() {
       this.isShow = !this.isShow;
     },
@@ -101,6 +105,10 @@ export default {
   //     });
   // }
 },
+ created(){
+    this.$store.dispatch('users/CurrentUserData');
+    console.log('not a lot');
+  },
 }
 </script>
 <style>

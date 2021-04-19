@@ -3,13 +3,15 @@
     <!-- <router-link class="text-3xl text-center text-white animate-none uppercase mt-8 absolute ml-60" to="/dashboard">back</router-link> -->
    <div class="flex justify-start mt-10 absolute">
     <div class="">
-        <h1 class="2xl:text-4xl xl:text-3xl lg:text-2xl md:text-xl text-white animate-bounce absolute ml-0">{{board.name}}</h1>
+        <h1 class="2xl:text-4xl xl:text-3xl lg:text-2xl md:text-xl text-white animate-bounce absolute ml-0"
+        style="margin-top:0px; margin-bottom:0px;"
+        >{{currentUserBoard.name}}</h1>
     </div>
-    <div class="">
+    <div class="" v-if="currentRole[0].pivot.role_id == 1">
       <Invitation/>
     </div>
     </div>
-      <!-- <div class="h-screen flex items-center justify-center"> v-if="user.role === 'admin'"-->
+      <!-- <div class="h-screen flex items-center justify-center"> v-if="this.roles[0].pivot.role_id == 1"-->
       <div class="scroll" style="">
         <comment/>
       </div>
@@ -18,22 +20,30 @@
 
 </template>
 <script>
-//import axios from 'axios'; 
-localStorage.getItem('user');
+//import boardMixin from '@/mixins/boardMixin';
 import comment from "@/views/comment.vue";
 import Invitation from './Invitation.vue';
 export default {
-  // props: ['role'],
-  data(){
+   data(){
     return{
-       board:'',
-      }
+       currentUserBoard:'',
+       }
   },
-          
-   components:{
+computed:{
+    currentRole: {
+      get(){
+        return this.$store.state.users.role
+      }
+    }
+  },
+  created(){
+   this.$store.dispatch('users/currrentUserRole');
+    },
+  components:{
         comment,
         Invitation
     },
+  // mixins: [boardMixin],
   }
 </script>
 <style>

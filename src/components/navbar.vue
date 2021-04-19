@@ -1,7 +1,7 @@
 <template>
   <div
     class="z-10 cursor-pointer fixed inset-x-0 w-full bg-gray-50 bg-opacity-75 flex justify-between"
-    v-if="showHeader"
+   v-if="showHeader"
   >
     <div class="flex">
       <p class="inline-block">
@@ -47,18 +47,18 @@
         </div> -->
     </div>
     <div class="">
-      <profile :user="user"></profile>
+      <profile></profile>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
 import profile from "@/views/profile";
 export default {
-  props:["user"],
+ // props:["user"],
   data: () => {
-    return {user:null};
+  return {};
   },
   components: {
     profile,
@@ -69,19 +69,19 @@ export default {
     },
   // computed: mapState(["projects"]),
   },
-  created(){
-    this.CurrentUserData(); 
-  },
-  methods:{
-    CurrentUserData(){
-    let token = localStorage.getItem('token');
-    axios.get("http://localhost:8000/api/users/"+token+"?api_token="+token)
-      .then(response => {
-        console.log(response);
-        this.user = response.data.user;
-      });
-    }
-  }
+  // created(){
+  //   this.CurrentUserData(); 
+  // },
+  // methods:{
+  //   CurrentUserData(){
+  //   let token = localStorage.getItem('token');
+  //   axios.get("http://localhost:8000/api/users/"+token+"?api_token="+token)
+  //     .then(response => {
+  //       console.log(response);
+  //       this.user = response.data.user;
+  //     });
+  //   }
+  // }
 };
 </script>
 
