@@ -1,33 +1,36 @@
 <template>
-    <div>
-    <div class="">
+    <div class="flex justify-end">
+    <!-- <div > -->
       <button 
       @click.prevent="Invite"
-      class="bg-red-400 hover:bg-gray-500 hover:bg-opacity-30 bg-opacity-30 h-14 focus:outline-none rounded-lg px-2 text-2xl mt-0 text-white" style="margin-left:500px">
+      class="bg-yellow-400 transition duration-700 ease-in-out hover:bg-yellow-500 hover:bg-opacity-30 bg-opacity-9 mb-96 5 h-14 focus:outline-none rounded-lg px-5 text-2xl text-white" 
+      style="">
       InviteMembers
       </button>
-    </div>
+    <!-- </div> -->
+    
     <div
       v-if="isInvite"
-      class="flex justify-center z-40 bg-white bg-opacity-95 absolute border border-gray-600 rounded-lg h-40 p-6 overflow-hidden shadow-xl transform transition-all"
-      style="top:70px; width:400px; height:505px; left:390px;"
+      class="mod z-40 bg-yellow-500 bg-opacity-75 absolute border border-gray-600 rounded-lg h-40 p-6 overflow-hidden shadow-xl transform transition-all"
+      style="top:60px; width:400px; height:505px;"
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"
     >
-      <form action="" @submit.prevent="createInvitation">
+     <form action="" class="" v-if="!isSubmitted" @submit.prevent="createInvitation">
           <div>
-         <input type="email" value="" class="shadow-2xl text-gray-900 px-5 h-20 w-80" placeholder="Email address"
+         <input type="email" value="" class="shadow-2xl text-gray-900 px-5 h-20 w-80" placeholder="Email address" required
          v-model="newEmail"
          /></div>
-         <!-- <div v-for="(find,index) in finds" :key="index">
+
+         <!-- <div >
          <input type="email" value="" class="shadow-2xl text-gray-900 px-5 h-20 w-80" placeholder="Email address"
-         v-model="find.value"
-         /></div> -->
-         <!-- <div class="scroll">
+         v-model="email"
+         /></div>
+         <div class="scroll" v-for="(find,index) in finds" :key="index">
              <ul >
                  <li class="mt-1 text-gray-900 text-xl">
-                     {{find.value}}
+                     {{find.email}}
                  </li>
              </ul>
          </div> -->
@@ -39,12 +42,19 @@
              </ul>
          </div> -->
          <div class="mt-6">
-             <button class="bg-green-500 transform hover:scale-110 focus:outline-none p-2 rounded text-white text-xl">
+             <button class="bg-green-900 bg-opacity-75 transition duration-700 ease-in-out transform hover:scale-110 focus:outline-none p-4 rounded text-white text-2xl">
                 sendMember
              </button>
          </div>
       </form>
+   
     </div>
+   
+        <div class="" v-if="isSubmitted">
+        <h3 style="margin-left:1200px; padding:20px" class="bg-yellow-300 w-72 px-1 rounded py-2 bg-opacity-30 text-white text-3xl transform capitalize">
+          Invitation is sent!
+        </h3>
+      </div>
     </div>
 </template>
 <script>
@@ -55,7 +65,9 @@ export default {
     data:()=>{
         return{
             isInvite:false,
+            isSubmitted:false,
             newEmail:"",
+            finds:[]
         }
     },
     computed: mapState([
@@ -63,7 +75,7 @@ export default {
     ]),
     created() {
     this.boardId = this.$route.params.id;
-    console.log(this.boardId);
+    //console.log(this.boardId);
     //this.getData();
   },
     methods:{
@@ -91,6 +103,7 @@ export default {
           this.newEmail="";
           console.log(response);
           console.log(itoken);
+          this.isSubmitted = true;
         });
     },
     }
@@ -106,19 +119,51 @@ export default {
   height: 300px;
   overflow: scroll;
  }
+ .mod{
+  left:1598px;
+}
 ::-webkit-scrollbar {
   background: transparent;
   width: 16px;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #161515);
-  border-radius: 10px;
+  background: linear-gradient(transparent, #6b5e2e);
+  border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #0f0f0f);
+  background: linear-gradient(transparent, #da9605);
 }
 ::-webkit-scrollbar-corner {
   border-radius: 10px;
   background: lightgray;
+}
+
+@media (max-width: 1536px) {
+.mod{
+  left:1085px;
+}
+}
+@media (max-width: 1280px) {
+.mod{
+  left:795px;
+}
+
+}
+@media (max-width: 1024px) {
+.mod{
+  left:499px;
+  /* //right:2000px; */
+}
+}
+@media (max-width: 768px) {
+ .mod{
+  left:300px;
+}
+ 
+}
+@media (max-width: 640px) {
+ .mod{
+  left:0px;
+}
 }
 </style>

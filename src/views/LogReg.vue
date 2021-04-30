@@ -1,11 +1,16 @@
 <template>
-   <div class="backG h-screen w-full">
+   <div class="h-screen fixed w-full overscroll-y-hidden">
+       <h1 class="ml-32 text-5xl ">Zowi Discussion Platform</h1>
         <keep-alive>
             <component v-bind:is="component"></component>
         </keep-alive>
-        <div class="z-40 absolute">
-        <a class="ml-72 mb-80 focus:outline-none mt-0 text cursor-pointer text-gray-900" v-on:click="component = 'login'">Login</a>
-        <a class="text mt-0 cursor-pointer text-gray-900" v-on:click="component = 'register'">Register</a>
+        <div class="absolute flex justify-end" style="top:0px; left:1750px;">
+        <a class="focus:outline-none text-3xl cursor-pointer text-gray-700" v-on:click="component = 'login'">Login</a> 
+        <a class="myDIV text-3xl ml-4 cursor-pointer text-gray-700" v-on:click="component = 'register'">Register</a>
+        <div class="may mr-96 bg-white shadow-xl mt-5 p-4 border border-yellow-300 border-opacity-30">
+            <p class="tracking-wider transform capitalize font-normal text-gray-500">
+            To register you have to first receive an email invitaion from the admin</p>
+        </div>
         </div>
       </div>
 </template>
@@ -33,3 +38,12 @@ components: {
 }
 </script>
 
+<style scoped>
+.may {
+    display: none;
+}
+    
+.myDIV:hover + div {
+    display: block;
+}
+</style>

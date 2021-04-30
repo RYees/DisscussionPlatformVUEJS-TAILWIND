@@ -2,12 +2,12 @@
   <div class="flex justify-center items-center">
     <div class="" style="">
       <button
-        class="tracking-wider transform hover:scale-110 border border-white p-1 cursor-pointer rounded text-white text-3xl mt-5"
+        class="tracking-wider transition duration-700 ease-in-out transform hover:scale-110 bg-yellow-900 bg-opacity-70 border border-yellow-200 border-opacity-30 h-16 p-5 py-1 cursor-pointer rounded text-white text-4xl mt-3"
         style=""
         @click.prevent="showModal"
       >
         <svg
-          class="h-6 w-10  inline-block"
+          class="h-14 w-10  inline-block"
           @click.prevent="showModal"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -28,7 +28,8 @@
      
     <form @submit.prevent="createBoard"
       v-if="isShow"
-      class="flex justify-center sm:ml-96 z-40 bg-white bg-opacity-95 absolute border border-gray-600 rounded-lg h-60 mt-96 p-6 overflow-hidden shadow-xl transform transition-all"
+      class="flex justify-center sm:ml-96 z-40  bg-white bg-opacity-95 absolute border border-yellow-200 rounded-lg h-60 mt-96 p-6 overflow-hidden shadow-xl transform transition-all"
+      style="margin-right:380px"
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"
@@ -43,15 +44,14 @@
         v-model="newProject"
         required
       />
-      
       <span class="inline-block">
-        <button type="submit" class="sm:ml-12 hover:bg-green-700 hover:text-6xl px-2 w-32 ml-4 h-11 mt-16 transform hover:scale-110 tracking-wider focus:outline-none rounded-lg text-white bg-blue-500"
-           
+        <button type="submit" class="sm:ml-12 transition duration-700 ease-in-out hover:bg-green-700 hover:text-6xl text-xl px-2 w-32 ml-4 h-11 mt-16 transform hover:scale-110 tracking-wider focus:outline-none rounded-lg text-white bg-yellow-500"
+        
         >
-          Create Project
+          Create
         </button>
       </span> 
-        <div class="sm:mt-4 mt-14 absolute">  
+        <!-- <div class="sm:mt-4 mt-14 absolute">  
     <button class="focus:outline-none" @click.prevent="showModal">
                   <svg
                     class="h-10 w-10 "
@@ -66,7 +66,7 @@
                     />
                   </svg>
                 </button>
-    </div>
+    </div> -->
       </div>
     </form>
     <!-- </div>  -->
@@ -76,33 +76,26 @@
 <script>
 //import boardMixin from '@/mixins/boardMixin';
 import axios from 'axios';
-//import { mapMutations, mapState } from "vuex";
+//import {mapState } from "vuex";
 export default {
   props:["user"],
   data: () => {
     return {
       newProject:'',
-      // boards:[],
       isShow: false,
       usersss:null
     };
   },
-   created(){
-    let token = localStorage.getItem("token");
-    axios.get("http://localhost:8000/api/users/"+token+"?api_token="+token)
-    .then(response => {
-     // console.log(response);
-      this.usersss = response.data.user;
-      console.log(this.usersss);
-    });
-  },
-   methods: {
+  created(){
+    this.$store.dispatch('users/CurrentUserData');
+   },
+  methods: {
     showModal: function() {
       this.isShow = !this.isShow;
     },
      createBoard() {
       let token = localStorage.getItem("token");
-         axios.post("http://localhost:8000/api/boards/"+this.usersss.id +"?api_token=" + token,
+         axios.post("http://localhost:8000/api/boards/"+ this.$store.state.users.user.id +"?api_token=" + token,
           {
             name: this.newProject,
           }
@@ -113,7 +106,13 @@ export default {
            console.log(response);
            this.newProject = "";
          this.$emit("boardcreated"); 
-        })
+        });
+      //   this.$store.dispatch('admin/createBoard',this.newProject)
+      //  .then(() => {
+      //    this.newProject="";
+      // }).catch((err)=>console.log(err))
+      // .finally(()=> this.$emit("boardcreated"))
+         
       },
    
 },
