@@ -20,11 +20,12 @@
               d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
             /></svg
         ></router-link>
-      </p>
+        </p>
       <div class="inline-block ml-2" v-if="currentRole[0].pivot.role_id == 1">
-        <router-link to="/Adminregister"><h1 class="text-2xl text-white p-2 hover:bg-white hover:bg-opacity-30">Add Admin</h1>
+        <router-link to="/Adminregister"><h1 class="text-lg text-white p-2 hover:bg-white hover:bg-opacity-30">Add Admin</h1>
       </router-link>
       </div>
+      <div><slot></slot></div>
       </div>
     <div class="">
       <profile></profile>

@@ -2,17 +2,17 @@
   <div
     class=" overscroll-y-hidden bg-gradient-to-r from-white via-gray-50 to-white h-screen w-full flex justify-center items-center"
   >
-  <!-- <div class="" v-if="isLoggingIn">
-      <h3 class="text-gray-700 text-6xl transform capitalize">Loged in successfully!!!</h3>
-  </div> -->
-    <form
+  <form
       class="shadow-2xl flex justify-center w-1/3 bg-white rounded-lg border border-gray-300"
-      style="height:550px"
-      v-if="!isLoggingIn"
+      style="height:650px"
       @submit.prevent="enterIt"
     >
       <div class="w-11/12">
-        <h1 class="text-gray-600 text-center tracking-wider text-5xl ml-2 h-16">
+      <div class="shadow bg-yellow-500 bg-opacity-95 h-20 w-full" style="margin-top:10px" v-if="isLoggingIn">
+      <!-- <h3 style="padding:15px;"  class="shadow flex justify-center bg-yellow-500 bg-opacity-75 h-20  text-white text-3xl flex-1 transform capitalize">Loged in successfully!!!</h3> -->
+   <h3 style="padding:15px;"  class="shadow flex justify-center bg-yellow-500 bg-opacity-75 h-20  text-white text-3xl flex-1 transform capitalize">{{flashMessage}}</h3>
+  </div>
+        <h1 class="text-gray-600 text-center tracking-wider text-5xl ml-2 h-16" style="margin-top:10px">
           Login
         </h1>
         <hr />
@@ -29,7 +29,9 @@
             placeholder="Enter your email"
             style="padding:20px"
             class="text-xl w-full h-16 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
-            /><br />
+            />
+            <span class="text-red-500 transform capitalize" v-if="errorEmail">{{ errorEmail }}</span>
+            <br />
            <br /><br />
           <label class="text-2xl text-gray-600" for="insering an email"
             >Password</label
@@ -42,6 +44,7 @@
             required
             v-model="login.password"
             />
+            <span class="text-red-500 transform capitalize" v-if="errorMessage">{{ errorMessage }}</span>
           <div class="text-red-500 transform capitalize" v-if="login.password.length > 1 && login.password.length < 6">Password should be more than 6</div>
           </div>
         <br /><br />
@@ -61,7 +64,7 @@
 </template>
 
 <script>
-//import axios from 'axios';
+import axios from 'axios';
 export default {
   components: {},
   data() {
@@ -71,28 +74,37 @@ export default {
         email: "",
         password: "",
       },
+      flash:false,
+      flashMessage:'Loged in Successfully!!!',
+      errorMessage:'',
+      errorEmail:''
     };
   },
   methods: {
-    enterIt() {
-      // axios.post('http://localhost:8000/api/login',
-      //   {email:this.login.email, password:this.login.password}
-      //   )
-      //   .then(response => {
-      //       let token = response.data.user.api_token;
-      //       //localStorage.getItem('token');
-      //       let user= response.data.user;
-      //       localStorage.setItem('token',token);
-      //       localStorage.setItem('user',JSON.stringify(user));
-      //       //Event.$emit('login',user);
-      //        this.isLoggingIn = true;
-      //      window.location.replace('/dashboard');
-      //      // console.log(user.pivot);
-      //   });
-       this.$store.dispatch("users/enter", this.login)
-      .then(()=>{  
-              this.isLoggingIn = true;
+     enterIt() {
+      axios.post('http://localhost:8000/api/login',
+        {email:this.login.email, password:this.login.password}
+        )
+        .then(response => {
+            let token = response.data.user.api_token;
+            let user= response.data.user;
+            localStorage.setItem('token',token);
+            localStorage.setItem('user',JSON.stringify(user));
+            window.location.replace('/dashboard');
+        }).catch(e=>{
+              if(e.response.status == 422){
+                this.errorMessage= e.response.data.message;
+              } else if(e.response.status == 404){
+                this.errorEmail = e.response.data;
+              }
+                
+          //console.log(e);
         });
+      //  this.$store.dispatch("users/enter", this.login)
+      // .then(()=>{  
+      //         this.isLoggingIn = true;
+              
+      //   });
     
     },
   },

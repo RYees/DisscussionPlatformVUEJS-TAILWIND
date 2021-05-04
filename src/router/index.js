@@ -38,6 +38,9 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+    meta:{
+      auth: true,
+    }
   },
   {
     path: "/dashboard/:id",
@@ -52,4 +55,7 @@ const router = new VueRouter({
   routes,
 });
 
+// router.beforeEach((fr) => {
+
+// })
 export default router;

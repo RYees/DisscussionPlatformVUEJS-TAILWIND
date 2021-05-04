@@ -14,14 +14,14 @@
 </template>
 <script>
 //import axios from "axios";
-import navbar from '@/components/navbar.vue';
+ import navbar from '@/components/navbar.vue';
 export default {
  // props:["user"],
    data: () => {
     return {user:null};
   },
   components: {
-  navbar,
+   navbar,
   //Login
   },
   // created(){

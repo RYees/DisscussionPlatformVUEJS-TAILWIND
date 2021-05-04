@@ -17,8 +17,13 @@
       aria-modal="false"
       aria-labelledby="modal-headline"
     >
-     <form action="" class="" v-if="!isSubmitted" @submit.prevent="createInvitation">
+     <form action="" class="" @submit.prevent="createInvitation">
           <div>
+        <div class="shadow bg-blue-500 bg-opacity-95 h-28 w-full" v-if="isSubmitted">
+        <h3 style="padding:20px" class="shadow flex justify-center bg-yellow-500 bg-opacity-75 h-28 text-white text-xl flex-1 transform capitalize">
+          {{flashMessage}}
+        </h3>
+      </div><br>
          <input type="email" value="" class="shadow-2xl text-gray-900 px-5 h-20 w-80" placeholder="Email address" required
          v-model="newEmail"
          /></div>
@@ -50,11 +55,7 @@
    
     </div>
    
-        <div class="" v-if="isSubmitted">
-        <h3 style="margin-left:1200px; padding:20px" class="bg-yellow-300 w-72 px-1 rounded py-2 bg-opacity-30 text-white text-3xl transform capitalize">
-          Invitation is sent!
-        </h3>
-      </div>
+       
     </div>
 </template>
 <script>
@@ -67,6 +68,7 @@ export default {
             isInvite:false,
             isSubmitted:false,
             newEmail:"",
+            flashMessage:'Email sent successfully!!!',
             finds:[]
         }
     },
@@ -98,12 +100,25 @@ export default {
           }
         )
         .then((response) => {
-          let itoken=response.data.invite.token;
-          localStorage.setItem('token',itoken);
-          this.newEmail="";
-          console.log(response);
-          console.log(itoken);
           this.isSubmitted = true;
+          if(response.status == 202){
+                this.flashMessage= response.data.message;
+              } else if(response.status == 200){
+                this.flashMessage= response.data.message;
+              }
+             this.isSubmitted = true;
+                    setTimeout(()=>{
+                    this.isSubmitted = false;
+             },2000);
+                     
+          //this.flashMessage= response.data.message;
+          //console.log(response.data.message);
+         // let itoken=response.data.invite.token;
+         // localStorage.setItem('token',itoken);
+          this.newEmail="";
+          // console.log(response);
+          // console.log(itoken);
+                   
         });
     },
     }

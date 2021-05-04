@@ -1,4 +1,5 @@
 <template>
+<!-- <layout title="my dashboard"> -->
   <div
     class="bg-gray-100 bg-opacity-30 h-screen w-full flex items-center justify-center"
   >
@@ -97,10 +98,13 @@
       </div>
     </div>
   </div>
+ 
+<!-- </layout> -->
 </template>
 
 <script>
 import boardMixin from "@/mixins/boardMixin";
+//import Layout from "../layouts/main";
 import { searchName } from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
 export default {
@@ -125,6 +129,7 @@ export default {
   },
   components: {
     projectModal,
+    //Layout
   },
   mixins: [boardMixin, searchName],
 };

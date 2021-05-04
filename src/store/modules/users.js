@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosLib from "axios";
 const state = {
      user:{},
      role:{},
@@ -7,10 +7,13 @@ const state = {
      register: {},
 };
 const getters = {};
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api"
+})
 const actions = {
     CurrentUserData({commit}){
         let token = localStorage.getItem('token');
-        axios.get("http://localhost:8000/api/users/"+token+"?api_token="+token)
+        axios.get("/users/"+token+"?api_token="+token)
           .then(response => {
               commit('setUser',response.data.user);
             //console.log(response);
@@ -19,7 +22,7 @@ const actions = {
         },
     currrentUserRole({commit}){
         let token = localStorage.getItem("token");
-        axios.get("http://localhost:8000/api/usersroles/"+token+"?api_token="+token)
+        axios.get("/usersroles/"+token+"?api_token="+token)
         .then(response => {
           commit('setRole',response.data.user);
      })
@@ -27,7 +30,7 @@ const actions = {
     enter({commit,dispatch},login ){
         console.log(commit);
         console.log(dispatch);
-        axios.post('http://localhost:8000/api/login',
+        axios.post('/login',
         {email:login.email, password:login.password}
         )
         .then(response => {
@@ -48,7 +51,7 @@ const actions = {
         console.log(commit);
         console.log(dispatch);
         axios
-          .post("http://localhost:8000/api/reset-password-request", {
+          .post("/reset-password-request", {
             email: resetEmail,
            })
           .then((response) => {
@@ -84,14 +87,14 @@ const actions = {
         console.log(commit);
         console.log(dispatch);
         axios
-          .post("http://localhost:8000/api/reset-password/", {
+          .post("/reset-password/", {
             email: reset.email,
             verification_code: reset.verCode,
             password: reset.password,
             confirm_password: reset.conpassword,
           })
-          .then((response) => {
-            console.log(response);
+          .then((e) => {
+            console.log(e);
             // this.reset = "";
             // this.isReset = true;
             window.location.replace('/');
