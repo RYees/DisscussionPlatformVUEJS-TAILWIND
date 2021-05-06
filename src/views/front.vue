@@ -6,39 +6,22 @@
       </div>
       <div class="row bg-white" style="height:100%">
         <transition name="slide" mode="out-in">
-              <router-view></router-view> 
+            <keep-alive> <router-view></router-view> </keep-alive>
         </transition>
       </div>
      </div>
   </div>
 </template>
 <script>
-//import axios from "axios";
- import navbar from '@/components/navbar.vue';
+import navbar from '@/components/navbar.vue';
 export default {
- // props:["user"],
-   data: () => {
+  data: () => {
     return {user:null};
   },
   components: {
    navbar,
-  //Login
   },
-  // created(){
-  //   this.CurrentUserData(); 
-  // },
-  // methods:{
-  //   CurrentUserData(){
-  //   let token = localStorage.getItem('token');
-  //   axios.get("http://127.0.0.1:8000/api/users/"+token+"?api_token="+token)
-  //     .then(response => {
-  //       console.log(response);
-  //       this.user = response.data.user;
-  //     });
-  //   }
-  // }
-  
-};
+ };
 </script>
 
 <style scoped>

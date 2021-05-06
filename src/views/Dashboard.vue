@@ -1,39 +1,39 @@
 <template>
 <!-- <layout title="my dashboard"> -->
   <div
-    class="bg-gray-100 bg-opacity-30 h-screen w-full flex items-center justify-center"
+    class="back bg-gray-100 bg-opacity-30 flex justify-center items-center h-screen w-full"
   >
     <div
-      class="back flex justify-evenly flex-wrap"
-      style="width:2100px; margin-bottom:640px; height:200px"
+      class="flex justify-evenly flex-wrap"
+      style="margin-top:20px;"
     >
-      <div class="p-3 2xl:mt-14 h-10">
+      <div class="p-3 h-10" style="">
         <p
-          class="animate-pulse sm:text-3xl md:ml-20 sm:ml-52 md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl uppercase mb-96 text-white rounded tracking-wider"
+          class="animate-pulse mt-5 sm:text-xl md:ml-20 sm:ml-10 md:text-xl lg:text-2xl xl:text-2xl uppercase mb-96 text-white rounded tracking-wider"
         >
           dashboard
         </p>
         <br />
       </div>
       <br />
-      <div class="mr-96 2xl:mt-10" style="" v-if="currentRole[0].pivot.role_id == 1">
+      <div class="mr-10 mt-5 sm:mr-60 xl:ml-0" style="" v-if="currentRole[0].pivot.role_id == 1">
         <projectModal v-on:boardcreated="currentBoard()"></projectModal>
       </div>
-      <div class="flex" style="">
-        <div class="2xl:mt-10">
+      <div class="sear xl:ml-96 lg:ml-96 md:ml-80" style="">
+        <div class="inline-block mt-1 ml-1 xl:mt-1 xl:ml-96 lg:mt-2 md:mt-5 sm:ml-72 sm:mt-1">
           <input
             v-if="isSearch"
-            class="h-12 w-96 border border-yellow-300 focus:outline-none rounded-lg mt-4 px-5"
+            class="h-8 border text-sm border-yellow-300 focus:outline-none rounded-lg mt-1 px-5"
             type="text"
             v-model="search"
             placeholder="search projects"
-            style="margin-left:0px; right:300px; width:500px;"
+            style="width:340px;"
           />
         </div>
-        <div class="p-3 2xl:mt-10">
+        <div class="searIcon inline-block p-0 mt-1 md:mt-5 xl:mt-1 lg:mt-2 xl:ml-0">
           <svg
+            class="cursor-pointer h-10 w-10 ml-0"
             @click="searching"
-            class="iconsearch cursor-pointer h-14 w-14 ml-0"
             style=""
             title="search"
             xmlns="http://www.w3.org/2000/svg"
@@ -51,14 +51,15 @@
         </div>
       </div>
     </div>
+    <div class="absolute flex justify-center items-center" style=" margin-top:2950px;">
     <div
       class="scroll fixed w-11/12 bg-white bg-opacity-75 
-      2xl:grid 2xl:grid-cols-4 2xl:grid-flow-row 2xl:gap-96 2xl:ml-10
-      xl:grid xl:grid-cols-3 xl:grid-flow-row xl:gap-96 xl:ml-1
-      lg:grid lg:grid-cols-2 lg:grid-flow-row lg:gap-96 lg:ml-1
-      md:grid md:grid-cols-1 md:grid-flow-row md:gap-96 md:ml-20
-      sm:grid sm:grid-cols-1 sm:grid-flow-row sm:gap-96 sm:ml-1"
-      style=" margin-top:120px;"
+      grid grid-cols-1 grid-flow-row gap-72 ml-1
+      xl:grid xl:grid-cols-4 xl:grid-flow-row xl:gap-10 xl:ml-2
+      lg:grid lg:grid-cols-3 lg:grid-flow-row lg:gap-96 lg:ml-1
+      md:grid md:grid-cols-2 md:grid-flow-row md:gap-96 md:ml-1
+      sm:grid sm:grid-cols-1 sm:grid-flow-row sm:gap-72 sm:ml-4"
+      style=""
     >
       <div
         class="mon ml-5"
@@ -67,10 +68,11 @@
         :key="index"
       >
         <div
-          class="2xl:h-72 2xl:w-96 mt-0 leading-10 items-center rounded-t-2xl shadow-xl
-           absolute hover:border-4 hover:border-gray-50 2xl:border-t-4 2xl:border-yellow-800
-           sm:w-96 sm:h-96 sm:border-t-4 sm:border-yellow-800 lg:w-96 lg:h-96 lg:border-t-4 lg:border-yellow-800
-           md:w-10/12 md:h-96 md:border-t-4 md:border-yellow-800  xl:w-96 xl:h-96 xl:border-t-4 xl:border-yellow-800
+          class="w-72 h-56 border-t-4 border-yellow-800
+           mt-0 leading-10 items-center rounded-t-2xl shadow-xl
+           hover:border-4 hover:border-gray-50 
+           sm:w-96 sm:h-56 sm:border-t-4 sm:border-yellow-800 lg:w-80 lg:h-60 lg:border-t-4 lg:border-yellow-800
+           md:w-10/1 md:h-60 md:border-t-4 md:border-yellow-800  xl:w-72 xl:h-48 xl:border-t-4 xl:border-yellow-800
            "
         >
           <div>
@@ -79,12 +81,14 @@
               :to="{ name: 'singleDash', params: { id: currentUserBoard.id } }"
             >
               <button
-                class="sm:px-5 focus:outline-none mt-5 ml-4 m-auto transition duration-700 ease-in-out  transform capitalize font-semibold hover:scale-110 cursor-pointer sm:w-96 sm:border 2xl:w-96 h-64 
-                2xl:border-b 2xl:border-l 2xl:border-r 2xl:rounded-xl
+                class="sm:px-5 px-6  w-72 focus:outline-none mt-2 ml-4 m-auto 
+                transition duration-700 ease-in-out  transform capitalize 
+                font-semibold hover:scale-110 cursor-pointer sm:w-96 sm:border h-44
+                border-b border-l border-r rounded-xl
                 sm:border-b sm:border-l sm:border-r sm:rounded-xl
-                md:w-11/12 lg:w-96 xl:w-96 bg-yellow-300 bg-opacity-75
+                md:w-11/12 lg:w-72 xl:w-72 bg-yellow-300 bg-opacity-75
                 hover:bg-white hover:bg-opacity-95 
-                hover:text-gray-500 text-gray-750 text-3xl mb-10 lighten-2 absolute"
+                hover:text-gray-500 text-gray-750 text-xl mb-10 lighten-2"
               >
                 <!-- <button
                   class="sm:px-5 focus:outline-none mt-10 ml-4 m-auto transform capitalize font-semibold hover:scale-110"
@@ -96,6 +100,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
  
@@ -136,29 +141,11 @@ export default {
 </script>
 
 <style scoped>
-/*   */
-.scroll {
-  width: 1950px;
-  height: 690px;
-  overflow: scroll;
-}
-::-webkit-scrollbar {
-  background: transparent;
-  width: 27px;
-}
- ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent, #305a27);
-    border-radius: 6px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(transparent, #4d9c02);
-  }
-::-webkit-scrollbar-corner {
-  border-radius: 20px;
-  background: lightgray;
-}
 .back {
   /* background: url("/mike.jpg"); */
+  /* display: flex; */
+  /* justify-content: stretch; */
+  height:200px;
   background-image: linear-gradient(
       to bottom,
       rgba(29, 30, 31, 0.52),
@@ -169,13 +156,21 @@ export default {
 /* url("/mike.jpg"); */
 @media (max-width: 1536px) {
   .scroll {
-    width: 1500px;
-    height: 690px;
+    width: 1350px;
+    height: 550px;
+    bottom:0px;
+    top:200px;
     overflow: scroll;
   }
+  /* .sear{
+    margin-right: 1000px;
+  }
+  .searIcon{
+    margin-left:700px;
+  } */
   ::-webkit-scrollbar {
     background: transparent;
-    width: 27px;
+    width: 18px;
   }
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(transparent, #305a27);
@@ -192,12 +187,12 @@ export default {
 @media (max-width: 1280px) {
   .scroll {
     width: 1000px;
-    height: 690px;
+    height: 390px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
     background: transparent;
-    width: 27px;
+    width: 20px;
   }
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(transparent, #305a27);
@@ -213,13 +208,13 @@ export default {
 }
 @media (max-width: 1024px) {
   .scroll {
-    width: 700px;
-    height: 600px;
+    width: 800px;
+    height: 400px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
     background: transparent;
-    width: 27px;
+    width: 20px;
   }
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(transparent, #305a27);
@@ -236,7 +231,7 @@ export default {
 @media (max-width: 768px) {
   .scroll {
     width: 500px;
-    height: 600px;
+    height: 350px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -257,13 +252,14 @@ export default {
 }
 @media (max-width: 640px) {
   .scroll {
-    width: 200px;
-    height: 600px;
+    width: 400px;
+    height: 400px;
+    /* margin-right:600px; */
     overflow: scroll;
   }
   ::-webkit-scrollbar {
     background: transparent;
-    width: 27px;
+    width: 20px;
   }
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(transparent, #305a27);
@@ -275,6 +271,6 @@ export default {
   ::-webkit-scrollbar-corner {
     border-radius: 20px;
     background: lightgray;
-  }
+  } 
 }
 </style>

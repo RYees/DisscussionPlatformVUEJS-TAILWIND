@@ -3,29 +3,31 @@
     <div
       class="overscroll-y-hidden bg-gradient-to-r from-white via-gray-50 to-white h-screen w-full flex justify-center items-center"
     >
-      <div class="" v-if="isReseted">
-        <h3 class="text-gray-700 text-4xl transform capitalize">
-          Verification code is sent to your email!
+          <div class="" style="margin-left:100px;" v-if="isReseted ">
+        <h3 class="text-gray-700 text-3xl transform capitalize">
+          {{ errorMail }}
         </h3>
       </div>
+      <span class="text-red-500 text-sm transform capitalize" v-if="isR">{{ errorMail }}</span>
       <form
         @submit.prevent="resetcode"
         class="mt-60 flex justify-center ml-5 rounded-lg border w-1/3 border-gray-300 shadow-xl p-20 py-20"
-        style="height:300px"
+        style="height:250px"
         v-if="!isReseted"
       >
         <div class="w-11/12">
-          <h1 class="block text-gray-600 text-5xl transform capitalize text-center h-16">
+          <h1 class="block text-gray-600 text-3xl transform capitalize text-center h-16">
             Forgot password
           </h1>
           <hr />
           <br />
-          <div>
+          <div> 
+          
             <input
               id="email"
               placeholder="Enter your email"
               type="email"
-              class="text-xl w-full h-16 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
+              class="text-sm w-full h-8 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
               required
               v-model="resetEmail"
               style="padding:20px"
@@ -35,7 +37,7 @@
               <hr />
             </div>
             <button
-              class="ml-80 h-14 w-32 px-4 p-4 mt-5 transform capitalize text-white bg-yellow-600 rounded-lg border-gray-400 border"
+              class="ml-80 h-10 w-24 px-1 p-1 mt-5 transform capitalize text-white bg-yellow-600 rounded-lg border-gray-400 border"
             >
               sent
             </button>
@@ -49,33 +51,52 @@
 
 <script>
 // Imports
-//import axios from "axios";
+import axios from "axios";
 export default {
   data() {
     return {
       resetEmail:'',
       submitted: false,
-      isReseted:false
+      isReseted:false,
+      isR:false,
+      errorMail:''
     };
   },
   methods: {
     resetcode() {
-      // axios
-      //   .post("http://localhost:8000/api/reset-password-request", {
-      //     email: this.resetEmail,
-      //    })
-      //   .then((response) => {
-      //     console.log(response);
-      //     this.resetEmail = "";
-      //     this.isReseted = true;
-      //     this.$router.push('/resetpassword');
-      //   });
-
-      this.$store.dispatch("users/resetcode", this.resetEmail)
-       .then(()=>{
-             this.resetEmail = "";
+      axios
+        .post("http://localhost:8000/api/reset-password-request", {
+          email: this.resetEmail,
+         })
+        .then((response) => {
+            // console.log(response);
+           if(response.status == 200){
+             this.errorMail = response.data.message;
+             // console.log(this.errorMail);
+             } 
             this.isReseted = true;
-            });
+            setTimeout(()=>{
+                    this.isReseted = false;
+                    this.$router.push('/resetpassword');
+             },3000);
+           this.resetEmail = "";
+          
+        })
+        .catch((e)=> {
+           if(e.response.status == 500){
+                this.errorMail = e.response.data.message;
+                this.isReseted = true;
+           }
+               setTimeout(()=>{
+                    this.isReseted = false;
+             },3000);
+          });
+
+      // this.$store.dispatch("users/resetcode", this.resetEmail)
+      //  .then(()=>{
+      //        this.resetEmail = "";
+      //       this.isReseted = true;
+      //       });
    
     },
   },

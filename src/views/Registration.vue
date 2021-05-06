@@ -4,7 +4,7 @@
       class="overscroll-y-hidden bg-gradient-to-r from-white via-gray-50 to-white h-screen w-full flex justify-center items-center"
     >
       <div class="" v-if="submitted">
-        <h3 class="text-gray-700 text-6xl transform capitalize">
+        <h3 class="text-gray-700 text-5xl transform capitalize">
           Thanks for Registering!!!
         </h3>
       </div>
@@ -12,16 +12,16 @@
         @submit.prevent="registerIt"
         v-if="!submitted"
         class="mt-60 flex justify-center ml-5 rounded-lg border w-1/3 border-gray-300 shadow-xl p-20 py-20"
-        style="height:600px"
+        style="height:450px"
       >
         <div class="w-11/12">
-          <h1 class="block text-gray-600 text-5xl  text-center h-16">
+          <h1 class="block text-gray-600 text-4xl text-center h-16">
             Register
           </h1>
           <hr />
           <br />
           <div>
-            <label class="text-2xl text-gray-600" for="insering an username"
+            <label class="text-lg text-gray-600" for="insering an username"
               >Enter Fullname:</label
             >
             <input
@@ -29,12 +29,12 @@
               placeholder="Enter fullname"
               type="text"
               style="padding:20px"
-              class="text-xl w-full h-16 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
+              class="text-sm w-full h-8 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
               v-model="register.fullname"
               required
             />
             <br /><br />
-            <label class="text-2xl text-gray-600" for="insering an email"
+            <label class="text-lg text-gray-600" for="insering an email"
               >Enter Email:</label
             >
             <input
@@ -42,19 +42,19 @@
               placeholder="Enter email"
               style="padding:20px"
               v-model="invites.email"
-              class="text-xl w-full h-16 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
+              class="text-sm w-full h-8 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
               type="email"
               required
             />
             <br /><br />
-            <label class="text-2xl text-gray-600" for="insering an password"
+            <label class="text-lg text-gray-600" for="insering an password"
               >Enter Password</label
             >
             <input
               id="password"
               placeholder="Enter password"
               style="padding:20px"
-              class="text-xl w-full h-16 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
+              class="text-sm w-full h-8 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
               type="password"
               v-model="register.password"
               required
@@ -63,9 +63,8 @@
             <div class="flex justify-between w-20">
               <hr />
             </div>
-            <br />
             <button
-              class="ml-80 h-14 w-32 px-4 p-4 mt-5 text-white bg-yellow-600 rounded-lg border-gray-400 border"
+              class="ml-80 h-10 w-24 px-2 p-2 mt-5 text-white bg-yellow-600 rounded-lg border-gray-400 border"
             >
               Submit
             </button>
@@ -118,7 +117,8 @@ export default {
           this.register.fullname = "";
           this.register.password = "";
           this.submitted = true;
-        });
+          this.$router.push('/login');
+      });
     },
   },
 };

@@ -1,12 +1,12 @@
 <template>
    <div class="user p-6 h-screen w-full flex justify-center items-center overflow-hidden">
     <!-- <router-link class="text-3xl text-center  flex items-center justify-center text-white animate-none uppercase mt-8 absolute ml-60" to="/dashboard">back</router-link> -->
-   <div class="flex justify-evenly mt-0 absolute" style="margin-bottom:800px; margin-left:40px; height:10px;">
-    <div class="">
-        <h1 class="2xl:text-4xl xl:text-3xl lg:text-2xl flex items-center justify-center overflow-hidden md:text-xl text-white animate-bounce absolute ml-0"
+   <div class="flex mt-0 absolute" style="margin-bottom:800px; margin-left:40px; height:10px;">
+    <!-- <div class="">
+        <h1 class="xl:text-3xl lg:text-2xl flex items-center justify-center overflow-hidden md:text-xl text-white animate-bounce absolute ml-0"
         style="margin-top:0px; margin-bottom:0px;"
         >{{currentUserBoard.name}}</h1>
-    </div>
+    </div> -->
     <div class="inv" style="" v-if="currentRole[0].pivot.role_id == 1">
       <Invitation/>
     </div>
@@ -55,12 +55,13 @@ computed:{
     ),
     url("/mike5.jpg");
 }
-.inv{
+/* .inv{
   margin-left: 1800px;
-}
+} */
 @media (max-width: 1536px) {
 .inv{
-  margin-left:1280px;
+  /* margin-left:1280px; */
+  margin-left:1160px;
 }
 }
 @media (max-width: 1280px) {
@@ -76,11 +77,13 @@ computed:{
 @media (max-width: 768px) {
 .inv{
   margin-left:500px;
+  margin-top:20px;
 }
 }
 @media (max-width: 640px) {
 .inv{
   margin-left:200px;
+  margin-top:20px;
 }
 }
 

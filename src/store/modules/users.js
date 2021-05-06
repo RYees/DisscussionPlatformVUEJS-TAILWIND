@@ -5,6 +5,8 @@ const state = {
      login:{},
      invites: {},
      register: {},
+     errorMessage:{},
+     errorEmail:{}
 };
 const getters = {};
 const axios = axiosLib.create({
@@ -27,7 +29,7 @@ const actions = {
           commit('setRole',response.data.user);
      })
 },
-    enter({commit,dispatch},login ){
+    enter({commit,dispatch},login){
         console.log(commit);
         console.log(dispatch);
         axios.post('/login',
@@ -42,9 +44,14 @@ const actions = {
             localStorage.setItem('user',JSON.stringify(user));
             window.location.replace('/dashboard');
         })
-        .catch(error => {
-          console.log(error);
-          //console.log(response);
+        .catch(e=>{
+          if(e.response.status == 422){
+            let errorMessage= e.response.data.message;
+            commit('setMessage',errorMessage);
+          } else if(e.response.status == 404){
+            let errorEmail = e.response.data;
+            commit('setEmail',errorEmail);
+          }
         })
       },
       resetcode({commit,dispatch},resetEmail) {
@@ -67,7 +74,7 @@ const actions = {
         console.log(dispatch);
         axios
           .post(
-            "http://localhost:8000/api/boards/" +
+            "/boards/" +
               boardId +
               "/list?api_token=" +
               token,
@@ -97,7 +104,7 @@ const actions = {
             console.log(e);
             // this.reset = "";
             // this.isReset = true;
-            window.location.replace('/');
+            window.location.replace('/login');
           });
       }
 
@@ -109,6 +116,12 @@ const mutations={
     },
     setRole( state, data ){
         state.role = data;
+    },
+    setMessage( state, data ){
+      state.errorMessage = data;
+    },
+    setEmail( state, data ){
+      state.errorEmail = data;
     },
 };
 export default{

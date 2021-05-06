@@ -10,11 +10,11 @@
   >
     <div
       class="w-8 mb-3 bg-yellow-200"
-      style="margin-top:90px; margin-left:25px;"
+      style="margin-top:40px; margin-left:0px;"
     >
       <input
         type="text"
-        class="p-2 px-16 mt-0 w-80 rounded shadow-xl hover:bg-yellow-900 hover:bg-opacity-30 border border-white bg-white text-white text-xl tracking-wider"
+        class="input p-1 px-10 mt-0 w-60 rounded shadow-xl hover:bg-yellow-900 hover:bg-opacity-30 border border-white bg-white text-white text-sm tracking-wider"
         placeholder="Enter your name"
         v-model="listName"
         required
@@ -30,7 +30,7 @@
         class="past text-white bg-yellow-300 bg-opacity-75 font-bold"
         v-for="list in lists"
         :key="list"
-        style="height:670px; width:450px; margin-left:20px; "
+        style="height:450px; width:330px;"
       >
         <!-- <div
             v-if="deleteListId == list.id"
@@ -47,7 +47,7 @@
           @click.stop="deleteList()"
         >
           <svg
-            class="h-7 w-7"
+            class="h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="green"
@@ -78,14 +78,15 @@
           type="text"
           @click.stop
           v-model="listName"
-          style="padding:20px;"
-          class="text-gray-600 h-10 mb-1 w-80 border-4 border-yellow-700"
+          placeholder="Edit you name here"
+          style="padding:15px;"
+          class="text-gray-600 h-5 w-60 border-4 border-yellow-700"
           label="list.name"
           v-if="updateListId == list.id"
           @keyup.enter="updateList"
         />
         <div
-          class="inline-block tracking-wider transform uppercase ml-32 text-xl"
+          class="inline-block tracking-wider transform uppercase ml-20 text-sm"
           @click="updateListId = list.id"
           @click.stop="upModal = true"
           v-else
@@ -97,7 +98,7 @@
               title="Edit name"
             >
               <img
-                class="w-6 mt-0 inline-block bg-yellow-200"
+                class="w-3 mt-0 inline-block bg-yellow-200"
                 src="/edit.svg"
                 alt=""
               />
@@ -126,7 +127,10 @@
 
 <script>
 import BoardColumn from "@/components/BoardColumn";
-import axios from "axios";
+import axiosLib from 'axios';
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api"
+});
 import draggable from "vuedraggable";
 export default {
   components: { "board-column": BoardColumn, draggable },
@@ -174,7 +178,7 @@ export default {
       let token = localStorage.getItem("token");
       // console.log(token);
       axios
-        .get("http://localhost:8000/api/boards?api_token=" + token)
+        .get("/boards?api_token=" + token)
         .then((response) => {
           this.boards = response.data.boards;
           this.getLists();
@@ -186,7 +190,7 @@ export default {
       // console.log(this.boardId);
       axios
         .post(
-          "http://localhost:8000/api/boards/" +
+          "/boards/" +
             this.boardId +
             "/list?api_token=" +
             token,
@@ -209,7 +213,7 @@ export default {
       let token = localStorage.getItem("token");
       axios
         .put(
-          "http://localhost:8000/api/boards/" +
+          "/boards/" +
             this.boardId +
             "/list/" +
             this.updateListId +
@@ -229,7 +233,7 @@ export default {
       let token = localStorage.getItem("token");
       axios
         .delete(
-          "http://localhost:8000/api/boards/" +
+          "/boards/" +
             this.boardId +
             "/list/" +
             this.deleteListId +
@@ -248,7 +252,7 @@ export default {
       console.log(listId);
       axios
         .put(
-          "http://localhost:8000/api/list/" +
+          "/list/" +
             this.list.id +
             "?api_token=" +
             token,
@@ -273,36 +277,15 @@ export default {
   display: block;
 }
 
-.scroll {
-  width: 2050px;
-  height: 750px;
-  overflow: scroll;
-  /* overflow-y: hidden; */
-}
-::-webkit-scrollbar {
-  background: transparent;
-  width: 20px;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #998231);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #da9605);
-}
-::-webkit-scrollbar-corner {
-  border-radius: 28px;
-  background: lightgray;
-}
 @media (max-width: 1536px) {
   .scroll {
-    width: 1500px;
-    height: 690px;
+    width: 1330px;
+    height: 500px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
     background: transparent;
-    width: 27px;
+    width: 18px;
   }
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(transparent, #305a27);
@@ -319,7 +302,8 @@ export default {
 @media (max-width: 1280px) {
   .scroll {
     width: 1200px;
-    height: 690px;
+    height: 490px;
+    margin-left:10px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -341,7 +325,7 @@ export default {
 @media (max-width: 1024px) {
   .scroll {
     width: 800px;
-    height: 600px;
+    height: 500px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -363,8 +347,12 @@ export default {
 @media (max-width: 768px) {
   .scroll {
     width: 800px;
-    height: 700px;
+    height: 450px;
     overflow: scroll;
+    margin-left:140px;
+  }
+  .input{
+    margin-left:140px;
   }
   ::-webkit-scrollbar {
     background: transparent;
@@ -384,13 +372,17 @@ export default {
 }
 @media (max-width: 640px) {
   .scroll {
-    width: 200px;
-    height: 900px;
+    width: 450px;
+    height: 400px;
+    margin-right: 150px;
     overflow: scroll;
+  }
+  .input{
+    margin-right:140px;
   }
   ::-webkit-scrollbar {
     background: transparent;
-    width: 27px;
+    width: 17px;
   }
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(transparent, #305a27);

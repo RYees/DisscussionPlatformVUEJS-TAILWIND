@@ -1,13 +1,13 @@
 <template>
   <div
-    class="z-10 cursor-pointer fixed inset-x-0 w-full bg-yellow-600 bg-opacity-95 flex justify-between"
+    class="z-10 cursor-pointer fixed inset-x-0 w-full h-8 bg-yellow-600 bg-opacity-95 flex justify-between"
    v-if="showHeader"
   >
     <div class="flex">
       <p class="inline-block">
         <router-link to="/dashboard">
           <svg
-            class="h-12 py-1 w-12 ml-5 hover:bg-white hover:bg-opacity-30"
+            class="h-8 py-1 w-12 ml-5 hover:bg-white hover:bg-opacity-30"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -22,10 +22,10 @@
         ></router-link>
         </p>
       <div class="inline-block ml-2" v-if="currentRole[0].pivot.role_id == 1">
-        <router-link to="/Adminregister"><h1 class="text-lg text-white p-2 hover:bg-white hover:bg-opacity-30">Add Admin</h1>
+        <router-link to="/Adminregister"><h1 class="text-sm xl:mt-0 xl:p-1 h-8 text-white hover:bg-white hover:bg-opacity-30">Add Admin</h1>
       </router-link>
       </div>
-      <div><slot></slot></div>
+      <!-- <div><slot></slot></div> -->
       </div>
     <div class="">
       <profile></profile>
@@ -44,8 +44,8 @@ export default {
   },
   computed:{
       showHeader(){
-      return this.$route.name !== 'logreg';
-    },
+       return this.$route.name !== 'logreg' && this.$route.name !==  'login' && this.$route.name !==  'register';
+     },
      currentRole: {
       get() {
         return this.$store.state.users.role;

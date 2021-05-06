@@ -1,49 +1,83 @@
 <template>
-   <div class="h-screen fixed w-full overscroll-y-hidden">
-       <h1 class="ml-32 text-5xl ">Zowi Discussion Platform</h1>
-        <keep-alive>
+  <div
+    class="pic flex justify-between h-screen fixed w-full overscroll-y-hidden"
+  >
+    <div class="pic flex justify-center items-center h-screen fixed w-full">
+      <h1
+        class="ml-14 text-6xl text-gray-900 tracking-wider transform capitalize "
+      >
+        Welcome to Zowi discussion platform
+      </h1>
+      <!-- <keep-alive>
             <component v-bind:is="component"></component>
-        </keep-alive>
-        <div class="absolute flex justify-end" style="top:0px; left:1750px;">
-        <a class="focus:outline-none text-3xl cursor-pointer text-gray-700" v-on:click="component = 'login'">Login</a> 
-        <a class="myDIV text-3xl ml-4 cursor-pointer text-gray-700" v-on:click="component = 'register'">Register</a>
-        <div class="may mr-96 bg-white shadow-xl mt-5 p-4 border border-yellow-300 border-opacity-30">
-            <p class="tracking-wider transform capitalize font-normal text-gray-500">
-            To register you have to first receive an email invitaion from the admin</p>
-        </div>
-        </div>
-      </div>
+        </keep-alive> -->
+    </div>
+    <div
+      class="flex justify-end fixed h-screen w-full "
+      style="top:10px; right:50px;"
+    >
+      <router-link
+        to="/login"
+        class="  text-left focus:outline-none text-xl cursor-pointer text-gray-700"
+        >Login</router-link
+      >
+    </div>
+  </div>
 </template>
 
 <script>
-// Imports
-import login from '@/views/Login.vue';
-import registration from '@/views/Registration.vue';
 export default {
-components: {
-    'login': login,
-    'register': registration,
-   
+  data() {
+    return {
+      component: "login",
+    };
   },
-        data () {
-        return {
-            component: 'login',
-            
-        }
-    },
-    methods: {
-           handleSubmit: function(){
-            alert('thanks for submitting');
-}}
-}
+  methods: {},
+};
 </script>
 
 <style scoped>
-.may {
-    display: none;
+.pic {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(255, 167, 4, 0.52),
+      rgba(241, 241, 241, 0.73)
+    ),
+    url("/back1.jpg");
 }
-    
+.may {
+  display: none;
+}
+
 .myDIV:hover + div {
-    display: block;
+  display: block;
+}
+
+@media (max-width: 1536px) {
+  .logtext {
+    right: 50px;
+  }
+}
+@media (max-width: 1280px) {
+  .logtext {
+    right: 840px;
+  }
+}
+@media (max-width: 1024px) {
+  .logtext {
+    right: 540px;
+    /* //right:2000px; */
+  }
+}
+@media (max-width: 768px) {
+  .logtext {
+    right: 340px;
+  }
+}
+@media (max-width: 640px) {
+  .logtext {
+    right: 40px;
+    /* margin-top:16px; */
+  }
 }
 </style>

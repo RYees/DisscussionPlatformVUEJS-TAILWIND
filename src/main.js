@@ -8,6 +8,9 @@ Vue.config.productionTip = false
 window.axios=axios;
 window.Event = new Vue;
 window.token = localStorage.getItem('token');
+// const axios = axiosLib.create({
+//   baseURL: "http://localhost:8000/api"
+// })
 //window.token = localStorage.getItem('board_token');
 //window.APIurl = "http://localhost:8000/api/";
 new Vue({

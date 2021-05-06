@@ -3,8 +3,8 @@
     <!-- <div > -->
       <button 
       @click.prevent="Invite"
-      class="bg-yellow-400 transition duration-700 ease-in-out hover:bg-yellow-500 hover:bg-opacity-30 bg-opacity-9 mb-96 5 h-14 focus:outline-none rounded-lg px-5 text-2xl text-white" 
-      style="">
+      class="bg-yellow-400 transition duration-700 ease-in-out hover:bg-yellow-500 hover:bg-opacity-30 bg-opacity-9 mb-0 h-10 focus:outline-none rounded-lg px-3 text-lg text-white" 
+      style="margin-top:130px">
       InviteMembers
       </button>
     <!-- </div> -->
@@ -12,19 +12,19 @@
     <div
       v-if="isInvite"
       class="mod z-40 bg-yellow-500 bg-opacity-75 absolute border border-gray-600 rounded-lg h-40 p-6 overflow-hidden shadow-xl transform transition-all"
-      style="top:60px; width:400px; height:505px;"
+      style="top:175px; width:300px; height:305px; "
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"
     >
-     <form action="" class="" @submit.prevent="createInvitation">
+     <form action="" @submit.prevent="createInvitation">
           <div>
-        <div class="shadow bg-blue-500 bg-opacity-95 h-28 w-full" v-if="isSubmitted">
-        <h3 style="padding:20px" class="shadow flex justify-center bg-yellow-500 bg-opacity-75 h-28 text-white text-xl flex-1 transform capitalize">
+        <div class="shadow bg-blue-500 bg-opacity-95 h-16 w-64" v-if="isSubmitted">
+        <h3 style="padding:15px" class="shadow flex justify-center w-64 bg-yellow-500 bg-opacity-75 h-16 text-white text-sm flex-1 transform capitalize">
           {{flashMessage}}
         </h3>
       </div><br>
-         <input type="email" value="" class="shadow-2xl text-gray-900 px-5 h-20 w-80" placeholder="Email address" required
+         <input type="email" value="" class="text-sm shadow-2xl text-gray-900 px-5 h-16 w-64" placeholder="Email address" required
          v-model="newEmail"
          /></div>
 
@@ -47,7 +47,7 @@
              </ul>
          </div> -->
          <div class="mt-6">
-             <button class="bg-green-900 bg-opacity-75 transition duration-700 ease-in-out transform hover:scale-110 focus:outline-none p-4 rounded text-white text-2xl">
+             <button class="bg-green-900 bg-opacity-75 h-10 transition duration-700 ease-in-out transform hover:scale-110 focus:outline-none p-1 px-4 rounded text-white text-sm">
                 sendMember
              </button>
          </div>
@@ -100,7 +100,7 @@ export default {
           }
         )
         .then((response) => {
-          this.isSubmitted = true;
+          //this.isSubmitted = true;
           if(response.status == 202){
                 this.flashMessage= response.data.message;
               } else if(response.status == 200){
@@ -109,7 +109,7 @@ export default {
              this.isSubmitted = true;
                     setTimeout(()=>{
                     this.isSubmitted = false;
-             },2000);
+             },3000);
                      
           //this.flashMessage= response.data.message;
           //console.log(response.data.message);
@@ -126,59 +126,34 @@ export default {
 </script>
 
 <style scoped>
-
-.scroll {
-  width: 300px;
-  margin-left:20px;
-  margin-top:5px;
-  height: 300px;
-  overflow: scroll;
- }
- .mod{
-  left:1598px;
-}
-::-webkit-scrollbar {
-  background: transparent;
-  width: 16px;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #6b5e2e);
-  border-radius: 6px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(transparent, #da9605);
-}
-::-webkit-scrollbar-corner {
-  border-radius: 10px;
-  background: lightgray;
-}
-
 @media (max-width: 1536px) {
 .mod{
-  left:1085px;
+  left:1002px;
 }
 }
 @media (max-width: 1280px) {
 .mod{
-  left:795px;
+  left:840px;
 }
 
 }
 @media (max-width: 1024px) {
 .mod{
-  left:499px;
+  left:540px;
   /* //right:2000px; */
 }
 }
 @media (max-width: 768px) {
  .mod{
-  left:300px;
+  left:340px;
+  margin-top: 20px;
 }
  
 }
 @media (max-width: 640px) {
  .mod{
-  left:0px;
+  left:40px;
+  margin-top:16px;
 }
 }
 </style>

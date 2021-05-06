@@ -6,12 +6,13 @@
       updateCardId = null;
     "
   >
+  <!-- class="overflow-scroll overflow-x-hidden" -->
     <draggable
-      class="overflow-scroll overflow-x-hidden"
+     class="overflow-scroll overflow-x-hidden"
       v-model="cards"
       :options="{ group: 'cards' }"
       @add="onAdd"
-      style="min-height:15px; height:550px"
+      style="min-height:15px; height:370px"
       :listId="list.id"
       @change="onChange"
     >
@@ -26,7 +27,7 @@
           v-model="cardName"
           style="padding:20px;"
           @click.stop
-          class="text-gray-800 text-lg tracking-wider w-full h-10 border-4 border-yellow-700 bg-opacity-30"
+          class="text-gray-800 text-sm tracking-wider w-full h-5 border-2 border-yellow-700 bg-opacity-30"
           placeholder="Write here"
           label="List Name"
           v-if="updateCardId == card.id"
@@ -34,15 +35,12 @@
         />
         <div v-else @click="updateCardId = card.id" @click.stop="upMod = true">
           <button class="focus:outline-none w-10 hover:bg-green-200 hover:bg-opacity-95" title="Edit issue">
-            <img class="w-5 mt-2 inline-block bg-green-500" src="/edit.svg" alt="" />
+            <img class="w-3 mt-2 inline-block bg-green-500" src="/edit.svg" alt="" />
           </button>
           </div>
         <div
-          class="p-3 cursor-pointer transform capitalize bg-white text-lg tracking-wider py-2 text-gray-600"
+          class="p-3 cursor-pointer transform lowercase bg-white text-sm tracking-wider py-2 text-gray-600"
           style="max-height:2000px; overflow-wrap:break-word;"
-          
-         
-          
         >
           {{ card.name }}
         </div>
@@ -61,11 +59,11 @@
       </div>
     </draggable>
 
-    <div @keyup.esc="editCardId = null" style="margin-top:20px;">
+    <div @keyup.esc="editCardId = null" style="margin-top:10px;">
       <textarea
         type="text"
         title="It only take seven line of sentences"
-        class="w-full overflow-hidden h-28 p-5 mt-0 border border-gray-300 bg-white text-gray-700 text-xl tracking-wider"
+        class="w-full overflow-hidden h-16 p-5 mt-0 border border-gray-300 bg-white text-gray-700 text-sm tracking-wider"
         placeholder="+ Enter new issue"
         @click.stop
         v-model="cardData.name"
@@ -75,8 +73,8 @@
       />
       <a
         @click="editCardId = list.id"
-        class="text-gray-100 px-40 cursor-pointer text-xl bg-green-900 bg-opacity-50 ml-5 p-2 rounded transform capitalize "
-        style="width:0px"
+        class="text-gray-100 px-28 cursor-pointer text-sm bg-green-900 bg-opacity-50 ml-5 p-2 rounded transform capitalize "
+        style="width:0px; top:80px;"
         v-else
         >Add Issue</a
       >
@@ -84,7 +82,10 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import axiosLib from 'axios';
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api"
+});
 import draggable from "vuedraggable";
 export default {
   props: ["list"],
@@ -112,7 +113,7 @@ export default {
       let token = localStorage.getItem("token");
       axios
         .post(
-          "http://localhost:8000/api/boards/" +
+          "/boards/" +
             this.list.board_id +
             "/list/" +
             this.list.id +
@@ -136,7 +137,7 @@ export default {
       console.log(cardId);
       axios
         .put(
-          "http://localhost:8000/api/card/" + cardId + "?api_token=" + token,
+          "/card/" + cardId + "?api_token=" + token,
           {
             lists_id: this.list.id,
           }
@@ -149,7 +150,7 @@ export default {
       let token = localStorage.getItem("token");
       axios
         .delete(
-          "http://localhost:8000/api/card/" + cardId + "?api_token=" + token
+          "/card/" + cardId + "?api_token=" + token
         )
         .then((response) => {
           console.log(response);
@@ -171,7 +172,7 @@ export default {
       let token = localStorage.getItem("token");
       axios
         .patch(
-          "http://localhost:8000/api/card/update-all" + "?api_token=" + token,
+          "/card/update-all" + "?api_token=" + token,
           {
             cards: newCards,
           }
@@ -184,7 +185,7 @@ export default {
       let token = localStorage.getItem("token");
       axios
         .put(
-          "http://localhost:8000/api/card/" +
+          "/card/" +
             this.updateCardId +
             "?api_token=" +
             token,
@@ -206,10 +207,10 @@ export default {
 <style scoped>
 ::-webkit-scrollbar {
   background: transparent;
-  width: 15px;
+  width: 12px;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(transparent, #50b814);
+  background: linear-gradient(transparent, #070707);
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosLib from "axios";
 const state = {
      boards:{},
      invites: {},
@@ -19,13 +19,16 @@ const getters = {
     }
   }
 };
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api"
+})
 const actions = {
     Adminregister({commit,dispatch},register) {
         console.log(commit);
         console.log(dispatch);
         let token = localStorage.getItem("token");
         axios
-          .post("http://localhost:8000/api/Adminregister/?api_token=" + token,
+          .post("/Adminregister/?api_token=" + token,
           {
             name: register.fullname,
             password: register.password,
@@ -33,8 +36,8 @@ const actions = {
             
       })
           .then((response) => {
-            let token = response.data.user.api_token;
-            localStorage.setItem("token", token);
+            response.data.user.api_token;
+            //localStorage.setItem("token", token);
             console.log(response);
          });
     },
@@ -42,7 +45,7 @@ const actions = {
     getBoardData({commit}) {
       let token = localStorage.getItem("token");
       axios
-        .get("http://localhost:8000/api/boards/?api_token=" + token)
+        .get("/boards/?api_token=" + token)
         .then((response) => {
           console.log(response);
           commit('setBoard',response.data.boards);
@@ -52,7 +55,7 @@ const actions = {
     createBoard({commit,dispatch},newProject) {
       console.log(commit); console.log(dispatch);
       let token = localStorage.getItem("token");
-         axios.post("http://localhost:8000/api/boards/"+ this.state.users.user.id +"?api_token=" + token,
+         axios.post("/boards/"+ this.state.users.user.id +"?api_token=" + token,
           {
             name: newProject,
           }

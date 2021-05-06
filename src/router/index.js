@@ -7,7 +7,8 @@ import LogReg from "../views/LogReg.vue";
 import profileUpdate from "@/views/profileUpdate";
 import ForgotPassword from "@/views/ForgotPassword";
 import ResetPassword from "@/views/ResetPassword";
-
+import Login from "@/views/Login";
+import Register from "@/views/Registration";
 Vue.use(VueRouter);
 
 const routes = [
@@ -17,13 +18,25 @@ const routes = [
     component: LogReg 
   },
   { 
+    path: "/login", 
+    name: "login", 
+    component: Login 
+  },
+  { 
+    path: "/register", 
+    name: "register", 
+    component: Register 
+  },
+  { 
     path: "/AdminRegister", 
     name: "AdminRegister", 
-    component: AdminRegister },
+    component: AdminRegister,
+    meta: { requireAuth: true }},
   { 
     path: "/profileUpdate", 
     name: "profileUpdate", 
-    component: profileUpdate 
+    component: profileUpdate,
+    meta: { requireAuth: true }
   },
   {
     path: "/forgotpassword",
@@ -38,14 +51,13 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
-    meta:{
-      auth: true,
-    }
+    meta: { requireAuth: true }
   },
   {
     path: "/dashboard/:id",
     name: "singleDash",
     component: singleDash,
+    meta: { requireAuth: true }
   },
 ];
 
@@ -55,7 +67,15 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((fr) => {
-
-// })
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    if (!localStorage.getItem("token")) {
+      next("/");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
 export default router;

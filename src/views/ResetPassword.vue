@@ -11,22 +11,22 @@
       <form
         @submit.prevent="resetpassword"
         class="mt-60 flex justify-center ml-5 rounded-lg border w-1/3 border-gray-300 shadow-xl p-20 py-20"
-        style="height:550px"
+        style="height:450px"
         v-if="!isReset"
       >
         <div class="w-11/12">
-          <h1 class="block text-gray-600 text-5xl  text-center h-16">
+          <h1 class="block text-gray-600 text-3xl  text-center h-16">
             Reset Password
           </h1>
           <hr />
           <br />
           <div>
-            <input
+             <input
               id="email"
               placeholder="Enter email"
               required
               v-model="reset.email"
-              class="text-xl w-full h-16 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
+              class="text-sm w-full h-8 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
               type="email"
               style="padding:20px"
             />
@@ -34,7 +34,7 @@
             <input
               id="number"
               placeholder="Enter verification code"
-              class="text-xl w-full h-16 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
+              class="text-sm w-full h-8 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
               type="text"
               required
               v-model="reset.verCode"
@@ -44,7 +44,7 @@
             <input
               id="password"
               placeholder="Enter new password"
-              class="text-xl w-full h-16 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
+              class="text-sm w-full h-8 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
               type="password"
               required
               v-model="reset.password"
@@ -54,7 +54,7 @@
             <input
               id="confirmpassword"
               placeholder="Enter confirm password"
-              class="text-xl w-full h-16 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
+              class="text-sm w-full h-8 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
               type="password"
               required
               v-model="reset.conpassword"
@@ -66,7 +66,7 @@
               <hr />
             </div>
             <button
-              class="ml-80 h-14 w-32 px-4 p-4 mt-5 text-white bg-yellow-600 rounded-lg border-gray-400 border"
+              class="ml-80 h-10 w-24 px-4 p-4 mt-5 text-white bg-yellow-600 rounded-lg border-gray-400 border"
             >
               Submit
             </button>
@@ -86,6 +86,7 @@ export default {
     return {
       reset: {},
      isReset: false,
+     errorMail:''
     };
   },
   methods: {
@@ -102,8 +103,10 @@ export default {
       //     this.reset = "";
       //     this.isReset = true;
       //     this.$router.push('/');
-      //   });
-        this.$store.dispatch("users/resetpassword", this.reset)
+      //   }).catch((e)=> {
+      //    this.errorMail=e.response.data.error.message
+      // });
+     this.$store.dispatch("users/resetpassword", this.reset)
          .then(()=>{
             this.reset = "";
             this.isReset = true;
