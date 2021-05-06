@@ -9,9 +9,18 @@
         style="height:400px"
       >
         <div class="w-11/12">
-  <div class="shadow bg-yellow-500 bg-opacity-95 h-14 w-full" style="margin-top:10px" v-if="submitted">
-      <h3 style="padding:15px;"  class="shadow flex justify-center bg-yellow-500 bg-opacity-75 h-14  text-white text-xl flex-1 transform capitalize">{{errorUpdate}}</h3>
-  </div>
+          <div
+            class="shadow bg-yellow-500 bg-opacity-95 h-14 w-full"
+            style="margin-top:10px"
+            v-if="submitted"
+          >
+            <h3
+              style="padding:15px;"
+              class="shadow flex justify-center bg-yellow-500 bg-opacity-75 h-14  text-white text-xl flex-1 transform capitalize"
+            >
+              {{ errorUpdate }}
+            </h3>
+          </div>
           <h1 class="block text-gray-600 text-3xl text-center h-16">
             Update Profile
           </h1>
@@ -71,7 +80,7 @@ export default {
     return {
       update: {},
       submitted: false,
-      errorUpdate:''
+      errorUpdate: "",
     };
   },
   methods: {
@@ -85,27 +94,26 @@ export default {
         })
         .then((response) => {
           console.log(response);
-            if(response.status == 200){
-             this.errorUpdate = response.data.message;
-            } 
-            this.submitted = true;
-            setTimeout(()=>{
-                    this.submitted = false;
-            },3000);
+          if (response.status == 200) {
+            this.errorUpdate = response.data.message;
+          }
+          this.submitted = true;
+          setTimeout(() => {
+            this.submitted = false;
+          }, 3000);
           this.update = "";
-        }).catch((e)=>{
-          console.log(e.response.data)
-          if(e.response.status == 401){
-                this.errorUpdate = e.response.data.message;
-                this.submitted = true;
-           }
-           else if(e.response.status == 422){
-                    this.errorUpdate = e.response.data.message;
-                    this.submitted = true;
-              }
-               setTimeout(()=>{
-                    this.submitted = false;
-             },6000);
+        })
+        .catch((e) => {
+          if (e.response.status == 401) {
+            this.errorUpdate = e.response.data.message;
+            this.submitted = true;
+          } else if (e.response.status == 422) {
+            this.errorUpdate = e.response.data.message;
+            this.submitted = true;
+          }
+          setTimeout(() => {
+            this.submitted = false;
+          }, 6000);
         });
     },
   },

@@ -3,25 +3,31 @@
     <div
       class="overscroll-y-hidden bg-gradient-to-r from-white via-gray-50 to-white h-screen w-full flex justify-center items-center"
     >
-       <div class="" v-if="isReset">
-        <h3 class="text-gray-700 text-4xl transform capitalize">
-          Your password is reseted!
-        </h3>
-      </div>
-      <form
+     <form
         @submit.prevent="resetpassword"
         class="mt-60 flex justify-center ml-5 rounded-lg border w-1/3 border-gray-300 shadow-xl p-20 py-20"
-        style="height:450px"
-        v-if="!isReset"
+        style="height:470px"
       >
         <div class="w-11/12">
+          <div
+            class="shadow bg-yellow-500 bg-opacity-95 h-14 w-full"
+            style="margin-top:10px"
+            v-if="isReset"
+          >
+            <h3
+              style="padding:15px;"
+              class="shadow flex justify-center bg-yellow-500 bg-opacity-75 h-14  text-white text-xl flex-1 transform capitalize"
+            >
+              {{ errorReset }}
+            </h3>
+          </div>
           <h1 class="block text-gray-600 text-3xl  text-center h-16">
             Reset Password
           </h1>
           <hr />
           <br />
           <div>
-             <input
+            <input
               id="email"
               placeholder="Enter email"
               required
@@ -49,7 +55,7 @@
               required
               v-model="reset.password"
               style="padding:20px"
-             />
+            />
             <br /><br />
             <input
               id="confirmpassword"
@@ -60,7 +66,12 @@
               v-model="reset.conpassword"
               style="padding:20px"
             />
-            <div class="text-red-500 transform capitalize" v-if="reset.password != reset.conpassword">Passwords don't match</div>
+            <div
+              class="text-red-500 transform capitalize"
+              v-if="reset.password != reset.conpassword"
+            >
+              Passwords don't match
+            </div>
             <br /><br />
             <div class="flex justify-between w-20">
               <hr />
@@ -72,7 +83,6 @@
             </button>
           </div>
         </div>
-      
       </form>
     </div>
   </div>
@@ -80,38 +90,57 @@
 
 <script>
 // Imports
-//import axios from "axios";
+import axios from "axios";
 export default {
   data() {
     return {
       reset: {},
-     isReset: false,
-     errorMail:''
+      isReset: false,
+      errorMail: "",
+      errorReset: "",
     };
   },
   methods: {
     resetpassword() {
-       // axios
-      //   .post("http://localhost:8000/api/reset-password/", {
-      //     email: this.reset.email,
-      //     verification_code: this.reset.verCode,
-      //     password: this.reset.password,
-      //     confirm_password: this.reset.conpassword,
-      //   })
-      //   .then((response) => {
-      //     console.log(response);
-      //     this.reset = "";
-      //     this.isReset = true;
-      //     this.$router.push('/');
-      //   }).catch((e)=> {
-      //    this.errorMail=e.response.data.error.message
-      // });
-     this.$store.dispatch("users/resetpassword", this.reset)
-         .then(()=>{
-            this.reset = "";
+      axios
+        .post("http://localhost:8000/api/reset-password/", {
+          email: this.reset.email,
+          verification_code: this.reset.verCode,
+          password: this.reset.password,
+          confirm_password: this.reset.conpassword,
+        })
+        .then((response) => {
+          console.log(response);
+          this.reset = "";
+          this.isReset = true;
+          if (response.status == 200) {
+            this.errorReset = response.data.message;
             this.isReset = true;
-            });
-        
+          }
+          setTimeout(() => {
+            this.isReset = false;
+            this.$router.push("/");
+          }, 6000);
+        })
+        .catch((e) => {
+          if (e.response.status == 401) {
+            this.errorReset = e.response.data.message;
+            console.log(this.errorReset);
+            this.isReset = true;
+          }else if (e.response.status == 500) {
+            this.errorReset = e.response.data.message;
+            this.isReset = true;
+          }
+          setTimeout(() => {
+            this.isReset = false;
+          }, 6000);
+          //this.errorMail=e.response.data.message
+        });
+      //  this.$store.dispatch("users/resetpassword", this.reset)
+      //      .then(()=>{
+      //         this.reset = "";
+      //         this.isReset = true;
+      //         });
     },
   },
 };
