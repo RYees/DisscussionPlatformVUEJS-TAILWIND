@@ -44,7 +44,6 @@
               v-model="invites.email"
               class="text-sm w-full h-8 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
               type="email"
-              required
             />
             <br /><br />
             <label class="text-lg text-gray-600" for="insering an password"
@@ -90,7 +89,7 @@ export default {
     };
   },
   mounted() {
-    //console.log(this.$route.fullPath);
+    console.log(this.$route.fullPath);
     let path = this.$route.fullPath.split("=", 2);
     let token = path[1];
     console.log(this.$route.fullPath);

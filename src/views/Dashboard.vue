@@ -1,64 +1,80 @@
 <template>
-<!-- <layout title="my dashboard"> -->
-  <div
-    class="back bg-gray-100 bg-opacity-30 flex justify-center items-center h-screen w-full"
-  >
+  <!-- <layout title="my dashboard"> -->
+  <div>
     <div
-      class="flex justify-evenly flex-wrap"
-      style="margin-top:20px;"
+      class="back bg-opacity-30 flex justify-center items-center h-screen w-full"
     >
-      <div class="p-3 h-10" style="">
-        <p
-          class="animate-pulse mt-5 sm:text-xl md:ml-20 sm:ml-10 md:text-xl lg:text-2xl xl:text-2xl uppercase mb-96 text-white rounded tracking-wider"
-        >
-          dashboard
-        </p>
-        <br />
-      </div>
-      <br />
-      <div class="mr-10 mt-5 sm:mr-60 xl:ml-0" style="" v-if="currentRole[0].pivot.role_id == 1">
-        <projectModal v-on:boardcreated="currentBoard()"></projectModal>
-      </div>
-      <div class="sear xl:ml-96 lg:ml-96 md:ml-80" style="">
-        <div class="inline-block mt-1 ml-1 xl:mt-1 xl:ml-96 lg:mt-2 md:mt-5 sm:ml-72 sm:mt-1">
-          <input
-            v-if="isSearch"
-            class="h-8 border text-sm border-yellow-300 focus:outline-none rounded-lg mt-1 px-5"
-            type="text"
-            v-model="search"
-            placeholder="search projects"
-            style="width:340px;"
-          />
-        </div>
-        <div class="searIcon inline-block p-0 mt-1 md:mt-5 xl:mt-1 lg:mt-2 xl:ml-0">
-          <svg
-            class="cursor-pointer h-10 w-10 ml-0"
-            @click="searching"
-            style=""
-            title="search"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="white"
+      <div class="flex justify-evenly flex-wrap" style="margin-top:20px;">
+        <div class="p-3 h-10" style="">
+          <p
+            class="animate-pulse mt-5 sm:text-xl md:ml-20 sm:ml-10 md:text-xl lg:text-2xl xl:text-2xl uppercase mb-96 text-white rounded tracking-wider"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            dashboard
+          </p>
+          <br />
+        </div>
+        <br />
+        <div
+          v-if="
+            Object.keys(currentRole).length !== 0 && currentRole !== undefined
+          "
+        >
+          <div
+            class="mr-10 mt-5 sm:mr-60 xl:ml-40"
+            style=""
+            v-if="currentRole[0].pivot.role_id == 1"
+          >
+            <projectModal v-on:boardcreated="currentBoard()"></projectModal>
+          </div>
+        </div>
+        <div
+          class="flex justify-end items-end xl:ml-96 lg:ml-96 md:ml-80"
+          style=""
+        >
+          <div
+            class="inline-block mt-1 ml-1 xl:mt-1 xl:ml-96 lg:mt-2 md:mt-5 sm:ml-72 sm:mt-1"
+          >
+            <input
+              v-if="isSearch"
+              class="h-8 border text-sm border-yellow-300 focus:outline-none rounded-lg mt-1 px-5"
+              type="text"
+              v-model="search"
+              placeholder="search projects"
+              style="width:340px;"
             />
-          </svg>
+          </div>
+          <div
+            class="searIcon inline-block p-0 mt-1 md:mt-5 xl:mt-1 lg:mt-2 xl:ml-0"
+          >
+            <svg
+              class="cursor-pointer h-10 w-10 ml-0"
+              @click="searching"
+              style=""
+              title="search"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="white"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
-    <div class="absolute flex justify-center items-center" style=" margin-top:2950px;">
+    <!-- <div class="absolute flex justify-center items-center" style=" margin-top:2950px;"> -->
     <div
       class="scroll fixed w-11/12 bg-white bg-opacity-75 
-      grid grid-cols-1 grid-flow-row gap-72 ml-1
+      grid grid-cols-1 grid-flow-row gap-32 ml-1
       xl:grid xl:grid-cols-4 xl:grid-flow-row xl:gap-10 xl:ml-2
-      lg:grid lg:grid-cols-3 lg:grid-flow-row lg:gap-96 lg:ml-1
-      md:grid md:grid-cols-2 md:grid-flow-row md:gap-96 md:ml-1
-      sm:grid sm:grid-cols-1 sm:grid-flow-row sm:gap-72 sm:ml-4"
+      lg:grid lg:grid-cols-3 lg:grid-flow-row lg:gap-32 lg:ml-1
+      md:grid md:grid-cols-2 md:grid-flow-row md:gap-32 md:ml-4
+      sm:grid sm:grid-cols-1 sm:grid-flow-row sm:gap-32 sm:ml-8"
       style=""
     >
       <div
@@ -101,42 +117,88 @@
         </div>
       </div>
     </div>
-    </div>
+    <!-- </div> -->
   </div>
- 
-<!-- </layout> -->
+
+  <!-- </layout> -->
 </template>
 
 <script>
-import boardMixin from "@/mixins/boardMixin";
+//import boardMixin from "@/mixins/boardMixin";
 //import Layout from "../layouts/main";
-import { searchName } from "@/mixins/mixin.js";
+import axiosLib from "axios";
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
+//import { searchName } from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
 export default {
   data: () => ({
     search: "",
     isSearch: false,
+    boards: [],
   }),
+  async created() {
+    let token = localStorage.getItem("token");
+    axios.get("/boards/?api_token=" + token);
+    let { data } = await axios.get("/boards/?api_token=" + token);
+    this.boards = data.boards;
+    //  created(){
+    //     let token = localStorage.getItem("token");
+    //   axios.get("/boards/?api_token=" + token)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.boards = response.data.boards
+    //           console.log(this.boards)});
+    // },
+  },
   computed: {
     currentRole: {
       get() {
         return this.$store.state.users.role;
       },
     },
+    filteredProjects() {
+      let normalizedQuery = this.search.trim().toLowerCase();
+      if (normalizedQuery.length) {
+        return this.boards.filter(({ name }) =>
+          name.toLowerCase().startsWith(normalizedQuery)
+        );
+      }
+      return this.boards;
+    },
+    // currentBoard(){
+    //  // get(){
+    //   //console.log('please workk');
+    //   return this.boards;}
+    // //}
   },
-  created() {
-    this.$store.dispatch("users/currrentUserRole");
-   },
+  // created() {
+  //   this.$store.dispatch("users/currrentUserRole");
+  //  },
+  //  mounted(){
+  //     this.currentBoard;
+
+  //  },
   methods: {
+    async getBard() {
+      let token = localStorage.getItem("token");
+      axios.get("/boards/?api_token=" + token);
+      let { data } = await axios.get("/boards/?api_token=" + token);
+      this.boards = data.boards;
+    },
     searching: function() {
       this.isSearch = !this.isSearch;
+    },
+    currentBoard() {
+     this.getBard();
     },
   },
   components: {
     projectModal,
     //Layout
   },
-  mixins: [boardMixin, searchName],
+  //mixins: [boardMixin,searchName],
 };
 </script>
 
@@ -145,7 +207,7 @@ export default {
   /* background: url("/mike.jpg"); */
   /* display: flex; */
   /* justify-content: stretch; */
-  height:200px;
+  height: 200px;
   background-image: linear-gradient(
       to bottom,
       rgba(29, 30, 31, 0.52),
@@ -157,9 +219,9 @@ export default {
 @media (max-width: 1536px) {
   .scroll {
     width: 1350px;
-    height: 550px;
-    bottom:0px;
-    top:200px;
+    height: 414px;
+    bottom: 0px;
+    top: 200px;
     overflow: scroll;
   }
   /* .sear{
@@ -186,8 +248,8 @@ export default {
 }
 @media (max-width: 1280px) {
   .scroll {
-    width: 1000px;
-    height: 390px;
+    width: 1040px;
+    height: 415px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -208,8 +270,8 @@ export default {
 }
 @media (max-width: 1024px) {
   .scroll {
-    width: 800px;
-    height: 400px;
+    width: 895px;
+    height: 413px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -231,7 +293,8 @@ export default {
 @media (max-width: 768px) {
   .scroll {
     width: 500px;
-    height: 350px;
+    height: 400px;
+    margin-left: 110px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -254,7 +317,7 @@ export default {
   .scroll {
     width: 400px;
     height: 400px;
-    /* margin-right:600px; */
+    margin-left: 90px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -271,6 +334,6 @@ export default {
   ::-webkit-scrollbar-corner {
     border-radius: 20px;
     background: lightgray;
-  } 
+  }
 }
 </style>

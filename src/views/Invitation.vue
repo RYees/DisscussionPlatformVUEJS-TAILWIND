@@ -101,7 +101,7 @@ export default {
         )
         .then((response) => {
           //this.isSubmitted = true;
-          if(response.status == 202){
+            if(response.status == 202){
                 this.flashMessage= response.data.message;
               } else if(response.status == 200){
                 this.flashMessage= response.data.message;

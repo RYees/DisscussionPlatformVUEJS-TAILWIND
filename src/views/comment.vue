@@ -28,8 +28,8 @@
     >
       <div
         class="past text-white bg-yellow-300 bg-opacity-75 font-bold"
-        v-for="list in lists"
-        :key="list"
+        v-for="(list,index) in lists"
+        :key="index"
         style="height:450px; width:330px;"
       >
         <!-- <div
@@ -137,7 +137,7 @@ export default {
   data: () => {
     return {
       boards: "",
-      lists: "",
+      lists: [],
       cards: "",
       boardId: "",
       listId: "",
@@ -153,7 +153,7 @@ export default {
   },
   created() {
     this.boardId = this.$route.params.id;
-    console.log(this.boardId);
+    //console.log(this.boardId);
     this.getData();
   },
   computed: {
@@ -164,9 +164,9 @@ export default {
     },
   },
   methods: {
-    deleteModal() {
-      this.deleteMode = !this.deleteMode;
-    },
+    // deleteModal() {
+    //   this.deleteMode = !this.deleteMode;
+    // },
     getLists() {
       this.boards.map((board) => {
         if (board.id == this.boardId) {

@@ -9,6 +9,7 @@ import ForgotPassword from "@/views/ForgotPassword";
 import ResetPassword from "@/views/ResetPassword";
 import Login from "@/views/Login";
 import Register from "@/views/Registration";
+import Layout from "../layouts/main";
 Vue.use(VueRouter);
 
 const routes = [
@@ -27,16 +28,35 @@ const routes = [
     name: "register", 
     component: Register 
   },
-  { 
-    path: "/AdminRegister", 
-    name: "AdminRegister", 
-    component: AdminRegister,
-    meta: { requireAuth: true }},
-  { 
-    path: "/profileUpdate", 
-    name: "profileUpdate", 
-    component: profileUpdate,
-    meta: { requireAuth: true }
+  {
+    path:'',
+    component:Layout,
+    children: [
+      { 
+        path: "/AdminRegister", 
+        name: "AdminRegister", 
+        component: AdminRegister,
+        meta: { requireAuth: true }},
+      { 
+        path: "/profileUpdate", 
+        name: "profileUpdate", 
+        component: profileUpdate,
+        meta: { requireAuth: true }
+      },
+      {
+        path: "/dashboard",
+        name: "Dashboard",
+        component: Dashboard,
+        meta: { requireAuth: true }
+      },
+      {
+        path: "/dashboard/:id",
+        name: "singleDash",
+        component: singleDash,
+        meta: { requireAuth: true }
+      },
+      
+    ]
   },
   {
     path: "/forgotpassword",
@@ -47,18 +67,6 @@ const routes = [
     path: "/resetpassword", 
     name: "ResetPassword", 
     component: ResetPassword },
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: Dashboard,
-    meta: { requireAuth: true }
-  },
-  {
-    path: "/dashboard/:id",
-    name: "singleDash",
-    component: singleDash,
-    meta: { requireAuth: true }
-  },
 ];
 
 const router = new VueRouter({

@@ -12,8 +12,8 @@ export default {
   },
   methods:{
     currentBoard(){
-      this.$store.dispatch("admin/getBoardData");
-     
+    this.$store.dispatch("admin/getBoardData");
+    //this.boards
     }
   }
 };

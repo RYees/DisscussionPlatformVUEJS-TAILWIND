@@ -18,7 +18,7 @@
     >
       <router-link
         to="/login"
-        class="  text-left focus:outline-none text-xl cursor-pointer text-gray-700"
+        class="hover:bg-white hover:bg-opacity-30 h-10 py-1 px-2 rounded-lg text-left focus:outline-none text-xl cursor-pointer text-gray-900"
         >Login</router-link
       >
     </div>

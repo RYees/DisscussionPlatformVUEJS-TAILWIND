@@ -1,3 +1,19 @@
+   async created () {
+     let token = localStorage.getItem("token");
+      // axios
+      //   .get("/boards/?api_token=" + token)
+  let { data } = await axios.get("/usersroles/"+token+"?api_token="+token)
+  this.roles = data;
+  console.log(this.currentRole);
+  // created(){ let token = localStorage.getItem("token");
+  // let { data } = axios.get("/boards/?api_token=" + token)
+  //       .then((response) => {
+  //         console.log(response)
+  //         this.boards = data.boards
+  //         });
+},
+
+
 MAIL_DRIVER=sendgrid
 SENDGRID_API_KEY=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
 <template>
@@ -238,6 +254,31 @@ computed:{
 }
 }
 
+
+
+
+
+
+
+/// layout main.vue
+<template>
+    <div>
+        <navbar>
+            {{title}}
+        </navbar>
+        <slot></slot>
+        <slot name="e"></slot>
+    </div>
+</template>
+<script>
+import navbar from '@/components/navbar.vue';
+export default {
+    props: ["title"],
+    components: {
+        navbar
+    }
+}
+</script>
 
 
 

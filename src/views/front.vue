@@ -1,25 +1,32 @@
 <template>
-  <div class="w-full h-screen bg-yellow-500 flex">
-     <div class="w-full bg-gray-900 h-full ">
+  <div class="w-full h-screen flex">
+     <div class="w-full h-full">
        <div class="bg-gray-900" style="">
-          <navbar></navbar>
+          <!-- <navbar></navbar> -->
+          <!-- <Layout :title="title" ></Layout> -->
       </div>
       <div class="row bg-white" style="height:100%">
-        <transition name="slide" mode="out-in">
-            <keep-alive> <router-view></router-view> </keep-alive>
-        </transition>
+        <!-- <transition name="slide" mode="out-in"> -->
+         <router-view></router-view>
+        <!-- </transition> -->
       </div>
      </div>
   </div>
 </template>
 <script>
-import navbar from '@/components/navbar.vue';
+//import navbar from '@/components/navbar.vue';
+//import Layout from '@/layouts/main.vue';
 export default {
   data: () => {
-    return {user:null};
+    return {
+      user:null,
+      title:"helllo newyork"
+      
+      };
   },
   components: {
-   navbar,
+   //navbar,
+  // Layout
   },
  };
 </script>
