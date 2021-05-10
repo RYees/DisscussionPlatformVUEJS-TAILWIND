@@ -14,11 +14,11 @@
           <br />
         </div>
         <br />
-        <div
+        <!-- <div
           v-if="
             Object.keys(currentRole).length !== 0 && currentRole !== undefined
           "
-        >
+        > -->
           <div
             class="mr-10 mt-5 sm:mr-60 xl:ml-40"
             style=""
@@ -26,7 +26,7 @@
           >
             <projectModal v-on:boardcreated="currentBoard()"></projectModal>
           </div>
-        </div>
+        <!-- </div> -->
         <div
           class="flex justify-end items-end xl:ml-96 lg:ml-96 md:ml-80"
           style=""
