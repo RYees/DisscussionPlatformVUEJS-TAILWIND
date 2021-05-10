@@ -14,19 +14,19 @@
           <br />
         </div>
         <br />
-        <!-- <div
+        <div
           v-if="
             Object.keys(currentRole).length !== 0 && currentRole !== undefined
           "
-        > -->
+        >
           <div
             class="mr-10 mt-5 sm:mr-60 xl:ml-40"
             style=""
-         
+            v-if="currentRole[0].pivot.role_id == 1"
           >
             <projectModal v-on:boardcreated="currentBoard()"></projectModal>
           </div>
-        <!-- </div> -->
+        </div>
         <div
           class="flex justify-end items-end xl:ml-96 lg:ml-96 md:ml-80"
           style=""
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="absolute flex justify-center items-center"    v-if="currentRole[0].pivot.role_id == 1" style=" margin-top:2950px;"> -->
+    <!-- <div class="absolute flex justify-center items-center" style=" margin-top:2950px;"> -->
     <div
       class="scroll fixed w-11/12 bg-white bg-opacity-75 
       grid grid-cols-1 grid-flow-row gap-32 ml-1
