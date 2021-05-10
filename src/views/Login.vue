@@ -101,12 +101,13 @@ export default {
         {email:this.login.email, password:this.login.password}
         )
         .then(response => {
+          console.log(response);
             let token = response.data.user.api_token;
             let user= response.data.user;
             localStorage.setItem('token',token);
             localStorage.setItem('user',JSON.stringify(user));
-            //this.$router.push('/dashboard');
-            window.location.replace('/dashboard');
+            this.$router.push('/dashboard');
+            //window.location.replace('/dashboard');
         }).catch(e=>{
               if(e.response.status == 422){
                 this.errorMessage= e.response.data.message;
