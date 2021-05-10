@@ -92,11 +92,11 @@ export default {
       if(!token){
           return false;
       }
-      axios.get("http://localhost:8000/api/logout?api_token="+token)
+      axios.get("https://zowidiscussionapi.herokuapp.com/api/logout?api_token="+token)
       .then(response => {
         console.log(response);
         localStorage.removeItem('token');
-        this.$router.push({name:'logreg'});
+        this.$router.push('logreg');
        // Event.$emit('logout');
       });
     },

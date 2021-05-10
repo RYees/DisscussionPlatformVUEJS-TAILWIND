@@ -94,7 +94,7 @@ export default {
     let token = path[1];
     console.log(this.$route.fullPath);
     axios
-      .get("http://localhost:8000/api/registration/" + token)
+      .get("https://zowidiscussionapi.herokuapp.com/api/registration/" + token)
       .then((response) => {
         this.invites = response.data[0];
         console.log(response);
@@ -104,7 +104,7 @@ export default {
   methods: {
     registerIt() {
       axios
-        .post("http://localhost:8000/api/register/" + this.invites.board_id, {
+        .post("https://zowidiscussionapi.herokuapp.com/api/register/" + this.invites.board_id, {
           name: this.register.fullname,
           email: this.invites.email,
           password: this.register.password,
