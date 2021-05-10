@@ -25,10 +25,11 @@
         <!-- <div v-if="currentRole">
         <div v-if="currentRole.user[0]">-->
           <div v-if="Object.keys(currentRole).length !== 0 && currentRole !== undefined"> 
-      <div class="inline-block ml-1" v-if="currentRole[0].pivot.role_id == 1">
+      <!-- <div class="inline-block ml-1" v-if="currentRole[0].pivot.role_id == 1"> -->
          <router-link to="/Adminregister"><h1 class="text-sm xl:mt-0 xl:p-1 h-8 text-white hover:bg-white hover:bg-opacity-30">Add Admin</h1>
       </router-link> 
-      </div></div>
+      <!-- </div> -->
+      </div>
       <div><slot></slot></div>
       </div>
     <div class="">
