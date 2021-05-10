@@ -66,7 +66,7 @@
 <script>
 import axiosLib from 'axios';
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionplatformapi.herokuapp.com/server.php/api"
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 });
 export default {
   components: {},

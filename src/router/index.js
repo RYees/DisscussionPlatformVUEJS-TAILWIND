@@ -36,7 +36,8 @@ const routes = [
         path: "/AdminRegister", 
         name: "AdminRegister", 
         component: AdminRegister,
-        meta: { requireAuth: true }},
+        //meta: { requireAuth: true }
+      },
       { 
         path: "/profileUpdate", 
         name: "profileUpdate", 

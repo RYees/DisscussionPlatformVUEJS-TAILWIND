@@ -128,7 +128,7 @@
 //import Layout from "../layouts/main";
 import axiosLib from "axios";
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionplatformapi.herokuapp.com/server.php/api",
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
 });
 //import { searchName } from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
