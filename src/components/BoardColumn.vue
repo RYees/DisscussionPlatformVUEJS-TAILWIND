@@ -27,7 +27,7 @@
           v-model="cardName"
           style="padding:20px;"
           @click.stop
-          class="text-gray-800 text-sm tracking-wider w-full h-5 border-2 border-yellow-700 bg-opacity-30"
+          class="text-gray-500 text-sm tracking-wider w-full h-5 border-2 border-yellow-700 bg-opacity-30"
           placeholder="Write here"
           label="List Name"
           v-if="updateCardId == card.id"
@@ -39,7 +39,7 @@
           </button>
           </div>
         <div
-          class="p-3 cursor-pointer transform lowercase bg-white text-sm tracking-wider py-2 text-gray-600"
+          class="p-3 cursor-pointer transform lowercase bg-white font-normal text-sm tracking-wider py-2 text-gray-500"
           style="max-height:2000px; overflow-wrap:break-word;"
         >
           {{ card.name }}
@@ -47,10 +47,10 @@
         
       </div>
       <div
-        class="cardhide bg-white shadow-xl mt-5 p-4 border border-yellow-300 border-opacity-30"
+        class="cardhide bg-white shadow-xl w-80 h-24 mb-96 p-4 border border-yellow-300 border-opacity-30"
       >
         <p
-          class="tracking-wider transform capitalize font-normal text-gray-500"
+          class="tracking-wider transform capitalize font-normal text-sm text-gray-500"
         >
           Put the issue you want it to be given a special attention and quick
           fix at the top by dragging the issue up and down
@@ -59,7 +59,7 @@
       </div>
     </draggable>
 
-    <div @keyup.esc="editCardId = null" style="margin-top:10px;">
+    <div @keyup.esc="editCardId = null" style="margin-top:40px;">
       <textarea
         type="text"
         title="It only take seven line of sentences"

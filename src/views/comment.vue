@@ -10,7 +10,7 @@
   >
     <div
       class="w-8 mb-3 bg-yellow-200"
-      style="margin-top:40px; margin-left:0px;"
+      style="margin-top:1px; margin-left:0px;"
     >
       <input
         type="text"
@@ -22,7 +22,7 @@
       />
     </div>
     <draggable
-      class="scroll grid grid-rows-1 grid-flow-col gap-5 rounded p-0"
+      class="grid grid-rows-1 grid-flow-col gap-5 rounded p-0"
       v-model="lists"
       :options="{ group: 'lists' }"
     >
@@ -30,7 +30,7 @@
         class="past text-white bg-yellow-300 bg-opacity-75 font-bold"
         v-for="(list,index) in lists"
         :key="index"
-        style="height:450px; width:330px;"
+        style="height:500px; width:330px;"
       >
         <!-- <div
             v-if="deleteListId == list.id"
@@ -58,20 +58,6 @@
               clip-rule="evenodd"
             />
           </svg>
-          <!-- <svg
-              class="w-10 h-10"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              />
-            </svg> -->
         </button>
         <!-- </div> -->
         <input
@@ -86,13 +72,14 @@
           @keyup.enter="updateList"
         />
         <div
-          class="inline-block tracking-wider transform uppercase ml-20 text-sm"
+          class="inline-block tracking-wider transform uppercase 
+           fixed ml-20 text-sm"
           @click="updateListId = list.id"
           @click.stop="upModal = true"
           v-else
         >
           {{ list.name }}
-          <div class="inline-block mb-1 ml-32">
+          <div class="inline-block mb-10 ml-48 fixed" style="top:0px; left:0px;">
             <button
               class="focus:outline-none hover:bg-yellow-200 w-10 hover:bg-opacity-95"
               title="Edit name"
@@ -113,10 +100,10 @@
         ></board-column>
       </div>
       <div
-        class="listhide bg-white shadow-xl w-80 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
+        class="listhide bg-white shadow-xl w-64 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
       >
         <p
-          class="tracking-wider transform capitalize font-normal text-gray-500"
+          class="tracking-wider transform capitalize text-sm text-gray-500"
         >
           you can drag your conversation and others from side to side
         </p>
@@ -277,123 +264,5 @@ export default {
   display: block;
 }
 
-@media (max-width: 1536px) {
-  .scroll {
-    width: 1330px;
-    height: 500px;
-    overflow: scroll;
-  }
-  ::-webkit-scrollbar {
-    background: transparent;
-    width: 18px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent, #305a27);
-    border-radius: 6px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(transparent, #4d9c02);
-  }
-  ::-webkit-scrollbar-corner {
-    border-radius: 20px;
-    background: lightgray;
-  }
-}
-@media (max-width: 1280px) {
-  .scroll {
-    width: 1200px;
-    height: 490px;
-    margin-left:10px;
-    overflow: scroll;
-  }
-  ::-webkit-scrollbar {
-    background: transparent;
-    width: 27px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent, #305a27);
-    border-radius: 6px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(transparent, #4d9c02);
-  }
-  ::-webkit-scrollbar-corner {
-    border-radius: 20px;
-    background: lightgray;
-  }
-}
-@media (max-width: 1024px) {
-  .scroll {
-    width: 800px;
-    height: 500px;
-    overflow: scroll;
-  }
-  ::-webkit-scrollbar {
-    background: transparent;
-    width: 27px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent, #305a27);
-    border-radius: 6px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(transparent, #4d9c02);
-  }
-  ::-webkit-scrollbar-corner {
-    border-radius: 20px;
-    background: lightgray;
-  }
-}
-@media (max-width: 768px) {
-  .scroll {
-    width: 800px;
-    height: 450px;
-    overflow: scroll;
-    margin-left:140px;
-  }
-  .input{
-    margin-left:140px;
-  }
-  ::-webkit-scrollbar {
-    background: transparent;
-    width: 27px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent, #305a27);
-    border-radius: 6px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(transparent, #4d9c02);
-  }
-  ::-webkit-scrollbar-corner {
-    border-radius: 20px;
-    background: lightgray;
-  }
-}
-@media (max-width: 640px) {
-  .scroll {
-    width: 450px;
-    height: 400px;
-    margin-right: 150px;
-    overflow: scroll;
-  }
-  .input{
-    margin-right:140px;
-  }
-  ::-webkit-scrollbar {
-    background: transparent;
-    width: 17px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent, #305a27);
-    border-radius: 6px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(transparent, #4d9c02);
-  }
-  ::-webkit-scrollbar-corner {
-    border-radius: 20px;
-    background: lightgray;
-  }
-}
+
 </style>

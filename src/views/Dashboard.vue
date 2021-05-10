@@ -128,7 +128,7 @@
 //import Layout from "../layouts/main";
 import axiosLib from "axios";
 const axios = axiosLib.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "http://zowidiscussionplatformapi.herokuapp.com/server.php/api",
 });
 //import { searchName } from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
@@ -138,20 +138,20 @@ export default {
     isSearch: false,
     boards: [],
   }),
-  async created() {
-    let token = localStorage.getItem("token");
-    axios.get("/boards/?api_token=" + token);
-    let { data } = await axios.get("/boards/?api_token=" + token);
-    this.boards = data.boards;
-    //  created(){
-    //     let token = localStorage.getItem("token");
-    //   axios.get("/boards/?api_token=" + token)
-    //         .then((response) => {
-    //           console.log(response)
-    //           this.boards = response.data.boards
-    //           console.log(this.boards)});
-    // },
-  },
+  // async created() {
+  //   let token = localStorage.getItem("token");
+  //   axios.get("/boards/?api_token=" + token);
+  //   let { data } = await axios.get("/boards/?api_token=" + token);
+  //   this.boards = data.boards;
+     created(){
+        let token = localStorage.getItem("token");
+      axios.get("/boards/?api_token=" + token)
+            .then((response) => {
+              console.log(response)
+              this.boards = response.data.boards
+              console.log(this.boards)});
+    },
+  //},
   computed: {
     currentRole: {
       get() {
@@ -181,12 +181,20 @@ export default {
 
   //  },
   methods: {
-    async getBard() {
-      let token = localStorage.getItem("token");
-      axios.get("/boards/?api_token=" + token);
-      let { data } = await axios.get("/boards/?api_token=" + token);
-      this.boards = data.boards;
+    getBard(){
+           let token = localStorage.getItem("token");
+      axios.get("/boards/?api_token=" + token)
+            .then((response) => {
+              console.log(response)
+              this.boards = response.data.boards
+              console.log(this.boards)});
     },
+    // async getBard() {
+    //   let token = localStorage.getItem("token");
+    //   axios.get("/boards/?api_token=" + token);
+    //   let { data } = await axios.get("/boards/?api_token=" + token);
+    //   this.boards = data.boards;
+    // },
     searching: function() {
       this.isSearch = !this.isSearch;
     },

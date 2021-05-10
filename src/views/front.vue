@@ -6,9 +6,9 @@
           <!-- <Layout :title="title" ></Layout> -->
       </div>
       <div class="row bg-white" style="height:100%">
-        <!-- <transition name="slide" mode="out-in"> -->
+        <transition name="slide" mode="out-in">
          <router-view></router-view>
-        <!-- </transition> -->
+        </transition>
       </div>
      </div>
   </div>

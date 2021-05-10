@@ -1,5 +1,5 @@
 <template>
-   <div class="user p-6 h-screen w-full flex justify-center items-center overflow-hidden">
+   <div class="user p-6 h-screen w-full overflow-y-hidden flex justify-center items-center ">
     <!-- <router-link class="text-3xl text-center  flex items-center justify-center text-white animate-none uppercase mt-8 absolute ml-60" to="/dashboard">back</router-link> -->
    <div class="flex mt-0 absolute" style="margin-bottom:800px; margin-left:40px; height:10px;">
     <!-- <div class="">
@@ -12,7 +12,7 @@
     </div>
    </div>
       <!-- <div class="h-screen flex items-center justify-center"> v-if="this.roles[0].pivot.role_id == 1"-->
-      <div class="" style="">
+      <div class="scroll" style="margin-left:100px">
         <comment/>
       </div>
     <!-- </div> --> 
@@ -85,6 +85,122 @@ computed:{
   margin-left:200px;
   margin-top:20px;
 }
+}
+
+@media (max-width: 1536px) {
+  .scroll {
+    width: 9px;
+    height: 500px;
+    margin-right:1390px;
+    /* overflow: scroll; */
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 18px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #305a27);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #4d9c02);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
+}
+@media (max-width: 1280px) {
+  .scroll {
+    width: 9px;
+    height: 500px;
+    margin-right:1200px;
+    /* overflow: scroll; */
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 27px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #305a27);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #4d9c02);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
+}
+@media (max-width: 1024px) {
+.scroll {
+    width: 9px;
+    height: 500px;
+    margin-right:900px;
+    /* overflow: scroll; */
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 27px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #305a27);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #4d9c02);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
+}
+@media (max-width: 768px) {
+ .scroll {
+    width: 9px;
+    height: 500px;
+    margin-right:700px;
+    /* overflow: scroll; */
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 27px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #305a27);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #4d9c02);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
+}
+@media (max-width: 640px) {
+  .scroll {
+    width: 9px;
+    height: 500px;
+    margin-right:550px;
+    /* overflow: scroll; */
+  }
+  ::-webkit-scrollbar {
+    background: transparent;
+    width: 17px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #305a27);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #4d9c02);
+  }
+  ::-webkit-scrollbar-corner {
+    border-radius: 20px;
+    background: lightgray;
+  }
 }
 
 </style>
