@@ -96,7 +96,7 @@ export default {
       .then(response => {
         console.log(response);
         localStorage.removeItem('token');
-        this.$router.push('logreg');
+        this.$router.push('/');
        // Event.$emit('logout');
       });
     },

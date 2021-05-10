@@ -42,7 +42,8 @@ const actions = {
             let user= response.data.user;
             localStorage.setItem('token',token);
             localStorage.setItem('user',JSON.stringify(user));
-            window.location.replace('/dashboard');
+            this.$router.push('/dashboard');
+            //window.location.replace('/dashboard');
         })
         .catch(e=>{
           if(e.response.status == 422){
@@ -65,7 +66,8 @@ const actions = {
             console.log(response);
             //this.resetEmail = "";
             //this.isReseted = true;
-            window.location.replace('/resetpassword');
+            this.$router.push('/resetpassword');
+            //window.location.replace('/resetpassword');
           });
       },
       createList({commit,dispatch},listName,boardId) {
@@ -104,7 +106,8 @@ const actions = {
             console.log(e);
             // this.reset = "";
             // this.isReset = true;
-            window.location.replace('/login');
+            this.$router.push('/login');
+            //window.location.replace('/login');
           });
       }
 
