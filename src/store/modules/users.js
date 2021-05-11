@@ -15,10 +15,10 @@ const axios = axiosLib.create({
 const actions = {
     CurrentUserData({commit}){
         let token = localStorage.getItem('token');
-        axios.get("/users/"+token+"?api_token="+token)
+        axios.get("/users/"+token,{headers:{'Authorization':'Bearer' + token})
           .then(response => {
               commit('setUser',response.data.user);
-            //console.log(response);
+            console.log(response); console.log("yeresponse");
             //this.user = response.data.user;
           });
         },
