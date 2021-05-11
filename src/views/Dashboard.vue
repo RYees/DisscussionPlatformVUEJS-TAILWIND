@@ -183,7 +183,7 @@ export default {
   methods: {
     getBard(){
            let token = localStorage.getItem("token");
-      axios.get("/boards/?api_token=" + token)
+      axios.get("/boards/",{headers:{'Authorization':'Bearer' + token}})
             .then((response) => {
               console.log(response)
               this.boards = response.data.boards
