@@ -18,7 +18,7 @@ const actions = {
         axios.get("/users/"+token,{headers:{'Authorization':'Bearer' + token}})
           .then(response => {
               commit('setUser',response.data.user);
-            console.log(response); console.log("yeresponse");
+           // console.log(response); console.log("yeresponse");
             //this.user = response.data.user;
           });
         },
