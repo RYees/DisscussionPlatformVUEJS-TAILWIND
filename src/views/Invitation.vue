@@ -97,7 +97,7 @@ export default {
     createInvitation() {
       let token = localStorage.getItem("token");
     
-      axios.post("/users/invite/"+this.boardId+"?api_token=" + token,
+      axios.post("/users/invite"+this.boardId+"?api_token=" + token,
           {
             email: this.newEmail,       
           }
