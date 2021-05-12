@@ -94,7 +94,7 @@ export default {
     createInvitation() {
       let token = localStorage.getItem("token");
     
-      axios.post("https://zowidiscussionapi.herokuapp.com/api/users/invite/"+this.boardId+"?api_token=" + token,
+      axios.post("http://localhost:8000/api/users/invite/"+this.boardId+"?api_token=" + token,
           {
             email: this.newEmail,       
           }

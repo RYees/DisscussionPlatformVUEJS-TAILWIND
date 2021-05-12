@@ -7,8 +7,14 @@
         style="margin-top:0px; margin-bottom:0px;"
         >{{currentUserBoard.name}}</h1>
     </div> -->
+    <div
+          v-if="
+            Object.keys(currentRole).length !== 0 && currentRole !== undefined
+          "
+        >
     <div class="inv" style="" v-if="currentRole[0].pivot.role_id == 1">
       <Invitation/>
+    </div>
     </div>
    </div>
       <!-- <div class="h-screen flex items-center justify-center"> v-if="this.roles[0].pivot.role_id == 1"-->

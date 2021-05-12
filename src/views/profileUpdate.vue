@@ -87,7 +87,7 @@ export default {
     updateProfile() {
       let token = localStorage.getItem("token");
       axios
-        .post("https://zowidiscussionapi.herokuapp.com/api/usersupdate/" + token, {
+        .post("http://localhost:8000/api/usersupdate/" + token, {
           password: this.update.password,
           newPassword: this.update.newpassword,
           confirm_password: this.update.conpassword,

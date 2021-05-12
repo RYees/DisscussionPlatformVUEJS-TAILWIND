@@ -4,7 +4,6 @@
     style=""
     @click.stop="
       upModal = false;
-      deleteModal = true;
       updateListId = null;
     "
   >
@@ -28,8 +27,8 @@
     >
       <div
         class="past text-white bg-yellow-300 bg-opacity-75 font-bold"
-        v-for="(list,index) in lists"
-        :key="index"
+        v-for="list in lists"
+        :key="list"
         style="height:500px; width:330px;"
       >
         <!-- <div
@@ -72,23 +71,33 @@
           @keyup.enter="updateList"
         />
         <div
-          class="inline-block tracking-wider transform uppercase 
-           fixed ml-20 text-sm"
+          class="inline-block tracking-wider transform uppercase
+           ml-20 text-sm"
+          style="top:0px;"
           @click="updateListId = list.id"
           @click.stop="upModal = true"
           v-else
         >
           {{ list.name }}
-          <div class="inline-block mb-10 ml-48 fixed" style="top:0px; left:0px;">
+          <div class="inline-block ml-48 absolute" style="top:0px; left:0px;">
             <button
-              class="focus:outline-none hover:bg-yellow-200 w-10 hover:bg-opacity-95"
+              class="focus:outline-none hover:bg-gray-600 w-5 hover:bg-opacity-30"
               title="Edit name"
             >
-              <img
-                class="w-3 mt-0 inline-block bg-yellow-200"
-                src="/edit.svg"
-                alt=""
-              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                />
+              </svg>
             </button>
           </div>
         </div>
@@ -96,15 +105,13 @@
         <board-column
           class=""
           :list="list"
-          v-on:cardcreated="getData()"
+          v-on:cardcreated="getData"
         ></board-column>
       </div>
       <div
         class="listhide bg-white shadow-xl w-64 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
       >
-        <p
-          class="tracking-wider transform capitalize text-sm text-gray-500"
-        >
+        <p class="tracking-wider transform capitalize text-sm text-gray-500">
           you can drag your conversation and others from side to side
         </p>
       </div>
@@ -114,9 +121,9 @@
 
 <script>
 import BoardColumn from "@/components/BoardColumn";
-import axiosLib from 'axios';
+import axiosLib from "axios";
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+  baseURL: "http://localhost:8000/api",
 });
 import draggable from "vuedraggable";
 export default {
@@ -135,7 +142,6 @@ export default {
       updateListId: "",
       deleteListId: "",
       upModal: false,
-      deleteModal: false,
     };
   },
   created() {
@@ -151,9 +157,6 @@ export default {
     },
   },
   methods: {
-    // deleteModal() {
-    //   this.deleteMode = !this.deleteMode;
-    // },
     getLists() {
       this.boards.map((board) => {
         if (board.id == this.boardId) {
@@ -164,27 +167,19 @@ export default {
     getData() {
       let token = localStorage.getItem("token");
       // console.log(token);
-      axios
-        .get("/boards?api_token=" + token)
-        .then((response) => {
-          this.boards = response.data.boards;
-          this.getLists();
-          console.log(response);
-        });
+      axios.get("/boards?api_token=" + token).then((response) => {
+        this.boards = response.data.boards;
+        this.getLists();
+        console.log(response);
+      });
     },
     createList() {
       let token = localStorage.getItem("token");
       // console.log(this.boardId);
       axios
-        .post(
-          "/boards/" +
-            this.boardId +
-            "/list?api_token=" +
-            token,
-          {
-            name: this.listName,
-          }
-        )
+        .post("/boards/" + this.boardId + "/list?api_token=" + token, {
+          name: this.listName,
+        })
         .then((response) => {
           let newList = response.data.list;
           this.lists.push(newList);
@@ -238,15 +233,9 @@ export default {
       let token = localStorage.getItem("token");
       console.log(listId);
       axios
-        .put(
-          "/list/" +
-            this.list.id +
-            "?api_token=" +
-            token,
-          {
-            id: this.list.id,
-          }
-        )
+        .put("/list/" + this.list.id + "?api_token=" + token, {
+          id: this.list.id,
+        })
         .then((response) => {
           console.log(response);
         });
@@ -263,6 +252,4 @@ export default {
 .past:hover + div {
   display: block;
 }
-
-
 </style>

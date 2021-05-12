@@ -104,7 +104,7 @@ export default {
   methods: {
     registerIt() {
       axios
-        .post("https://zowidiscussionapi.herokuapp.com/api/register/" + this.invites.board_id, {
+        .post("http://localhost:8000/api/register/" + this.invites.board_id, {
           name: this.register.fullname,
           email: this.invites.email,
           password: this.register.password,

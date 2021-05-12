@@ -95,7 +95,7 @@ export default {
     },
      createBoard() {
       let token = localStorage.getItem("token");
-         axios.post("https://zowidiscussionapi.herokuapp.com/api/boards/"+ this.$store.state.users.user.id +"?api_token=" + token,
+         axios.post("http://localhost:8000/api/boards/"+ this.$store.state.users.user.id +"?api_token=" + token,
           {
             name: this.newProject,
           }

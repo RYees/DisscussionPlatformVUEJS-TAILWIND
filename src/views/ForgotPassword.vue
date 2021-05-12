@@ -65,7 +65,7 @@ export default {
   methods: {
     resetcode() {
       axios
-        .post("https://zowidiscussionapi.herokuapp.com/api/reset-password-request", {
+        .post("http://localhost:8000/api/reset-password-request", {
           email: this.resetEmail,
          })
         .then((response) => {

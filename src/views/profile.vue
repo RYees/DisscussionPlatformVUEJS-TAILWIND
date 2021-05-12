@@ -92,7 +92,7 @@ export default {
       if(!token){
           return false;
       }
-      axios.get("https://zowidiscussionapi.herokuapp.com/api/logout?api_token="+token)
+      axios.get("http://localhost:8000/api/logout?api_token="+token)
       .then(response => {
         console.log(response);
         localStorage.removeItem('token');

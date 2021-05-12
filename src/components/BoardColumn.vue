@@ -34,8 +34,21 @@
           @keyup.enter="updateCardItem"
         />
         <div v-else @click="updateCardId = card.id" @click.stop="upMod = true">
-          <button class="focus:outline-none w-10 hover:bg-green-200 hover:bg-opacity-95" title="Edit issue">
-            <img class="w-3 mt-2 inline-block bg-green-500" src="/edit.svg" alt="" />
+          <button class="focus:outline-none w-5 hover:bg-gray-600 hover:bg-opacity-30" title="Edit issue">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                />
+              </svg>
           </button>
           </div>
         <div
@@ -69,7 +82,7 @@
         v-model="cardData.name"
         v-if="list.id == editCardId"
         required
-        @keyup.enter="createCard(list.id)"
+        @keyup.enter="createCard"
       />
       <a
         @click="editCardId = list.id"
@@ -83,8 +96,11 @@
 </template>
 <script>
 import axiosLib from 'axios';
+// const axios = axiosLib.create({
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+// });
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+  baseURL: "http://localhost:8000/api"
 });
 import draggable from "vuedraggable";
 export default {
@@ -107,9 +123,9 @@ export default {
     this.cards = this.list.cards;
   },
   methods: {
-    createCard(listId) {
-      console.log(listId);
-      this.editCardId = listId;
+    createCard() {
+      //console.log(listId);
+      //this.editCardId = listId;
       let token = localStorage.getItem("token");
       axios
         .post(
