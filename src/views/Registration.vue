@@ -79,7 +79,10 @@
 
 <script>
 // Imports
-import axios from "axios";
+import axiosLib from "axios";
+const axios = axiosLib.create({
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+});
 export default {
   data() {
     return {
@@ -94,7 +97,7 @@ export default {
     let token = path[1];
     console.log(this.$route.fullPath);
     axios
-      .get("https://zowidiscussionapi.herokuapp.com/api/registration/" + token)
+      .get("/registration/" + token)
       .then((response) => {
         this.invites = response.data[0];
         console.log(response);
@@ -104,7 +107,7 @@ export default {
   methods: {
     registerIt() {
       axios
-        .post("http://localhost:8000/api/register/" + this.invites.board_id, {
+        .post("/register/" + this.invites.board_id, {
           name: this.register.fullname,
           email: this.invites.email,
           password: this.register.password,

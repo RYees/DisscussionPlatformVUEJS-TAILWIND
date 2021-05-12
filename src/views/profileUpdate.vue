@@ -73,8 +73,10 @@
 </template>
 
 <script>
-// Imports
-import axios from "axios";
+import axiosLib from "axios";
+const axios = axiosLib.create({
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+});
 export default {
   data() {
     return {
@@ -87,7 +89,7 @@ export default {
     updateProfile() {
       let token = localStorage.getItem("token");
       axios
-        .post("http://localhost:8000/api/usersupdate/" + token, {
+        .post("/usersupdate/" + token, {
           password: this.update.password,
           newPassword: this.update.newpassword,
           confirm_password: this.update.conpassword,

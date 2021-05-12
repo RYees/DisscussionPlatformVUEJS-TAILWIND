@@ -75,7 +75,10 @@
 </template>
 <script>
 //import boardMixin from '@/mixins/boardMixin';
-import axios from 'axios';
+import axiosLib from "axios";
+const axios = axiosLib.create({
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+});
 //import {mapState } from "vuex";
 export default {
   props:["user"],
@@ -95,7 +98,7 @@ export default {
     },
      createBoard() {
       let token = localStorage.getItem("token");
-         axios.post("http://localhost:8000/api/boards/"+ this.$store.state.users.user.id +"?api_token=" + token,
+         axios.post("/boards/"+ this.$store.state.users.user.id +"?api_token=" + token,
           {
             name: this.newProject,
           }

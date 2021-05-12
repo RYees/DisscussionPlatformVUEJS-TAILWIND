@@ -60,7 +60,10 @@
 </template>
 <script>
 import {mapMutations, mapState} from 'vuex'
-import axios from 'axios'
+import axiosLib from "axios";
+const axios = axiosLib.create({
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+});
 export default {
   props:["board"],
     data:()=>{
@@ -94,7 +97,7 @@ export default {
     createInvitation() {
       let token = localStorage.getItem("token");
     
-      axios.post("http://localhost:8000/api/users/invite/"+this.boardId+"?api_token=" + token,
+      axios.post("/users/invite/"+this.boardId+"?api_token=" + token,
           {
             email: this.newEmail,       
           }

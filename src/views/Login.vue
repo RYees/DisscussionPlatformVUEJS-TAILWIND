@@ -64,9 +64,9 @@
 </template>
 
 <script>
-import axiosLib from 'axios';
+import axiosLib from "axios";
 const axios = axiosLib.create({
-  baseURL: "http://localhost:8000/api"
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 });
 export default {
   components: {},

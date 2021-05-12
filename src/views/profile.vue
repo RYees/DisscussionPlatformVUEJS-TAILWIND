@@ -66,7 +66,10 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axiosLib from "axios";
+const axios = axiosLib.create({
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+});
 export default {
   //props:["user"],
   data: () => {
@@ -92,7 +95,7 @@ export default {
       if(!token){
           return false;
       }
-      axios.get("http://localhost:8000/api/logout?api_token="+token)
+      axios.get("/logout?api_token="+token)
       .then(response => {
         console.log(response);
         localStorage.removeItem('token');

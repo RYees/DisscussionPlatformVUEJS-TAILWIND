@@ -51,7 +51,10 @@
 
 <script>
 // Imports
-import axios from "axios";
+import axiosLib from "axios";
+const axios = axiosLib.create({
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+});
 export default {
   data() {
     return {
@@ -65,7 +68,7 @@ export default {
   methods: {
     resetcode() {
       axios
-        .post("http://localhost:8000/api/reset-password-request", {
+        .post("/reset-password-request", {
           email: this.resetEmail,
          })
         .then((response) => {

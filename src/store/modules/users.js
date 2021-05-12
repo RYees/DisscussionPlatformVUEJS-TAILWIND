@@ -10,7 +10,7 @@ const state = {
 };
 const getters = {};
 const axios = axiosLib.create({
-  baseURL: "http://localhost:8000/api"
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 })
 const actions = {
     CurrentUserData({commit}){
