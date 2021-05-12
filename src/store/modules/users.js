@@ -96,7 +96,7 @@ const actions = {
         console.log(commit);
         console.log(dispatch);
         axios
-          .post("/reset-password/", {
+          .post("/reset-password", {
             email: reset.email,
             verification_code: reset.verCode,
             password: reset.password,

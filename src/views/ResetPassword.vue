@@ -105,7 +105,7 @@ export default {
   methods: {
     resetpassword() {
       axios
-        .post("/reset-password/", {
+        .post("/reset-password", {
           email: this.reset.email,
           verification_code: this.reset.verCode,
           password: this.reset.password,

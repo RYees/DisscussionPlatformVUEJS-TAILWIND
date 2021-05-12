@@ -28,7 +28,7 @@ const actions = {
         console.log(dispatch);
         let token = localStorage.getItem("token");
         axios
-          .post("/Adminregister/?api_token=" + token,
+          .post("/Adminregister?api_token=" + token,
           {
             name: register.fullname,
             password: register.password,
@@ -45,7 +45,7 @@ const actions = {
     getBoardData({commit}) {
       let token = localStorage.getItem("token");
       axios
-        .get("/boards/?api_token=" + token)
+        .get("/boards?api_token=" + token)
         .then((response) => {
           console.log(response);
           commit('setBoard',response.data.boards);

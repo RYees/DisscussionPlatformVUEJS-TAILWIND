@@ -89,7 +89,7 @@ export default {
     updateProfile() {
       let token = localStorage.getItem("token");
       axios
-        .post("/usersupdate/" + token, {
+        .post("/usersupdate" + token, {
           password: this.update.password,
           newPassword: this.update.newpassword,
           confirm_password: this.update.conpassword,
