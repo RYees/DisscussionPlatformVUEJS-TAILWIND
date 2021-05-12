@@ -128,7 +128,7 @@
 //import Layout from "../layouts/main";
 import axiosLib from "axios";
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
+  baseURL: "http://localhost:8000/api",
 });
 //import { searchName } from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
@@ -167,20 +167,8 @@ export default {
       }
       return this.boards;
     },
-    // currentBoard(){
-    //  // get(){
-    //   //console.log('please workk');
-    //   return this.boards;}
-    // //}
   },
-  // created() {
-  //   this.$store.dispatch("users/currrentUserRole");
-  //  },
-  //  mounted(){
-  //     this.currentBoard;
-
-  //  },
-  methods: {
+   methods: {
     getBard(){
            let token = localStorage.getItem("token");
       axios.get("/boards?api_token=" + token)
@@ -212,9 +200,6 @@ export default {
 
 <style scoped>
 .back {
-  /* background: url("/mike.jpg"); */
-  /* display: flex; */
-  /* justify-content: stretch; */
   height: 200px;
   background-image: linear-gradient(
       to bottom,
@@ -227,18 +212,12 @@ export default {
 @media (max-width: 1536px) {
   .scroll {
     width: 1350px;
-    height: 414px;
+    height: 450px;
     bottom: 0px;
     top: 200px;
     overflow: scroll;
   }
-  /* .sear{
-    margin-right: 1000px;
-  }
-  .searIcon{
-    margin-left:700px;
-  } */
-  ::-webkit-scrollbar {
+   ::-webkit-scrollbar {
     background: transparent;
     width: 18px;
   }
