@@ -16,7 +16,7 @@
           >
             <h3
               style="padding:15px;"
-              class="shadow flex justify-center bg-yellow-500 bg-opacity-75 h-14  text-white text-xl flex-1 transform capitalize"
+              class="shadow flex justify-center bg-yellow-500 bg-opacity-75 h-14  text-white text-sm flex-1 transform capitalize"
             >
               {{ errorReset }}
             </h3>
