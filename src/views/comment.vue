@@ -74,7 +74,7 @@
           class="inline-block tracking-wider transform uppercase
            ml-20 text-sm"
           style="top:0px;"
-          @click="updateListId = list.id"
+          @click="(updateListId = list.id) && (listName = list.name)" 
           @click.stop="upModal = true"
           v-else
         >
@@ -122,12 +122,12 @@
 <script>
 import BoardColumn from "@/components/BoardColumn";
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 import draggable from "vuedraggable";
 export default {
   components: { "board-column": BoardColumn, draggable },
@@ -138,7 +138,7 @@ export default {
       cards: "",
       boardId: "",
       listId: "",
-      name: "",
+      list:{name: ""},
       newColumnName: "",
       listName: "",
       deleteMode: false,

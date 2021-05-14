@@ -6,9 +6,9 @@
       updateCardId = null;
     "
   >
-  <!-- class="overflow-scroll overflow-x-hidden" -->
+    <!-- class="overflow-scroll overflow-x-hidden" -->
     <draggable
-     class="overflow-scroll overflow-x-hidden"
+      class="overflow-scroll overflow-x-hidden"
       v-model="cards"
       :options="{ group: 'cards' }"
       @add="onAdd"
@@ -33,31 +33,52 @@
           v-if="updateCardId == card.id"
           @keyup.enter="updateCardItem"
         />
-        <div v-else @click="updateCardId = card.id" @click.stop="upMod = true">
-          <button class="focus:outline-none w-5 hover:bg-gray-600 hover:bg-opacity-30" title="Edit issue">
+        <div v-else @click="(updateCardId = card.id) && (cardName = card.name)" @click.stop="upMod = true">
+          <button
+            class="focus:outline-none w-5 hover:bg-gray-600 hover:bg-opacity-30"
+            title="Edit issue"
+          >
             <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                />
-              </svg>
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+              />
+            </svg>
           </button>
-          </div>
+        </div>
         <div
           class="p-3 cursor-pointer transform lowercase bg-white font-normal text-sm tracking-wider py-2 text-gray-500"
           style="max-height:2000px; overflow-wrap:break-word;"
         >
           {{ card.name }}
-        </div>
-        
+          <!-- <div class="ml-64" style="left:0px;">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              />
+            </svg>
+          </div> -->
+          
+         
+
+        </div><div><issue-Comments></issue-Comments></div>
       </div>
       <div
         class="cardhide bg-white shadow-xl w-80 h-24 mb-96 p-4 border border-yellow-300 border-opacity-30"
@@ -95,17 +116,18 @@
   </div>
 </template>
 <script>
-import axiosLib from 'axios';
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
+import issueComments from "@/views/issueComments";
+import axiosLib from "axios";
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api"
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 import draggable from "vuedraggable";
 export default {
   props: ["list"],
-  components: { draggable },
+  components: { draggable, "issue-Comments": issueComments },
   data() {
     return {
       cards: "",
@@ -152,12 +174,9 @@ export default {
       console.log(listId);
       console.log(cardId);
       axios
-        .put(
-          "/card/" + cardId + "?api_token=" + token,
-          {
-            lists_id: this.list.id,
-          }
-        )
+        .put("/card/" + cardId + "?api_token=" + token, {
+          lists_id: this.list.id,
+        })
         .then((response) => {
           console.log(response);
         });
@@ -165,9 +184,7 @@ export default {
     destroyCard(cardId) {
       let token = localStorage.getItem("token");
       axios
-        .delete(
-          "/card/" + cardId + "?api_token=" + token
-        )
+        .delete("/card/" + cardId + "?api_token=" + token)
         .then((response) => {
           console.log(response);
         });
@@ -187,12 +204,9 @@ export default {
       });
       let token = localStorage.getItem("token");
       axios
-        .patch(
-          "/card/update-all" + "?api_token=" + token,
-          {
-            cards: newCards,
-          }
-        )
+        .patch("/card/update-all" + "?api_token=" + token, {
+          cards: newCards,
+        })
         .then((response) => {
           console.log(response);
         });
@@ -200,15 +214,9 @@ export default {
     updateCardItem() {
       let token = localStorage.getItem("token");
       axios
-        .put(
-          "/card/" +
-            this.updateCardId +
-            "?api_token=" +
-            token,
-          {
-            name: this.cardName,
-          }
-        )
+        .put("/card/" + this.updateCardId + "?api_token=" + token, {
+          name: this.cardName,
+        })
         .then((response) => {
           this.cardName = "";
           this.updateCardId = null;

@@ -61,8 +61,11 @@
 <script>
 import {mapMutations, mapState} from 'vuex'
 import axiosLib from "axios";
+// const axios = axiosLib.create({
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+// });
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+  baseURL: "http://localhost:8000/api",
 });
 export default {
   props:["board"],

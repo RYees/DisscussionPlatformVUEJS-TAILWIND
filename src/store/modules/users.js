@@ -9,9 +9,12 @@ const state = {
      errorEmail:{}
 };
 const getters = {};
+// const axios = axiosLib.create({
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+// })
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-})
+  baseURL: "http://localhost:8000/api",
+});
 const actions = {
     CurrentUserData({commit}){
         let token = localStorage.getItem('token');
