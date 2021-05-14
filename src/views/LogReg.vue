@@ -4,7 +4,7 @@
   >
     <div class="pic flex justify-center items-center h-screen fixed w-full">
       <h1
-        class="ml-14 text-6xl text-gray-900 tracking-wider transform capitalize "
+        class="ml-56 text-6xl text-gray-900 tracking-wider transform capitalize "
       >
         Welcome to Zowi customer support platform
       </h1>
