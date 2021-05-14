@@ -6,7 +6,7 @@
       <h1
         class="ml-14 text-6xl text-gray-900 tracking-wider transform capitalize "
       >
-        Welcome to Zowi discussion platform
+        Welcome to Zowi customer support platform
       </h1>
       <!-- <keep-alive>
             <component v-bind:is="component"></component>
