@@ -151,7 +151,7 @@ export default {
       axios.get("/boards?api_token=" + token)
             .then((response) => {
               console.log(response)
-              this.boards = response.data.boards
+              this.boards = response.data.boards;
               console.log(this.boards)});
     },
   //},

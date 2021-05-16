@@ -108,13 +108,13 @@
           v-on:cardcreated="getData"
         ></board-column>
       </div>
-      <div
+      <!-- <div
         class="listhide bg-white shadow-xl w-64 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
       >
         <p class="tracking-wider transform capitalize text-sm text-gray-500">
           you can drag your conversation and others from side to side
         </p>
-      </div>
+      </div> -->
     </draggable>
   </div>
 </template>
@@ -173,7 +173,9 @@ export default {
       axios.get("/boards?api_token=" + token).then((response) => {
         this.boards = response.data.boards;
         this.getLists();
-        console.log(response);
+        console.log("shotsssss");
+        console.log(this.boards);
+
       });
     },
     createList() {

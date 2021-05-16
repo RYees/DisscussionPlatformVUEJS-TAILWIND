@@ -75,12 +75,14 @@
               />
             </svg>
           </div> -->
-          
-         
-
-        </div><div><issue-Comments></issue-Comments></div>
+    </div>
+    <div class="flex ml-56">
+    <div><upload-Image :list="list" :card="card"></upload-Image></div>
+    <div class="ml-4"><issue-Comments :list="list" :card="card"></issue-Comments></div>
+    
+    </div>
       </div>
-      <div
+      <!-- <div
         class="cardhide bg-white shadow-xl w-80 h-24 mb-96 p-4 border border-yellow-300 border-opacity-30"
       >
         <p
@@ -88,31 +90,35 @@
         >
           Put the issue you want it to be given a special attention and quick
           fix at the top by dragging the issue up and down
-        </p>
+        </p> -->
         <!-- <p> 1.To edit your issues click on the issue <br /></p> -->
-      </div>
+      <!-- </div> -->
     </draggable>
-
-    <div @keyup.esc="editCardId = null" style="margin-top:40px;">
+      
+    <div class="" @keyup.esc="editCardId = null" style="margin-top:12px;">
       <textarea
         type="text"
         title="It only take seven line of sentences"
-        class="w-full overflow-hidden h-16 p-5 mt-0 border border-gray-300 bg-white text-gray-700 text-sm tracking-wider"
+        class="w-full overflow-hidden h-16 p-1 border border-gray-300 bg-white text-gray-700 text-sm tracking-wider"
         placeholder="+ Enter new issue"
         @click.stop
         v-model="cardData.name"
-        v-if="list.id == editCardId"
+        
         required
-        @keyup.enter="createCard"
+        @click="showSave"
       />
-      <a
+      <!-- <a v-if="list.id == editCardId"
         @click="editCardId = list.id"
         class="text-gray-100 px-28 cursor-pointer text-sm bg-green-900 bg-opacity-50 ml-5 p-2 rounded transform capitalize "
         style="width:0px; top:80px;"
         v-else
         >Add Issue</a
-      >
-    </div>
+      >  -->
+       <div class="bg-white bg-opacity-50 h-10" style=""  v-if="isSave">
+          <button @click="createCard" class="bg-green-600 focus:outline-none hover:bg-green-500 rounded ml-5 mt-1 w-20" style="">save</button>
+        </div>
+    </div> 
+   
   </div>
 </template>
 <script>
@@ -125,15 +131,17 @@ const axios = axiosLib.create({
   baseURL: "http://localhost:8000/api",
 });
 import draggable from "vuedraggable";
+import uploadImage from '@/views/uploadImage';
 export default {
   props: ["list"],
-  components: { draggable, "issue-Comments": issueComments },
+  components: { draggable, "issue-Comments": issueComments, "upload-Image": uploadImage },
   data() {
     return {
       cards: "",
       lists: "",
       boards: "",
       boardId: "",
+      isSave:false,
       cardData: { name: "" },
       updateCardId: "",
       editCardId: "",
@@ -143,8 +151,13 @@ export default {
 
   created() {
     this.cards = this.list.cards;
+    // console.log("paluuuuuuuu");
+    // console.log(this.cards);
   },
   methods: {
+      showSave: function() {
+      this.isSave= !this.isSave;
+    },
     createCard() {
       //console.log(listId);
       //this.editCardId = listId;
