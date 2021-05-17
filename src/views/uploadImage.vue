@@ -1,7 +1,11 @@
 <template>
   <div class="flex">
     <!-- <div class="profile"> -->
-    <button class="" style="left:0px;">
+    <button
+      class="focus:outline-none hover:bg-gray-600 w-6 hover:bg-opacity-30"
+      title="add image"
+      style="left:0px;"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-6 w-6"
@@ -18,41 +22,73 @@
         />
       </svg>
     </button>
-
     <div
       v-if="isShow"
-      class="z-10 absolute bg-gray-100 h-64 mb-0 p-0 overflow-hidden shadow-xl transform transition-all"
-      style="margin-left:120px; width:350px; top:100px; height:220px"
-      role="dialog"
-      aria-modal="false"
-      aria-labelledby="modal-headline"
+      class="z-40 fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center"
     >
-      <div
-        class="inline-block text-sm text-gray-700 ml-4 tracking-wider transform capitalize p-1"
-      >
-        <p class="inline-block text-lg">{{ list.name }}</p>
-        upload image
+      <div class="z-40 fixed inset-0 transition-opacity">
+        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
       </div>
-      <svg
-        class="inline-block ml-32 h-5 w-5"
-        style="left:0px"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="green"
-        @click.prevent="showModal"
+      <div
+        v-if="isShow"
+        class="z-40 absolute bg-gray-100 h-64 mb-0 p-0 overflow-hidden shadow-xl transform transition-all"
+        style="width:650px; top:60px; height:460px"
+        role="dialog"
+        aria-modal="false"
+        aria-labelledby="modal-headline"
       >
-        <path
-          fill-rule="evenodd"
-          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-          clip-rule="evenodd"
-        />
-      </svg>
-      <hr />
-      <div class="flex gap-2">
-        <div>
-          <div class="" style="width:3px;">
-            <button class="w-80 h-10 mt-5 ml-3 border bg-yellow-200 text-gray-600">upload image</button>
+         <div
+          class="inline-block text-sm text-gray-700 ml-2 tracking-wider transform capitalize p-1"
+          style="top:0px;"
+        >
+          <p class="inline-block text-lg">{{ list.name }}</p>
+          upload image
+        </div>
+         <div
+          class="inline-block mt-3"
+          style="top:0px; left:0px; margin-left:440px"
+        >
+        <button
+          class="focus:outline-none hover:bg-gray-600 w-5 hover:bg-opacity-30"
+          title="comment"
+          style="left:0px;"
+        >
+          <svg
+            class="h-5 w-5"
+            style="left:0px"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="green"
+            @click.prevent="showModal"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+        </div>
+        <hr />
+        <div class="">
+          <div class="flex gap-4">
+            <div class="ml-4 mt-3">
+              <input class="text-white w-80 h-14 bg-green-400" type="file">
+            </div>
+            <div class="" style="width:3px;">
+              <button
+                class="w-60 h-12 mt-2 ml-3 border rounded-lg bg-yellow-500 text-white"
+              >
+                upload image
+              </button>
+            </div>
           </div>
+          <div class="upload bg-gray-100 grid grid-rows-1 grid-flow-col gap-3 ml-4" >
+            <div class="p-3 text-gray-500 text-sm bg-yellow-500 bg-opacity-30 mb-1"  v-for="(find, index) in finds" :key="index" 
+            style="width:300px">
+              {{ find.email }}
+                </div>
+             </div>
         </div>
       </div>
     </div>
@@ -61,12 +97,12 @@
 
 <script>
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 export default {
   props: ["card", "list"],
   data: () => {
@@ -76,6 +112,14 @@ export default {
       boardId: "",
       listId: "",
       isShow: false,
+       finds: [
+        { email: "jactekdj" },
+        { email: "fjadklsd" },
+        { email: "thoreurd" },
+        { email: "jactekdj" },
+        { email: "fjadklsd" },
+        { email: "thoreurd" },
+      ],
     };
   },
   created() {
@@ -116,4 +160,14 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+@media (max-width: 1536px) {
+  .upload {
+    width: 620px;
+    height: 330px;
+    margin-top: 20px;
+    overflow: scroll;
+  }
+
+}
+</style>

@@ -68,35 +68,39 @@ computed:{
 .inv{
   /* margin-left:1280px; */
   margin-left:1160px;
+  margin-top: 5px;
 }
 }
 @media (max-width: 1280px) {
 .inv{
   margin-left:1000px;
+  margin-top:5px;
 }
 }
 @media (max-width: 1024px) {
 .inv{
   margin-left:700px;
+  margin-top:5px;
 }
 }
 @media (max-width: 768px) {
 .inv{
   margin-left:500px;
-  margin-top:20px;
+  margin-top:5px;
 }
 }
 @media (max-width: 640px) {
 .inv{
   margin-left:200px;
-  margin-top:20px;
+  margin-top:5px;
 }
 }
 
 @media (max-width: 1536px) {
   .scroll {
     width: 9px;
-    height: 500px;
+    height: 300px;
+    margin-bottom:230px;
     margin-right:1390px;
     /* overflow: scroll; */
   }
@@ -105,11 +109,11 @@ computed:{
     width: 18px;
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(transparent, #305a27);
+    background: linear-gradient(transparent, #da521c);
     border-radius: 6px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(transparent, #4d9c02);
+    background: linear-gradient(transparent, #ca8011);
   }
   ::-webkit-scrollbar-corner {
     border-radius: 20px;
@@ -120,6 +124,7 @@ computed:{
   .scroll {
     width: 9px;
     height: 500px;
+    margin-top:200px;
     margin-right:1200px;
     /* overflow: scroll; */
   }
@@ -143,6 +148,7 @@ computed:{
 .scroll {
     width: 9px;
     height: 500px;
+    margin-top:170px;
     margin-right:900px;
     /* overflow: scroll; */
   }
@@ -166,6 +172,7 @@ computed:{
  .scroll {
     width: 9px;
     height: 500px;
+    margin-top:170px;
     margin-right:700px;
     /* overflow: scroll; */
   }
@@ -189,6 +196,7 @@ computed:{
   .scroll {
     width: 9px;
     height: 500px;
+    margin-top:170px;
     margin-right:550px;
     /* overflow: scroll; */
   }

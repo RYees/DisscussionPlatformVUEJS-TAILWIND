@@ -52,12 +52,12 @@
 <script>
 // Imports
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 export default {
   data() {
     return {

@@ -4,7 +4,7 @@
       <button 
       @click.prevent="Invite"
       class="bg-yellow-400 transition duration-700 ease-in-out hover:bg-yellow-500 hover:bg-opacity-30 bg-opacity-9 mb-0 h-10 focus:outline-none rounded-lg px-3 text-lg text-white" 
-      style="margin-top:130px">
+      style="margin-top:134px">
       InviteMembers
       </button>
     <!-- </div> -->
@@ -61,12 +61,12 @@
 <script>
 import {mapMutations, mapState} from 'vuex'
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 export default {
   props:["board"],
     data:()=>{

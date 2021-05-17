@@ -6,6 +6,7 @@
       updateCardId = null;
     "
   >
+    <div class="text-sm ml-2 ">issues:{{ cardscount }}</div>
     <!-- class="overflow-scroll overflow-x-hidden" -->
     <draggable
       class="overflow-scroll overflow-x-hidden"
@@ -33,7 +34,11 @@
           v-if="updateCardId == card.id"
           @keyup.enter="updateCardItem"
         />
-        <div v-else @click="(updateCardId = card.id) && (cardName = card.name)" @click.stop="upMod = true">
+        <div
+          v-else
+          @click="(updateCardId = card.id) && (cardName = card.name)"
+          @click.stop="upMod = true"
+        >
           <button
             class="focus:outline-none w-5 hover:bg-gray-600 hover:bg-opacity-30"
             title="Edit issue"
@@ -59,28 +64,13 @@
           style="max-height:2000px; overflow-wrap:break-word;"
         >
           {{ card.name }}
-          <!-- <div class="ml-64" style="left:0px;">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-              />
-            </svg>
-          </div> -->
-    </div>
-    <div class="flex ml-56">
-    <div><upload-Image :list="list" :card="card"></upload-Image></div>
-    <div class="ml-4"><issue-Comments :list="list" :card="card"></issue-Comments></div>
-    
-    </div>
+        </div>
+        <div class="flex ml-56">
+          <div><upload-Image :list="list" :card="card"></upload-Image></div>
+          <div class="ml-4">
+            <issue-Comments :list="list" :card="card"></issue-Comments>
+          </div>
+        </div>
       </div>
       <!-- <div
         class="cardhide bg-white shadow-xl w-80 h-24 mb-96 p-4 border border-yellow-300 border-opacity-30"
@@ -91,10 +81,10 @@
           Put the issue you want it to be given a special attention and quick
           fix at the top by dragging the issue up and down
         </p> -->
-        <!-- <p> 1.To edit your issues click on the issue <br /></p> -->
+      <!-- <p> 1.To edit your issues click on the issue <br /></p> -->
       <!-- </div> -->
     </draggable>
-      
+
     <div class="" @keyup.esc="editCardId = null" style="margin-top:12px;">
       <textarea
         type="text"
@@ -103,7 +93,6 @@
         placeholder="+ Enter new issue"
         @click.stop
         v-model="cardData.name"
-        
         required
         @click="showSave"
       />
@@ -114,11 +103,16 @@
         v-else
         >Add Issue</a
       >  -->
-       <div class="bg-white bg-opacity-50 h-10" style=""  v-if="isSave">
-          <button @click="createCard" class="bg-green-600 focus:outline-none hover:bg-green-500 rounded ml-5 mt-1 w-20" style="">save</button>
-        </div>
-    </div> 
-   
+      <div class="bg-white bg-opacity-50 h-10" style="" v-if="isSave">
+        <button
+          @click="createCard"
+          class="bg-green-600 focus:outline-none hover:bg-green-500 rounded ml-5 mt-1 w-20"
+          style=""
+        >
+          save
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -131,17 +125,22 @@ const axios = axiosLib.create({
   baseURL: "http://localhost:8000/api",
 });
 import draggable from "vuedraggable";
-import uploadImage from '@/views/uploadImage';
+import uploadImage from "@/views/uploadImage";
 export default {
   props: ["list"],
-  components: { draggable, "issue-Comments": issueComments, "upload-Image": uploadImage },
+  components: {
+    draggable,
+    "issue-Comments": issueComments,
+    "upload-Image": uploadImage,
+  },
   data() {
     return {
       cards: "",
+      cardscount: [],
       lists: "",
       boards: "",
       boardId: "",
-      isSave:false,
+      isSave: false,
       cardData: { name: "" },
       updateCardId: "",
       editCardId: "",
@@ -154,9 +153,25 @@ export default {
     // console.log("paluuuuuuuu");
     // console.log(this.cards);
   },
+  mounted() {
+    let token = localStorage.getItem("token");
+    axios
+      .get(
+        "/boards/" +
+          this.list.board_id +
+          "/list/" +
+          this.list.id +
+          "/card?api_token=" +
+          token
+      )
+      .then((response) => {
+        this.cardscount = response.data.cards;
+        console.log(this.cardscount);
+      });
+  },
   methods: {
-      showSave: function() {
-      this.isSave= !this.isSave;
+    showSave: function() {
+      this.isSave = !this.isSave;
     },
     createCard() {
       //console.log(listId);
