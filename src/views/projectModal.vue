@@ -76,12 +76,12 @@
 <script>
 //import boardMixin from '@/mixins/boardMixin';
 import axiosLib from "axios";
-// const axios = axiosLib.create({
-//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-// });
 const axios = axiosLib.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 });
+// const axios = axiosLib.create({
+//   baseURL: "http://localhost:8000/api",
+// });
 //import {mapState } from "vuex";
 export default {
   props:["user"],
