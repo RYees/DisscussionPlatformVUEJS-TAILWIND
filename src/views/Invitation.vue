@@ -3,8 +3,8 @@
     <!-- <div > -->
       <button 
       @click.prevent="Invite"
-      class="bg-yellow-400 transition duration-700 ease-in-out hover:bg-yellow-500 hover:bg-opacity-30 bg-opacity-9 mb-0 h-10 focus:outline-none rounded-lg px-3 text-lg text-white" 
-      style="margin-top:134px">
+      class="inv bg-yellow-400 transition duration-700 ease-in-out hover:bg-yellow-500 hover:bg-opacity-30 bg-opacity-9 mb-0 h-10 focus:outline-none rounded-lg px-3 text-lg text-white" 
+      style="">
       InviteMembers
       </button>
     <!-- </div> -->
@@ -12,7 +12,7 @@
     <div
       v-if="isInvite"
       class="mod z-40 bg-yellow-500 bg-opacity-75 absolute border border-gray-600 rounded-lg h-40 p-6 overflow-hidden shadow-xl transform transition-all"
-      style="top:175px; width:300px; height:305px; "
+      style="width:300px; height:305px; "
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"
@@ -27,26 +27,7 @@
          <input type="email" value="" class="text-sm shadow-2xl text-gray-900 px-5 h-16 w-64" placeholder="Email address" required
          v-model="newEmail"
          /></div>
-
-         <!-- <div >
-         <input type="email" value="" class="shadow-2xl text-gray-900 px-5 h-20 w-80" placeholder="Email address"
-         v-model="email"
-         /></div>
-         <div class="scroll" v-for="(find,index) in finds" :key="index">
-             <ul >
-                 <li class="mt-1 text-gray-900 text-xl">
-                     {{find.email}}
-                 </li>
-             </ul>
-         </div> -->
-         <!-- <div class="scroll">
-             <ul >
-                 <li class="mt-1 text-gray-900 text-xl" v-for="(email,index) in emails" :key="index">
-                     {{email}}
-                 </li>
-             </ul>
-         </div> -->
-         <div class="mt-6">
+       <div class="mt-6">
              <button class="bg-green-900 bg-opacity-75 h-10 transition duration-700 ease-in-out transform hover:scale-110 focus:outline-none p-1 px-4 rounded text-white text-sm">
                 sendMember
              </button>
@@ -133,33 +114,54 @@ export default {
 
 <style scoped>
 @media (max-width: 1536px) {
+.inv{
+  /* margin-left:1280px; */
+  margin-left:1160px;
+  margin-top: 134px;
+}
 .mod{
   left:1002px;
+  top:175px;
 }
 }
 @media (max-width: 1280px) {
-.mod{
-  left:840px;
+.inv{
+  margin-left:800px;
+  margin-top:134px;
 }
-
+.mod{
+  left:640px;
+}
 }
 @media (max-width: 1024px) {
+.inv{
+  margin-left:700px;
+  margin-top:134px;
+}
 .mod{
   left:540px;
-  /* //right:2000px; */
+  
 }
 }
 @media (max-width: 768px) {
+.inv{
+  margin-left:500px;
+  margin-top:134px;
+}
  .mod{
   left:340px;
-  margin-top: 20px;
+  margin-top: 1px;
 }
- 
 }
 @media (max-width: 640px) {
- .mod{
-  left:40px;
-  margin-top:16px;
+.inv{
+  margin-left:290px;
+  margin-top:134px;
+}
+.mod{
+  left:130px;
+  margin-top:1px;
 }
 }
+
 </style>

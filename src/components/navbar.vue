@@ -31,7 +31,7 @@
       </div></div>
       <div><slot></slot></div>
       </div>
-    <div class="">
+    <div class="mr-5">
       <profile></profile>
     </div>
   </div>

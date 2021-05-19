@@ -140,22 +140,9 @@ export default {
       listId: "",
       isShow: false,
       isOn: false,
-      finds: [
-        { email: "jactekdj" },
-        { email: "fjadklsd" },
-        { email: "thoreurd" },
-        { email: "jactekdj" },
-        { email: "fjadklsd" },
-        { email: "thoreurd" },
-      ],
     };
   },
   created() {
-    this.comments = this.card.comments;
-    // console.log("whenuseetalent");
-    // console.log(this.comments);
-  },
-  mounted() {
     let token = localStorage.getItem("token");
     axios
       .get(
@@ -165,15 +152,38 @@ export default {
           this.list.id +
           "/card/" +
           this.card.id +
+          "/cardComment" +
           "?api_token=" +
           token
       )
       .then((response) => {
-        this.commentscount = response.data.comments;
-        console.log(this.commentscount);
+        this.comments = response.data.comments;
+        console.log(this.comments);
       });
   },
+  mounted() {
+    this.commentCounts();
+  },
   methods: {
+    commentCounts: function() {
+      let token = localStorage.getItem("token");
+      axios
+        .get(
+          "/boards/" +
+            this.list.board_id +
+            "/list/" +
+            this.list.id +
+            "/card/" +
+            this.card.id +
+            "/commentCount" +
+            "?api_token=" +
+            token
+        )
+        .then((response) => {
+          this.commentscount = response.data.comments;
+          console.log(this.commentscount);
+        });
+    },
     showModal: function() {
       this.isShow = !this.isShow;
     },
@@ -189,7 +199,8 @@ export default {
             "/list/" +
             this.list.id +
             "/card/" +
-            this.card.id + "/comments" +
+            this.card.id +
+            "/comments" +
             "?api_token=" +
             token,
           {
@@ -200,8 +211,7 @@ export default {
           this.commentName = "";
           let newComment = response.data.comments;
           this.comments.push(newComment);
-          // console.log("dfjdou899");
-          // console.log(response);
+          this.commentCounts();
         });
     },
   },
@@ -219,10 +229,6 @@ export default {
     height: 440px;
     overflow: scroll;
   }
-  /* background: chartreuse; */
-  /* overflow: scroll;
-         */
-
   ::-webkit-scrollbar {
     background: transparent;
     width: 18px;

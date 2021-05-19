@@ -307,7 +307,7 @@ export default {
   .scroll {
     width: 400px;
     height: 400px;
-    margin-left: 90px;
+    margin-left: 0px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
