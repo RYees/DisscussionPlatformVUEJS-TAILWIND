@@ -116,50 +116,49 @@ export default {
 @media (max-width: 1536px) {
 .inv{
   /* margin-left:1280px; */
-  margin-left:1160px;
+  margin-right:100px;
   margin-top: 134px;
 }
 .mod{
-  left:1002px;
-  top:175px;
+  left:1054px;
+  top:75px;
 }
 }
 @media (max-width: 1280px) {
 .inv{
-  margin-left:800px;
-  margin-top:134px;
+  margin-right:105px;
+  margin-top:140px;
 }
 .mod{
-  left:640px;
+  left:865px;
 }
 }
 @media (max-width: 1024px) {
 .inv{
-  margin-left:700px;
-  margin-top:134px;
+  margin-right:30px;
+  margin-top:140px;
 }
 .mod{
-  left:540px;
-  
+  left:700px;
 }
 }
 @media (max-width: 768px) {
 .inv{
-  margin-left:500px;
-  margin-top:134px;
+  margin-right:70px;
+  margin-top:140px;
 }
  .mod{
-  left:340px;
+  left:440px;
   margin-top: 1px;
 }
 }
 @media (max-width: 640px) {
 .inv{
-  margin-left:290px;
-  margin-top:134px;
+  margin-right:30px;
+  margin-top:140px;
 }
 .mod{
-  left:130px;
+  left:183px;
   margin-top:1px;
 }
 }

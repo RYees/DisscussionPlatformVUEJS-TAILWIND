@@ -13,7 +13,7 @@
       v-model="cards"
       :options="{ group: 'cards' }"
       @add="onAdd"
-      style="min-height:15px; height:370px"
+      style="min-height:15px; height:360px"
       :listId="list.id"
       @change="onChange"
     >
@@ -65,12 +65,12 @@
         >
           {{ card.name }}
         </div>
-        <div class="flex ml-56">
+        <!-- <div class="flex ml-56">
           <div><upload-Image :list="list" :card="card"></upload-Image></div>
           <div class="ml-4">
             <issue-Comments :list="list" :card="card"></issue-Comments>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- <div
         class="cardhide bg-white shadow-xl w-80 h-24 mb-96 p-4 border border-yellow-300 border-opacity-30"
@@ -85,11 +85,11 @@
       <!-- </div> -->
     </draggable>
 
-    <div class="" @keyup.esc="editCardId = null" style="margin-top:12px;">
+    <div class="" @keyup.esc="editCardId = null" style="margin-top:5px;">
       <textarea
         type="text"
-        title="It only take seven line of sentences"
-        class="w-full overflow-hidden h-16 p-1 border border-gray-300 bg-white text-gray-700 text-sm tracking-wider"
+        title="put you text"
+        class="w-full overflow-hidden h-16 p-1 border-2 border-yellow-900 bg-white text-gray-700 text-sm tracking-wider"
         placeholder="+ Enter new issue"
         @click.stop
         v-model="cardData.name"
@@ -103,20 +103,29 @@
         v-else
         >Add Issue</a
       >  -->
-      <div class="bg-white bg-opacity-50 h-10" style="" v-if="isSave">
-        <button
-          @click="createCard"
-          class="bg-green-600 focus:outline-none hover:bg-green-500 rounded ml-5 mt-1 w-20"
-          style=""
+    </div>
+    <div class="bg-white h-10" style="" v-if="isSave">
+        <button class="ml-32 focus:outline-none hover:bg-gray-600 hover:bg-opacity-30 px-2" @click="createCard">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="inline-block h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="green"
         >
-          save
-        </button>
-      </div>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
+          />
+        </svg> <p class="inline-block tracking-wider font-serif text-gray-800">save</p>
+      </button>
     </div>
   </div>
 </template>
 <script>
-import issueComments from "@/views/issueComments";
+//import issueComments from "@/views/issueComments";
 import axiosLib from "axios";
 const axios = axiosLib.create({
   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
@@ -125,13 +134,13 @@ const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
 import draggable from "vuedraggable";
-import uploadImage from "@/views/uploadImage";
+//import uploadImage from "@/views/uploadImage";
 export default {
   props: ["list"],
   components: {
     draggable,
-    "issue-Comments": issueComments,
-    "upload-Image": uploadImage,
+    //"issue-Comments": issueComments,
+    //"upload-Image": uploadImage,
   },
   data() {
     return {

@@ -8,12 +8,12 @@
     "
   >
     <div
-      class="w-8 mb-3 bg-yellow-200"
-      style="margin-top:1px; margin-left:0px;"
+      class="w-8 mb-3"
+      style=""
     >
       <input
         type="text"
-        class="input p-1 px-10 mt-0 w-60 rounded shadow-xl hover:bg-yellow-900 hover:bg-opacity-30 border border-white bg-white text-white text-sm tracking-wider"
+        class="input p-1 px-10 mt-5 h-8 w-60 cursor-pointer rounded shadow-xl border border-white bg-white text-gray-900 text-sm tracking-wider"
         placeholder="Enter your name"
         v-model="listName"
         required

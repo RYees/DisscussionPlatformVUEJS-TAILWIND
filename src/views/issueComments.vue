@@ -25,7 +25,7 @@
       </button>
     </div>
     <div class="text-sm mt-2 text-yellow-600">
-      <small>{{ commentscount }}</small>
+      <small>{{  commentscount }}</small>
     </div>
     <div
       v-if="isShow"
@@ -164,6 +164,16 @@ export default {
   mounted() {
     this.commentCounts();
   },
+  // mounted() {
+  //   this.$store.dispatch("users/commentCounts");
+  // },
+  // computed: {
+  //   commentCounts: {
+  //     get() {
+  //       return this.$store.state.users.comments;
+  //     },
+  //   },
+  // },
   methods: {
     commentCounts: function() {
       let token = localStorage.getItem("token");

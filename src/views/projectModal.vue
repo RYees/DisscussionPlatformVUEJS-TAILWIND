@@ -27,8 +27,8 @@
     <!-- <div class="flex justify-center" style=""> -->
      
     <form @submit.prevent="createBoard"
-      v-if="isShow"
-      class="flex justify-center ml-1 mr-10 sm:ml-5 sm:w-96 lg:mr-64 xl:mr-80 z-40 bg-white bg-opacity-95 absolute border border-yellow-200 rounded-lg h-52 w-2/3 mt-72 p-6 overflow-hidden shadow-xl transform transition-all"
+      v-if="isShow" 
+      class="flex justify-center ml-20 mr-10 sm:ml-5 sm:w-96 lg:mr-64 xl:mr-80 z-40 bg-white bg-opacity-95 absolute border border-yellow-200 rounded-lg h-40 sm:h-56 w-2/3 mt-56 sm:mt-72 p-6 overflow-hidden shadow-xl transform transition-all"
  
       role="dialog"
       aria-modal="false"
@@ -37,7 +37,7 @@
   <div>
       <input
         type="text"
-        class="w-72 hover:bg-white hover:bg-opacity-30 hover:text-dark text-sm sm:w-80 rounded-lg px-4 h-12 border border-indgo-300 focus:outline-none"
+        class="w-48 hover:bg-white hover:bg-opacity-30 hover:text-dark text-sm sm:w-80 rounded-lg px-4 h-12 border border-indgo-300 focus:outline-none"
         name=""
         id=""
         placeholder="Project Name"

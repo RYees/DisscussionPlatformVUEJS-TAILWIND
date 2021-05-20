@@ -70,8 +70,7 @@
     <!-- <div class="absolute flex justify-center items-center" style=" margin-top:2950px;"> -->
     <div
       class="scroll fixed w-11/12 bg-white bg-opacity-75 
-      grid grid-cols-1 grid-flow-row gap-32 ml-1
-      xl:grid xl:grid-cols-4 xl:grid-flow-row xl:gap-10 xl:ml-2
+      grid grid-cols-1 grid-flow-row gap-32 ml-1  xl:grid xl:grid-cols-4 xl:grid-flow-row xl:gap-10 xl:ml-2
       lg:grid lg:grid-cols-3 lg:grid-flow-row lg:gap-32 lg:ml-1
       md:grid md:grid-cols-2 md:grid-flow-row md:gap-32 md:ml-4
       sm:grid sm:grid-cols-1 sm:grid-flow-row sm:gap-32 sm:ml-8"
@@ -240,6 +239,7 @@ export default {
   .scroll {
     width: 1040px;
     height: 415px;
+    top:50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -262,6 +262,7 @@ export default {
   .scroll {
     width: 895px;
     height: 413px;
+    top:50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -285,6 +286,7 @@ export default {
     width: 500px;
     height: 400px;
     margin-left: 110px;
+    top:50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -308,6 +310,7 @@ export default {
     width: 400px;
     height: 400px;
     margin-left: 0px;
+    top:50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {

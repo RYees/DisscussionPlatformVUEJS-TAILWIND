@@ -6,7 +6,9 @@ const state = {
      invites: {},
      register: {},
      errorMessage:{},
-     errorEmail:{}
+     errorEmail:{},
+     comment:{},
+     comments:{}
 };
 const getters = {};
 const axios = axiosLib.create({
@@ -25,6 +27,44 @@ const actions = {
             //this.user = response.data.user;
           });
         },
+        commentCounts({commit}){
+          let token = localStorage.getItem('token');
+          axios
+          .get(
+            "/boards/" +
+              this.list.board_id +
+              "/list/" +
+              this.list.id +
+              "/card/" +
+              this.card.id +
+              "/cardComment" +
+              "?api_token=" +
+              token
+          )
+            .then(response => {
+                commit('setComment',response.data.comments);
+                   
+            });
+          },
+          comments({commit}){
+            let token = localStorage.getItem("token");
+            axios
+              .get(
+                "/boards/" +
+                  this.list.board_id +
+                  "/list/" +
+                  this.list.id +
+                  "/card/" +
+                  this.card.id +
+                  "/cardComment" +
+                  "?api_token=" +
+                  token
+              )
+              .then(response => {
+                  commit('Comment',response.data.comments);
+                     
+              });
+            },
     currrentUserRole({commit}){
         let token = localStorage.getItem("token");
         axios.get("/usersroles/"+token+"?api_token="+token)
@@ -128,6 +168,12 @@ const mutations={
     },
     setEmail( state, data ){
       state.errorEmail = data;
+    },
+    setComment( state, data ){
+      state.comment = data;
+    },
+    Comment( state, data ){
+      state.comments = data;
     },
 };
 export default{
