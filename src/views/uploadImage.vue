@@ -117,11 +117,11 @@
                 :src="'http://localhost:8000/storage/images/' + image.images"
                 alt="images"
               /> -->
-              <!-- <img
+              <img
                 class="h-64 w-72"
                 :src="'https://zowidiscussionapi.herokuapp.com/storage/images/' + image.images"
                 alt="images"
-              /> -->
+              />
             </div>
           </div>
         </div>
