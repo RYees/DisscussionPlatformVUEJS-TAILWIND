@@ -65,12 +65,12 @@
         >
           {{ card.name }}
         </div>
-        <!-- <div class="flex ml-56">
+        <div class="flex ml-56">
           <div><upload-Image :list="list" :card="card"></upload-Image></div>
           <div class="ml-4">
             <issue-Comments :list="list" :card="card"></issue-Comments>
           </div>
-        </div> -->
+        </div>
       </div>
       <!-- <div
         class="cardhide bg-white shadow-xl w-80 h-24 mb-96 p-4 border border-yellow-300 border-opacity-30"
@@ -125,7 +125,7 @@
   </div>
 </template>
 <script>
-//import issueComments from "@/views/issueComments";
+import issueComments from "@/views/issueComments";
 import axiosLib from "axios";
 const axios = axiosLib.create({
   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
@@ -134,13 +134,13 @@ const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
 import draggable from "vuedraggable";
-//import uploadImage from "@/views/uploadImage";
+import uploadImage from "@/views/uploadImage";
 export default {
   props: ["list"],
   components: {
     draggable,
-    //"issue-Comments": issueComments,
-    //"upload-Image": uploadImage,
+    "issue-Comments": issueComments,
+    "upload-Image": uploadImage,
   },
   data() {
     return {
