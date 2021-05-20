@@ -185,12 +185,13 @@ export default {
             this.list.id +
             "/card/" +
             this.card.id +
-            "/imagesCount/" +
+            "/imagesCount" +
             "?api_token=" +
             token
         )
         .then((response) => {
           this.imageCount = response.data.images;
+          console.log(this.imageCount);
         });
     },
     showModal: function() {
