@@ -117,11 +117,11 @@
                 :src="'http://localhost:8000/storage/images/' + image.images"
                 alt="images"
               /> -->
-              <!-- <img
+              <img
                 class="h-64 w-72"
                 :src="'https://zowidiscussionapi.herokuapp.com/storage/images/' + image.images"
                 alt="images"
-              /> -->
+              />
             </div>
           </div>
         </div>
@@ -132,12 +132,12 @@
 
 <script>
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 export default {
   props: ["card", "list"],
   data: () => {
