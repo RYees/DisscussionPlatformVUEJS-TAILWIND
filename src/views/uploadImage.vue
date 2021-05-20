@@ -85,7 +85,7 @@
                 @submit.prevent="uploadImage"
               >
                 <input
-                  class="text-white w-80 h-14"
+                  class="text-gray-800 w-80 h-14"
                   type="file"
                   @change="onImageChange"
                 />
