@@ -85,7 +85,7 @@
                 @submit.prevent="uploadImage"
               >
                 <input
-                  class="text-white w-80 h-14 bg-green-400"
+                  class="text-white w-80 h-14"
                   type="file"
                   @change="onImageChange"
                 />
@@ -132,12 +132,12 @@
 
 <script>
 import axiosLib from "axios";
-// const axios = axiosLib.create({
-//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-// });
 const axios = axiosLib.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 });
+// const axios = axiosLib.create({
+//   baseURL: "http://localhost:8000/api",
+// });
 export default {
   props: ["card", "list"],
   data: () => {
