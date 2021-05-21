@@ -112,16 +112,16 @@
               :key="index"
               style="width:300px"
             >
-             <img
+             <!-- <img
                 class="h-64 w-72"
                 :src="'http://localhost:8000/storage/images/' + image.images"
                 alt="images"
-              />
-              <!-- <img
-                class="h-64 w-72"
-                :src="'https://zowidiscussionapi.herokuapp.com/storage/images/' + image.images"
-                alt="images"
               /> -->
+              <img
+                class="h-64 w-72"
+                :src="image.images"
+                alt="images"
+              />
             </div>
           </div>
         </div>
