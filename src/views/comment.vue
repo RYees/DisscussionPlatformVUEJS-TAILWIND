@@ -7,7 +7,10 @@
       updateListId = null;
     "
   >
-    <div class="w-8 mb-3" style="">
+    <div
+      class="w-8 mb-3"
+      style=""
+    >
       <input
         type="text"
         class="input p-1 px-10 mt-5 h-8 w-60 cursor-pointer rounded shadow-xl border border-white bg-white text-gray-900 text-sm tracking-wider"
@@ -19,16 +22,12 @@
     </div>
     <draggable
       class="grid grid-rows-1 grid-flow-col gap-5 rounded p-0"
-      v-model="list"
-      :options="{ group: 'list' }"
+      v-model="lists"
+      :options="{ group: 'lists' }"
     >
       <div
         class="past text-white bg-yellow-300 bg-opacity-75 font-bold"
-<<<<<<< HEAD
         v-for="(list,$listIndex) in lists"
-=======
-        v-for="(list, $listIndex) in boards.lists"
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
         :key="$listIndex"
         style="height:500px; width:330px;"
       >
@@ -43,7 +42,7 @@
         <button
           class="focus:outline-none cursor-pointer hover:bg-white hover:bg-opacity-30"
           @click="deleteListId = list.id"
-          v-if="allRoles[0].pivot.role_id == 1"
+          v-if="currentRole[0].pivot.role_id == 1"
           @click.stop="deleteList()"
         >
           <svg
@@ -63,7 +62,7 @@
         <input
           type="text"
           @click.stop
-          v-model="updatelistName"
+          v-model="listName"
           placeholder="Edit you name here"
           style="padding:15px;"
           class="text-gray-600 h-5 w-60 border-4 border-yellow-700"
@@ -75,7 +74,7 @@
           class="inline-block tracking-wider transform uppercase
            ml-20 text-sm"
           style="top:0px;"
-          @click="(updateListId = list.id) && (updatelistName = list.name)"
+          @click="(updateListId = list.id) && (listName = list.name)" 
           @click.stop="upModal = true"
           v-else
         >
@@ -103,16 +102,12 @@
           </div>
         </div>
 
-<<<<<<< HEAD
         <board-column
          v-on:cardcreated="getData()"
          :list="list"
          ></board-column>
-=======
-        <board-column v-on:cardcreated="getLists()" :list="list"></board-column>
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
       </div>
-      <!-- <div:list="list"
+      <!-- <div
         class="listhide bg-white shadow-xl w-64 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
       >
         <p class="tracking-wider transform capitalize text-sm text-gray-500">
@@ -127,21 +122,24 @@
 import BoardColumn from "@/components/BoardColumn";
 import axiosLib from "axios";
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 });
 // const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
-import { mapGetters, mapActions, mapState } from "vuex";
 import draggable from "vuedraggable";
 export default {
   components: { "board-column": BoardColumn, draggable },
   data: () => {
     return {
-      list: { name: "" },
+      boards: "",
+      lists: [],
+      cards: "",
+      boardId: "",
+      listId: "",
+      list:{name: ""},
       newColumnName: "",
       listName: "",
-      updatelistName: "",
       deleteMode: false,
       updateListId: "",
       deleteListId: "",
@@ -150,27 +148,18 @@ export default {
   },
   created() {
     this.boardId = this.$route.params.id;
-    this.getLists();
-    this.currrentUserRole();
-  },
-  mounted() {
-    console.log("dhfioei");
-    console.log(this.li);
+    //console.log(this.boardId);
+    this.getData();
   },
   computed: {
-    ...mapGetters(["allRoles", "allLists", "allCards"]),
-    ...mapState(["boards"]),
+    currentRole: {
+      get() {
+        return this.$store.state.users.role;
+      },
+    },
   },
   methods: {
-    ...mapActions([
-      "currrentUserRole",
-      "fetchList",
-      "addList",
-      "updList",
-      "delList",
-    ]),
     getLists() {
-<<<<<<< HEAD
       this.boards.map((board) => {
         if (board.id == this.boardId) {
           return (this.lists = board.lists);
@@ -178,49 +167,84 @@ export default {
         // console.log("u just say so");
         // console.log(this.lists);
       });
-=======
-      this.fetchList({ boardId: this.boardId });
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
     },
     getData() {
       let token = localStorage.getItem("token");
+      // console.log(token);
       axios.get("/boards?api_token=" + token).then((response) => {
         this.boards = response.data.boards;
         this.getLists();
-<<<<<<< HEAD
         // console.log("shotsssss");
         // console.log(this.boards);
 
-=======
-        console.log("shotsssss");
-        console.log(this.boards);
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
       });
     },
     createList() {
-      this.addList({ boardId: this.boardId, listName: this.listName }).then(
-        () => {
+      let token = localStorage.getItem("token");
+      // console.log(this.boardId);
+      axios
+        .post("/boards/" + this.boardId + "/list?api_token=" + token, {
+          name: this.listName,
+        })
+        .then((response) => {
+          let newList = response.data.list;
+          this.lists.push(newList);
           this.listName = "";
-        }
-      );
+          console.log(response);
+        });
+      // this.$store.dispatch('users/createList',this.listName,this.boardId)
+      // .then(()=>{
+      //    this.listName = "";
+      // })
     },
     updateList() {
-      const updatedLists = {
-        id: this.updateListId,
-        name: this.updatelistName,
-      };
-      this.updList({ boardId: this.boardId, updatedLists }).then(() => {
-        this.updateListId = null;
-        this.listName = "";
-      });
+      let token = localStorage.getItem("token");
+      axios
+        .put(
+          "/boards/" +
+            this.boardId +
+            "/list/" +
+            this.updateListId +
+            "?api_token=" +
+            token,
+          { name: this.listName }
+        )
+        .then((response) => {
+          console.log(response);
+          this.updateListId = null;
+          this.listName = "";
+
+          this.getData();
+        });
     },
     deleteList() {
-      this.delList({
-        boardId: this.boardId,
-        deleteListId: this.deleteListId,
-      }).then(() => {
-        this.deleteListId = null;
-      });
+      let token = localStorage.getItem("token");
+      axios
+        .delete(
+          "/boards/" +
+            this.boardId +
+            "/list/" +
+            this.deleteListId +
+            "?api_token=" +
+            token
+        )
+        .then((response) => {
+          console.log(response);
+          this.deleteListId = null;
+          this.getData();
+        });
+    },
+
+    updateCard(listId) {
+      let token = localStorage.getItem("token");
+      console.log(listId);
+      axios
+        .put("/list/" + this.list.id + "?api_token=" + token, {
+          id: this.list.id,
+        })
+        .then((response) => {
+          console.log(response);
+        });
     },
   },
 };

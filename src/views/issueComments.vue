@@ -24,14 +24,9 @@
         </svg>
       </button>
     </div>
-<<<<<<< HEAD
     <div v-if="comments && comments.length >= 0" class="text-sm mt-2 text-yellow-600">
       <!-- <div class="text-sm mt-2 text-yellow-600"> -->
       <small>{{ comments.length }}</small>
-=======
-    <div class="text-sm mt-2 text-yellow-600">
-      <small>{{ commentCount }}</small>
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
     </div>
     <div
       v-if="isShow"
