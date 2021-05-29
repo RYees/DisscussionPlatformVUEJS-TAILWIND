@@ -25,7 +25,7 @@
       </button>
     </div>
     <div class="text-sm mt-2 text-yellow-600">
-      <small>{{  commentscount }}</small>
+      <small>{{ commentCount }}</small>
     </div>
     <div
       v-if="isShow"
@@ -80,8 +80,8 @@
               <li
                 class="p-3 text-gray-500 text-sm bg-white mb-1"
                 style="width:300px"
-                v-for="(comment, index) in comments"
-                :key="index"
+                v-for="(comment, $commentIndex) in comments"
+                :key="$commentIndex"
               >
                 {{ comment.description }}
               </li>
@@ -130,70 +130,30 @@ const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
 export default {
-  props: ["card", "list"],
+  props: ["card","list"],
   data: () => {
     return {
       comments: [],
       commentName: "",
-      commentscount: [],
       boardId: "",
       listId: "",
       isShow: false,
       isOn: false,
+      cardys: [],
     };
   },
+
   created() {
-    let token = localStorage.getItem("token");
-    axios
-      .get(
-        "/boards/" +
-          this.list.board_id +
-          "/list/" +
-          this.list.id +
-          "/card/" +
-          this.card.id +
-          "/cardComment" +
-          "?api_token=" +
-          token
-      )
-      .then((response) => {
-        this.comments = response.data.comments;
-        console.log(this.comments);
-      });
+    this.boardId = this.$route.params.id;
+    this.comments = this.card.comments;
   },
-  mounted() {
-    this.commentCounts();
-  },
-  // mounted() {
-  //   this.$store.dispatch("users/commentCounts");
-  // },
-  // computed: {
-  //   commentCounts: {
-  //     get() {
-  //       return this.$store.state.users.comments;
-  //     },
-  //   },
-  // },
-  methods: {
-    commentCounts: function() {
-      let token = localStorage.getItem("token");
-      axios
-        .get(
-          "/boards/" +
-            this.list.board_id +
-            "/list/" +
-            this.list.id +
-            "/card/" +
-            this.card.id +
-            "/commentCount" +
-            "?api_token=" +
-            token
-        )
-        .then((response) => {
-          this.commentscount = response.data.comments;
-          console.log(this.commentscount);
-        });
+  computed: {
+    commentCount: function() {
+      return this.comments.length;
     },
+  },
+
+  methods: {
     showModal: function() {
       this.isShow = !this.isShow;
     },
@@ -205,9 +165,9 @@ export default {
       axios
         .post(
           "/boards/" +
-            this.list.board_id +
+            this.boardId +
             "/list/" +
-            this.list.id +
+            this.card.lists_id +
             "/card/" +
             this.card.id +
             "/comments" +
@@ -221,7 +181,6 @@ export default {
           this.commentName = "";
           let newComment = response.data.comments;
           this.comments.push(newComment);
-          this.commentCounts();
         });
     },
   },

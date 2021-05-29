@@ -2,13 +2,16 @@
   <div
     class="user bg-red-900 p-6 h-screen w-full overflow-y-hidden flex justify-center items-center "
   >
-    <!-- <router-link class="text-3xl text-center  flex items-center justify-center text-white animate-none uppercase mt-8 absolute ml-60" to="/dashboard">back</router-link> -->
+  <div>
+   
+  </div>
+    <!--  <Spinner/><router-link class="text-3xl text-center  flex items-center justify-center text-white animate-none uppercase mt-8 absolute ml-60" to="/dashboard">back</router-link> -->
     <div class="scroll" style="margin-left:100px">
       <comment />
     </div>
 
     <div
-      class="bg-blue-800"
+      class=""
       style="margin-bottom:800px; margin-left:40px; height:10px;"
     >
       <!-- <div class="">
@@ -16,46 +19,49 @@
         style="margin-top:0px; margin-bottom:0px;"
         >{{currentUserBoard.name}}</h1>
     </div> -->
-      <div class="bg-green-600"
-        v-if="
-          Object.keys(currentRole).length !== 0 && currentRole !== undefined
-        "
+      <div
+        class=""
+        v-if="Object.keys(allRoles).length !== 0 && allRoles !== undefined"
       >
-        <div class="bg-purple-800 w-1" style="" v-if="currentRole[0].pivot.role_id == 1">
+        <div
+          class="w-1"
+          style=""
+          v-if="allRoles[0].pivot.role_id == 1"
+        >
           <Invitation />
         </div>
       </div>
     </div>
     <!-- <div class="h-screen flex items-center justify-center"> v-if="this.roles[0].pivot.role_id == 1"-->
-    
+
     <!-- </div> -->
   </div>
 </template>
 <script>
-//import boardMixin from '@/mixins/boardMixin';
+//import Spinner from '@/components/Spinner.vue';
 import comment from "@/views/comment.vue";
 import Invitation from "./Invitation.vue";
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   data() {
-    return {
-      currentUserBoard: "",
+    return {    
     };
   },
-  computed: {
-    currentRole: {
-      get() {
-        return this.$store.state.users.role;
-      },
+  computed:{
+    ...mapGetters(["allRoles"]),
+     ...mapState(['boards']),
     },
+  methods: {
+    ...mapActions(["currrentUserRole"]),
   },
   created() {
-    this.$store.dispatch("users/currrentUserRole");
+    this.currrentUserRole();
   },
   components: {
+    // Spinner,
     comment,
     Invitation,
   },
-  // mixins: [boardMixin],
 };
 </script>
 <style>

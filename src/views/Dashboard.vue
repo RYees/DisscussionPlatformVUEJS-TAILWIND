@@ -1,5 +1,4 @@
 <template>
-  <!-- <layout title="my dashboard"> -->
   <div>
     <div
       class="back bg-opacity-30 flex justify-center items-center h-screen w-full"
@@ -15,16 +14,14 @@
         </div>
         <br />
         <div
-          v-if="
-            Object.keys(currentRole).length !== 0 && currentRole !== undefined
-          "
+          v-if="Object.keys(allRoles).length !== 0 && allRoles !== undefined"
         >
           <div
             class="mr-10 mt-5 sm:mr-60 xl:ml-40"
             style=""
-            v-if="currentRole[0].pivot.role_id == 1"
+            v-if="allRoles[0].pivot.role_id == 1"
           >
-            <projectModal v-on:boardcreated="currentBoard()"></projectModal>
+            <projectModal></projectModal>
           </div>
         </div>
         <div
@@ -67,7 +64,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="absolute flex justify-center items-center" style=" margin-top:2950px;"> -->
     <div
       class="scroll fixed w-11/12 bg-white bg-opacity-75 
       grid grid-cols-1 grid-flow-row gap-32 ml-1  xl:grid xl:grid-cols-4 xl:grid-flow-row xl:gap-10 xl:ml-2
@@ -79,8 +75,8 @@
       <div
         class="mon ml-5"
         style=""
-        v-for="(currentUserBoard, index) in filteredProjects"
-        :key="index"
+        v-for="(board, $boardIndex) in filteredProjects"
+        :key="$boardIndex"
       >
         <div
           class="w-72 h-56 border-t-4 border-yellow-800
@@ -91,10 +87,7 @@
            "
         >
           <div>
-            <!-- <div class="w-200 h-40"></div> -->
-            <router-link
-              :to="{ name: 'singleDash', params: { id: currentUserBoard.id } }"
-            >
+            <router-link :to="{ name: 'singleDash', params: { id: board.id } }">
               <button
                 class="sm:px-5 px-6  w-72 focus:outline-none mt-2 ml-4 m-auto 
                 transition duration-700 ease-in-out  transform capitalize 
@@ -105,98 +98,50 @@
                 hover:bg-white hover:bg-opacity-95 
                 hover:text-gray-500 text-gray-750 text-xl mb-10 lighten-2"
               >
-                <!-- <button
-                  class="sm:px-5 focus:outline-none mt-10 ml-4 m-auto transform capitalize font-semibold hover:scale-110"
-                > -->
-                {{ currentUserBoard.name }}
-                <!-- </button> -->
+                {{ board.name }}
               </button>
             </router-link>
           </div>
         </div>
       </div>
     </div>
-    <!-- </div> -->
   </div>
-
-  <!-- </layout> -->
 </template>
 
 <script>
-//import boardMixin from "@/mixins/boardMixin";
-//import Layout from "../layouts/main";
-import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
-});
-// const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
-// });
-//import { searchName } from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
+import { mapGetters, mapActions } from "vuex";
 export default {
+  name: "Boards",
   data: () => ({
     search: "",
     isSearch: false,
-    boards: [],
   }),
-  // async created() {
-  //   let token = localStorage.getItem("token");
-  //   axios.get("/boards/?api_token=" + token);
-  //   let { data } = await axios.get("/boards/?api_token=" + token);
-  //   this.boards = data.boards;
-     created(){
-        let token = localStorage.getItem("token");
-      axios.get("/boards?api_token=" + token)
-            .then((response) => {
-              console.log(response)
-              this.boards = response.data.boards;
-              console.log(this.boards)});
-    },
-  //},
   computed: {
-    currentRole: {
-      get() {
-        return this.$store.state.users.role;
-      },
-    },
+    ...mapGetters(["allBoards", "allRoles"]),
     filteredProjects() {
       let normalizedQuery = this.search.trim().toLowerCase();
       if (normalizedQuery.length) {
-        return this.boards.filter(({ name }) =>
+        return this.allBoards.filter(({ name }) =>
           name.toLowerCase().startsWith(normalizedQuery)
         );
       }
-      return this.boards;
+      return this.allBoards;
     },
   },
-   methods: {
-    getBard(){
-           let token = localStorage.getItem("token");
-      axios.get("/boards?api_token=" + token)
-            .then((response) => {
-              console.log(response)
-              this.boards = response.data.boards
-              console.log(this.boards)});
-    },
-    // async getBard() {
-    //   let token = localStorage.getItem("token");
-    //   axios.get("/boards/?api_token=" + token);
-    //   let { data } = await axios.get("/boards/?api_token=" + token);
-    //   this.boards = data.boards;
-    // },
+  methods: {
+    ...mapActions(["fetchData", "currrentUserRole"]),
     searching: function() {
       this.isSearch = !this.isSearch;
     },
-    currentBoard() {
-     this.getBard();
-    },
+  },
+  created() {
+    this.fetchData();
+    this.currrentUserRole();
   },
   components: {
     projectModal,
-    //Layout
   },
-  //mixins: [boardMixin,searchName],
 };
 </script>
 
@@ -219,7 +164,7 @@ export default {
     top: 200px;
     overflow: scroll;
   }
-   ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     background: transparent;
     width: 18px;
   }
@@ -239,7 +184,7 @@ export default {
   .scroll {
     width: 1040px;
     height: 415px;
-    top:50px;
+    top: 50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -262,7 +207,7 @@ export default {
   .scroll {
     width: 895px;
     height: 413px;
-    top:50px;
+    top: 50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -286,7 +231,7 @@ export default {
     width: 500px;
     height: 400px;
     margin-left: 110px;
-    top:50px;
+    top: 50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -310,7 +255,7 @@ export default {
     width: 400px;
     height: 400px;
     margin-left: 0px;
-    top:50px;
+    top: 50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
