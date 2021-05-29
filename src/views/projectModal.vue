@@ -23,8 +23,6 @@
         >create project
       </button>
     </div>
-
-    <!-- <div class="flex justify-center" style=""> -->
      
     <form @submit.prevent="createBoard"
       v-if="isShow" 
@@ -51,38 +49,12 @@
           Create
         </button>
       </span> 
-        <!-- <div class="sm:mt-4 mt-14 absolute">  
-    <button class="focus:outline-none" @click.prevent="showModal">
-                  <svg
-                    class="h-10 w-10 "
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="dark"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-    </div> -->
       </div>
     </form>
-    <!-- </div>  -->
-
   </div>
 </template>
 <script>
-//import boardMixin from '@/mixins/boardMixin';
-import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
-// const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
-// });
-//import {mapState } from "vuex";
+import {mapActions} from 'vuex'
 export default {
   props:["user"],
   data: () => {
@@ -96,32 +68,16 @@ export default {
     this.$store.dispatch('users/CurrentUserData');
    },
   methods: {
+    ...mapActions(["createB"]),
     showModal: function() {
       this.isShow = !this.isShow;
     },
      createBoard() {
-      let token = localStorage.getItem("token");
-         axios.post("/boards/"+ this.$store.state.users.user.id +"?api_token=" + token,
-          {
-            name: this.newProject,
-          }
-        )
-        .then((response) => {
-          let board_token = response.data.board.board_token;
-          localStorage.setItem('board_token',board_token);
-           console.log(response);
-           this.newProject = "";
-         this.$emit("boardcreated"); 
-        });
-      //   this.$store.dispatch('admin/createBoard',this.newProject)
-      //  .then(() => {
-      //    this.newProject="";
-      // }).catch((err)=>console.log(err))
-      // .finally(()=> this.$emit("boardcreated"))
+       this.createB(this.newProject);
+       this.newProject = '';
          
       },
-   
-},
+   },
   
 };
 </script>

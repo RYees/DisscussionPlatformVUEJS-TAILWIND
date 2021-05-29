@@ -1,7 +1,6 @@
 <template>
   <div
     class="z-10 cursor-pointer fixed inset-x-0 w-full h-8 bg-yellow-600 bg-opacity-95 flex justify-between"
-  
   >
     <div class="flex">
       <p class="inline-block">
@@ -21,16 +20,22 @@
             /></svg
         ></router-link>
         <!-- <slot name="home"></slot> -->
-        </p>
-        <!-- <div v-if="currentRole">
+      </p>
+      <!-- <div v-if="currentRole">
         <div v-if="currentRole.user[0]">-->
-          <div v-if="Object.keys(currentRole).length !== 0 && currentRole !== undefined"> 
-      <div class="inline-block ml-1" v-if="currentRole[0].pivot.role_id == 1">
-         <router-link to="/Adminregister"><h1 class="text-sm xl:mt-0 xl:p-1 h-8 text-white hover:bg-white hover:bg-opacity-30">Add Admin</h1>
-      </router-link> 
-      </div></div>
-      <div><slot></slot></div>
+      <div v-if="Object.keys(allRoles).length !== 0 && allRoles !== undefined">
+        <div class="inline-block ml-1" v-if="allRoles[0].pivot.role_id == 1">
+          <router-link to="/Adminregister"
+            ><h1
+              class="text-sm xl:mt-0 xl:p-1 h-8 text-white hover:bg-white hover:bg-opacity-30"
+            >
+              Add Admin
+            </h1>
+          </router-link>
+        </div>
       </div>
+      <div><slot></slot></div>
+    </div>
     <div class="mr-5">
       <profile></profile>
     </div>
@@ -39,32 +44,20 @@
 
 <script>
 import profile from "@/views/profile";
-// import axiosLib from 'axios';
-// const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api"
-// });
+import { mapGetters, mapActions } from "vuex";
 export default {
- data: () => ({
-  roles:[]
+  data: () => ({
+    roles: [],
   }),
   components: {
     profile,
   },
-  created(){
-    this.$store.dispatch("users/currrentUserRole");
-   console.log(this.currentRole)
+  computed: mapGetters(["allRoles"]),
+  methods: {
+    ...mapActions(["currrentUserRole"]),
   },
-  
-  computed:{
-    //   showHeader(){"/usersroles/"+token+"?api_token="+token
-    //    return this.$route.name !== 'logreg' && this.$route.name !==  'login' && this.$route.name !==  'register';
-    //  },
-     currentRole: {
-      get() {
-        return this.$store.state.users.role;
-      },
-    },
+  created() {
+    this.currrentUserRole();
   },
 };
 </script>
-

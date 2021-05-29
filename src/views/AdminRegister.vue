@@ -1,18 +1,23 @@
 <template>
-<div class="h-screen w-full">
+  <div class="h-screen w-full">
     <div
       class="bg-gradient-to-r from-white via-gray-50 to-white h-screen w-full flex justify-center items-center"
     >
-    <div class="" v-if="submitted">
-          <h3 class="text-gray-700 text-4xl transform capitalize">Thanks for Registering!!!</h3>
-    </div>
+      <div class="" v-if="submitted">
+        <h3 class="text-gray-700 text-4xl transform capitalize">
+          Thanks for Registering!!!
+        </h3>
+      </div>
       <form
         @submit.prevent="Adminregister"
         class="mt-60 flex justify-center ml-5 rounded-lg border h-80 w-1/3  border-gray-300 shadow-xl p-20 py-20"
-        style="height:450px" v-if="!submitted"
+        style="height:450px"
+        v-if="!submitted"
       >
-        <div class="w-11/12" >
-          <h1 class="block text-gray-600 text-4xl transform capitalize text-center h-16">
+        <div class="w-11/12">
+          <h1
+            class="block text-gray-600 text-4xl transform capitalize text-center h-16"
+          >
             Admin Register
           </h1>
           <hr />
@@ -26,7 +31,7 @@
             v-model="register.fullname"
             style="padding:20px"
           />
-          <br/><br />
+          <br /><br />
           <input
             id="email"
             placeholder="Enter email"
@@ -45,9 +50,9 @@
             style="padding:20px"
             required
             v-model="register.password"
-           />
+          />
           <br /><br />
-           <input
+          <input
             id="password"
             placeholder="Enter confirm password"
             class="w-full h-12 rounded hover:bg-blue-50 border border-gray-200 focus:outline-none"
@@ -55,8 +60,13 @@
             style="padding:20px"
             required
             v-model="register.confirm_password"
-           />
-           <div class="text-red-500 transform capitalize" v-if="register.password != register.confirm_password">Passwords don't match</div>
+          />
+          <div
+            class="text-red-500 transform capitalize"
+            v-if="register.password != register.confirm_password"
+          >
+            Passwords don't match
+          </div>
           <br /><br />
           <div class="flex justify-between w-20">
             <hr />
@@ -67,7 +77,6 @@
             </button>
           </div>
         </div>
-        
       </form>
     </div>
   </div>
@@ -77,17 +86,15 @@
 export default {
   data() {
     return {
-      register: {fullname:"",email:"",password:"",confirm_password:""},
+      register: { fullname: "", email: "", password: "", confirm_password: "" },
       submitted: false,
     };
   },
   methods: {
     Adminregister() {
-           this.$store.dispatch('admin/Adminregister',this.register)
-          .then(()=>{
-            this.register="",
-            this.submitted = true;
-            });
+      this.$store.dispatch("admin/Adminregister", this.register).then(() => {
+        (this.register = ""), (this.submitted = true);
+      });
     },
   },
 };

@@ -6,20 +6,20 @@
       updateCardId = null;
     "
   >
-    <div class="text-sm ml-2 ">issues:{{ cardscount }}</div>
+    <div class="text-sm ml-2 ">issues:{{ allCardCount }}</div>
     <!-- class="overflow-scroll overflow-x-hidden" -->
     <draggable
       class="overflow-scroll overflow-x-hidden"
-      v-model="list.cards"
-      :options="{ group: 'list.cards' }"
+      v-model="allCards"
+      :options="{ group: 'allCards' }"
       @add="onAdd"
       style="min-height:15px; height:360px"
       :listId="list.id"
       @change="onChange"
     >
       <div
-        v-for="card in list.cards"
-        v-bind:key="card.id"
+        v-for="(card,index) in allCards"
+        :key="index"
         :cardId="card.id"
         class="card hover:border-green-300  cursor-pointer bg-white bg-opacity-30 hover:border-opacity-30 border-8 border-gray-50 border-opacity-30"
       >
@@ -65,12 +65,12 @@
         >
           {{ card.name }}
         </div>
-        <div class="flex ml-56">
-          <div><upload-Image  :list="list" :card="card"></upload-Image></div>
+        <!-- <div class="flex ml-56">
+          <div><upload-Image :list="list" :card="card"></upload-Image></div>
           <div class="ml-4">
             <issue-Comments :list="list" :card="card"></issue-Comments>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- <div
         class="cardhide bg-white shadow-xl w-80 h-24 mb-96 p-4 border border-yellow-300 border-opacity-30"
@@ -84,14 +84,8 @@
       <!-- <p> 1.To edit your issues click on the issue <br /></p> -->
       <!-- </div> -->
     </draggable>
-<<<<<<< HEAD
- <div class="" @keyup.esc="editCardId = null" style="margin-top:5px;">
-=======
-    <!-- <div v-for="card in allCards" :key="card">
-   {{card.name}}
- </div> -->
+
     <div class="" @keyup.esc="editCardId = null" style="margin-top:5px;">
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
       <textarea
         type="text"
         title="put you text"
@@ -111,10 +105,7 @@
       >  -->
     </div>
     <div class="bg-white h-10" style="" v-if="isSave">
-      <button
-        class="ml-32 focus:outline-none hover:bg-gray-600 hover:bg-opacity-30 px-2"
-        @click="createCard"
-      >
+        <button class="ml-32 focus:outline-none hover:bg-gray-600 hover:bg-opacity-30 px-2" @click="createCard">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="inline-block h-6 w-6"
@@ -128,154 +119,88 @@
             stroke-width="2"
             d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
           />
-        </svg>
-        <p class="inline-block tracking-wider font-serif text-gray-800">save</p>
+        </svg> <p class="inline-block tracking-wider font-serif text-gray-800">save</p>
       </button>
     </div>
   </div>
 </template>
 <script>
-
-import issueComments from "@/views/issueComments";
-import uploadImage from "@/views/uploadImage";
+//import issueComments from "@/views/issueComments";
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
-});
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 import draggable from "vuedraggable";
-
-<<<<<<< HEAD
-=======
-import { mapGetters, mapActions, mapState } from "vuex";
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
+//import uploadImage from "@/views/uploadImage";
+import { mapGetters, mapActions } from "vuex";
 export default {
   props: ["list"],
   components: {
     draggable,
-    "issue-Comments": issueComments,
-    "upload-Image": uploadImage,
+    // "issue-Comments": issueComments,
+    // "upload-Image": uploadImage,
   },
   data() {
     return {
-<<<<<<< HEAD
-      cards: "",
-      boards: "",
+      //cards: "",
+      //cardscount: [],
+      //lists: "",
+      //boards: "",
       boardId: "",
-      cardId: "",
-=======
-      //cards: [],
-      cardscount: [],
-      lists: "",
-      boards: "",
-      boardId: "",
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
-      listId: "",
       isSave: false,
-      cardData: "",
-      cardName: "",
-      cardscount:"",
+      cardData: { name: "" },
       updateCardId: "",
       editCardId: "",
       upMod: false,
     };
   },
-<<<<<<< HEAD
 
   created() {
-    this.cards = this.list.cards;
-    this.boardId = this.$route.params.id;
-    this.listId = this.list.id;
+    //this.cards = this.list;
     // console.log("paluuuuuuuu");
-    // console.log(this.cards);
+    this.getCards(); 
+    this.fetchCardCount({boardId:this.list.board_id,listId:this.list.id});
+    //console.log(this.cards);
   },
-   mounted() {
-=======
   mounted() {
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
-    let token = localStorage.getItem("token");
-    console.log(this.boardId);
-    axios
-      .get(
-        "/boards/" +
-          this.boardId +
-          "/list/" +
-          this.listId +
-          "/cardCount?api_token=" +
-          token
-      )
-      .then((response) => {
-        this.cardscount = response.data.cards;
-        console.log(this.cardscount);
-      });
-    // this.getCards();
+   
   },
-<<<<<<< HEAD
-   computed: {
-    cardCount: function() {
-      return this.cards.length;
-    },
-=======
-  created() {
-    this.boardId = this.$route.params.id;
-    this.listId = this.list.id;
-    this.getCards();
-  },
-
-  computed: {
-    ...mapGetters(["allCards", "allCardCount", "allLists"]),
-    ...mapState(["cards"]),
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
-  },
+  computed: mapGetters(["allCards","allCardCount","allLists"]),
   methods: {
-    ...mapActions(["fetchCard", "addCard", "updCard", "fetchCount"]),
+    ...mapActions(["fetchCard","addCard","updCard","fetchCardCount"]),
     showSave: function() {
       this.isSave = !this.isSave;
     },
-    getCount() {
-      this.fetchCount({ boardId: this.boardId, listId: this.listId });
-    },
     getCards() {
-      this.fetchCard({ boardId: this.boardId, listId: this.listId });
-    },
+      this.fetchCard({boardId:this.list.board_id,listId:this.list.id});
+      },
     createCard() {
-<<<<<<< HEAD
       //console.log(listId);
       //this.editCardId = listId;
-      let token = localStorage.getItem("token");
-      axios
-        .post(
-          "/boards/" +
-            this.list.board_id +
-            "/list/" +
-            this.list.id +
-            "/card?api_token=" +
-            token,
-          {
-            name: this.cardData,
-          }
-        )
-        .then((response) => {
-          let newCard = response.data.cards;
-          console.log(response);
-          this.cards.push(newCard);
-          //this.$emit("cardcreated");
+      // let token = localStorage.getItem("token");
+      // axios
+      //   .post(
+      //     "/boards/" +
+      //       this.list.board_id +
+      //       "/list/" +
+      //       this.list.id +
+      //       "/card?api_token=" +
+      //       token,
+      //     {
+      //       name: this.cardData.name,
+      //     }
+      //   )
+      this.addCard({boardId:this.list.board_id,listId:this.list.id,cardData:this.cardData.name})
+        .then(() => {
+          // let newCard = response.data.card;
+          // this.$emit("cardcreated");
+          // this.cards.push(newCard);
           this.cardData = "";
           this.editCardId = "";
         });
-=======
-      this.addCard({
-        boardId: this.boardId,
-        listId: this.listId,
-        cardData: this.cardData.name,
-      }).then(() => {
-        this.$emit("cardcreated");
-        this.cardData.name = "";
-        this.editCardId = "";
-      });
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
     },
     updateCard(cardId, listId) {
       let token = localStorage.getItem("token");
@@ -288,7 +213,9 @@ export default {
         .then((response) => {
           console.log(response);
         });
-    },
+
+      
+     },
     destroyCard(cardId) {
       let token = localStorage.getItem("token");
       axios
@@ -297,60 +224,50 @@ export default {
           console.log(response);
         });
     },
-    onAdd(evt) {
-      console.log(evt);
-      let fromListId = evt.from.getAttribute("listId");
-      let cardId = evt.item.getAttribute("cardId");
-      let toListId = evt.to.getAttribute("listId");
-      console.log(fromListId);
-      this.updateCard(cardId, toListId);
-    },
-    onChange() {
-      let newCards = this.list.cards.map((card, index) => {
-        card.priority = index + 1;
-        return card;
-      });
-      let token = localStorage.getItem("token");
-      axios
-        .patch("/card/update-all" + "?api_token=" + token, {
-          cards: newCards,
-        })
-        .then((response) => {
-          console.log(response);
-        });
-    },
+    // onAdd(evt) {
+    //   console.log(evt);
+    //   let fromListId = evt.from.getAttribute("listId");
+    //   let cardId = evt.item.getAttribute("cardId");
+    //   let toListId = evt.to.getAttribute("listId");
+    //   console.log(fromListId);
+    //   this.updateCard(cardId, toListId);
+    // },
+    // onChange() {
+    //   let newCards = this.allCards.map((card, index) => {
+    //     card.priority = index + 1;
+    //     return card;
+    //   });
+    //   let token = localStorage.getItem("token");
+    //   axios
+    //     .patch("/card/update-all" + "?api_token=" + token, {
+    //       allCards: newCards,
+    //     })
+    //     .then((response) => {
+    //       console.log(response);
+    //     });
+    // },
     updateCardItem() {
-<<<<<<< HEAD
+      // let token = localStorage.getItem("token");
+      // axios
+      //   .put("/card/" + this.updateCardId + "?api_token=" + token, {
+      //     name: this.cardName,
+      //   })
+      //   .then((response) => {
+      //     this.cardName = "";
+      //     this.updateCardId = null;
+      //     console.log(response);
+      //     this.$emit("cardcreated");
+      //   });
+
         const updatedcards={
         id:this.updateCardId ,
         name:this.cardName
       }
-      let token = localStorage.getItem("token");
-      axios
-        .put("/card/" + this.updateCardId + "?api_token=" + token, {
-          name: this.cardName,
-        })
-        .then((response) => {
-          console.log(response);
-            const index = this.cards.findIndex(card => card.id === updatedcards.id);
-               if(index !== -1){
-            this.cards.splice(index, 1, updatedcards);
-          }
+      this.updCard(updatedcards)
+        .then(() => {
           this.cardName = "";
           this.updateCardId = null;
-          
         });
-=======
-      const updatedcards = {
-        id: this.updateCardId,
-        name: this.cardName,
-      };
-      this.updCard(updatedcards).then(() => {
-        this.$emit("cardcreated");
-        this.cardName = "";
-        this.updateCardId = null;
-      });
->>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
     },
   },
 };

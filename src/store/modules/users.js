@@ -1,7 +1,17 @@
 import axiosLib from "axios";
+const axios = axiosLib.create({
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+});
+// const axios = axiosLib.create({
+//   baseURL: "http://localhost:8000/api",
+// });
 const state = {
+<<<<<<< HEAD
      user:{},
      role:{},
+=======
+     user:{},     
+>>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
      board:{},
      login:{},
      invites: {},
@@ -12,13 +22,9 @@ const state = {
      comments:{}
 };
 const getters = {};
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
-// const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
-// });
+
 const actions = {
+
     CurrentUserData({commit}){
         let token = localStorage.getItem('token');
         axios.get("/users/"+token,{headers:{'Authorization':'Bearer' + token}})
@@ -28,7 +34,7 @@ const actions = {
             //this.user = response.data.user;
           });
         },
-        commentCounts({commit}){
+    commentCounts({commit}){
           let token = localStorage.getItem('token');
           axios
           .get(
@@ -66,6 +72,7 @@ const actions = {
                      
               });
             },
+<<<<<<< HEAD
     currrentUserRole({commit}){
         let token = localStorage.getItem("token");
         axios
@@ -87,6 +94,18 @@ const actions = {
 //     });
 // },
     enter({commit,dispatch},login){
+=======
+//   async currrentUserRole({commit}){
+//         let token = localStorage.getItem("token");
+//       await axios
+//         .get("/usersroles/"+token+"?api_token="+token)
+//         .then((response) => {
+//           commit('setRole',response.data.user);
+//      })
+// },
+
+  enter({commit,dispatch},login){
+>>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
         console.log(commit);
         console.log(dispatch);
         axios.post('/login',
@@ -174,10 +193,15 @@ const mutations={
     setUser( state, data ){
         state.user = data;
     },
+<<<<<<< HEAD
     setRole( state, data ){
         state.role = data;
     },
     setBoard( state, data ){
+=======
+    
+   setBoard( state, data ){
+>>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
       state.board = data;
   },
     setMessage( state, data ){
@@ -193,6 +217,7 @@ const mutations={
       state.comments = data;
     },
 };
+
 export default{
     namespaced:true,
     state,

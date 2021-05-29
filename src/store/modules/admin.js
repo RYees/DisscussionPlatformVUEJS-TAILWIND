@@ -1,5 +1,6 @@
 import axiosLib from "axios";
 const state = {
+<<<<<<< HEAD
   
   invites: {},
   user: {},
@@ -19,9 +20,15 @@ const getters = {
       }
     };
   },
+=======
+  invites: {},
+  user: {},
+  //lists: {},
+  register: "",
+>>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
 };
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
 });
 // const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
@@ -43,6 +50,7 @@ const actions = {
         console.log(response);
       });
   },
+<<<<<<< HEAD
 
 
 };
@@ -67,6 +75,27 @@ const mutations = {
   //     lists: []
   //   })
   // },
+=======
+};
+
+const mutations = {
+  newBoard(state, data) {
+    state.boards = data;
+  },
+};
+const getters = {
+  getList(state) {
+    return (id) => {
+      for (const column of state.boards.columns) {
+        for (const list of column.lists) {
+          if (list.id === id) {
+            return list;
+          }
+        }
+      }
+    };
+  },
+>>>>>>> 7e2e0053daf9303c148757deb42831357b751a08
 };
 export default {
   namespaced: true,
