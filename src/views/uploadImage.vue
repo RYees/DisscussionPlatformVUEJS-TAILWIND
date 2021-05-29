@@ -24,8 +24,9 @@
         </svg>
       </button>
     </div>
-    <div class="text-sm mt-2 text-yellow-600">
-      <small>{{ imageCount }}</small>
+    <div v-if="images && images.length >= 0" class="text-sm mt-2 text-yellow-600">
+    <!-- <div class="text-sm mt-2 text-yellow-600"> -->
+      <small>{{ images.length }}</small>
     </div>
     <div
       v-if="isShow"
@@ -108,20 +109,16 @@
           >
             <div
               class="p-3 text-gray-500 text-sm bg-yellow-500 bg-opacity-30 mb-1"
-              v-for="(image, index) in images"
-              :key="index"
+              v-for="(image, $imageIndex) in images"
+              :key="$imageIndex"
               style="width:300px"
             >
-             <!-- <img
+              <!-- <img
                 class="h-64 w-72"
                 :src="'http://localhost:8000/storage/images/' + image.images"
                 alt="images"
               /> -->
-              <img
-                class="h-64 w-72"
-                :src="image.images"
-                alt="images"
-              />
+              <img class="h-64 w-72" :src="image.images" alt="images" />
             </div>
           </div>
         </div>
@@ -132,6 +129,7 @@
 
 <script>
 import axiosLib from "axios";
+
 const axios = axiosLib.create({
   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 });
@@ -139,11 +137,11 @@ const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
 export default {
-  props: ["card", "list"],
+  props: ["card","list"],
   data: () => {
     return {
+      cardy: [],
       images: [],
-      imageCount: [],
       image: "",
       commentName: "",
       boardId: "",
@@ -154,46 +152,15 @@ export default {
     };
   },
   created() {
-    let token = localStorage.getItem("token");
-    axios
-      .get(
-        "/boards/" +
-          this.list.board_id +
-          "/list/" +
-          this.list.id +
-          "/card/" +
-          this.card.id +
-          "/cardimages" +
-          "?api_token=" +
-          token
-      )
-      .then((response) => {
-        this.images = response.data.images;
-      });
+    this.boardId = this.$route.params.id;
+    this.images = this.card.images;
   },
-  mounted() {
-    this.counts();
+  computed: {
+    imageCount: function() {
+      return this.images.length;
+    },
   },
   methods: {
-    counts: function() {
-      let token = localStorage.getItem("token");
-      axios
-        .get(
-          "/boards/" +
-            this.list.board_id +
-            "/list/" +
-            this.list.id +
-            "/card/" +
-            this.card.id +
-            "/imagesCount" +
-            "?api_token=" +
-            token
-        )
-        .then((response) => {
-          this.imageCount = response.data.images;
-          console.log(this.imageCount);
-        });
-    },
     showModal: function() {
       this.isShow = !this.isShow;
     },
@@ -223,9 +190,9 @@ export default {
       axios
         .post(
           "/boards/" +
-            this.list.board_id +
+            this.boardId +
             "/list/" +
-            this.list.id +
+            this.card.lists_id +
             "/card/" +
             this.card.id +
             "/images" +
@@ -237,7 +204,6 @@ export default {
         .then((response) => {
           let newImage = response.data.images;
           this.images.push(newImage);
-          this.counts();
         });
     },
   },

@@ -2,6 +2,7 @@ import axiosLib from "axios";
 const state = {
      user:{},
      role:{},
+     board:{},
      login:{},
      invites: {},
      register: {},
@@ -67,11 +68,24 @@ const actions = {
             },
     currrentUserRole({commit}){
         let token = localStorage.getItem("token");
-        axios.get("/usersroles/"+token+"?api_token="+token)
-        .then(response => {
+        axios
+        .get("/usersroles/"+token+"?api_token="+token)
+        .then((response) => {
           commit('setRole',response.data.user);
      })
 },
+// getBoardData({commit}) {
+//   let token = localStorage.getItem("token");
+//   axios.get("/boards?api_token=" + token)
+//         .then((response) => {
+//           console.log(response)
+//           //this.boards = response.data.boards;
+   
+//       commit('setBoard',response.data.boards);
+//       //console.log(response);
+//       //Event.$emit('boardsLoaded',this.boards);
+//     });
+// },
     enter({commit,dispatch},login){
         console.log(commit);
         console.log(dispatch);
@@ -163,6 +177,9 @@ const mutations={
     setRole( state, data ){
         state.role = data;
     },
+    setBoard( state, data ){
+      state.board = data;
+  },
     setMessage( state, data ){
       state.errorMessage = data;
     },

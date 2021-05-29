@@ -66,7 +66,7 @@
           {{ card.name }}
         </div>
         <div class="flex ml-56">
-          <div><upload-Image :list="list" :card="card"></upload-Image></div>
+          <div><upload-Image  :list="list" :card="card"></upload-Image></div>
           <div class="ml-4">
             <issue-Comments :list="list" :card="card"></issue-Comments>
           </div>
@@ -84,8 +84,7 @@
       <!-- <p> 1.To edit your issues click on the issue <br /></p> -->
       <!-- </div> -->
     </draggable>
-
-    <div class="" @keyup.esc="editCardId = null" style="margin-top:5px;">
+ <div class="" @keyup.esc="editCardId = null" style="margin-top:5px;">
       <textarea
         type="text"
         title="put you text"
@@ -105,7 +104,10 @@
       >  -->
     </div>
     <div class="bg-white h-10" style="" v-if="isSave">
-        <button class="ml-32 focus:outline-none hover:bg-gray-600 hover:bg-opacity-30 px-2" @click="createCard">
+      <button
+        class="ml-32 focus:outline-none hover:bg-gray-600 hover:bg-opacity-30 px-2"
+        @click="createCard"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="inline-block h-6 w-6"
@@ -119,13 +121,16 @@
             stroke-width="2"
             d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
           />
-        </svg> <p class="inline-block tracking-wider font-serif text-gray-800">save</p>
+        </svg>
+        <p class="inline-block tracking-wider font-serif text-gray-800">save</p>
       </button>
     </div>
   </div>
 </template>
 <script>
+
 import issueComments from "@/views/issueComments";
+import uploadImage from "@/views/uploadImage";
 import axiosLib from "axios";
 const axios = axiosLib.create({
   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
@@ -134,7 +139,7 @@ const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
 import draggable from "vuedraggable";
-import uploadImage from "@/views/uploadImage";
+
 export default {
   props: ["list"],
   components: {
@@ -145,12 +150,14 @@ export default {
   data() {
     return {
       cards: "",
-      cardscount: [],
-      lists: "",
       boards: "",
       boardId: "",
+      cardId: "",
+      listId: "",
       isSave: false,
-      cardData: { name: "" },
+      cardData: "",
+      cardName: "",
+      cardscount:"",
       updateCardId: "",
       editCardId: "",
       upMod: false,
@@ -159,24 +166,33 @@ export default {
 
   created() {
     this.cards = this.list.cards;
+    this.boardId = this.$route.params.id;
+    this.listId = this.list.id;
     // console.log("paluuuuuuuu");
     // console.log(this.cards);
   },
-  mounted() {
+   mounted() {
     let token = localStorage.getItem("token");
+    console.log(this.boardId);
     axios
       .get(
         "/boards/" +
-          this.list.board_id +
+          this.boardId +
           "/list/" +
-          this.list.id +
-          "/card?api_token=" +
+          this.listId +
+          "/cardCount?api_token=" +
           token
       )
       .then((response) => {
         this.cardscount = response.data.cards;
         console.log(this.cardscount);
       });
+    // this.getCards();
+  },
+   computed: {
+    cardCount: function() {
+      return this.cards.length;
+    },
   },
   methods: {
     showSave: function() {
@@ -195,13 +211,14 @@ export default {
             "/card?api_token=" +
             token,
           {
-            name: this.cardData.name,
+            name: this.cardData,
           }
         )
         .then((response) => {
-          let newCard = response.data.card;
-          this.$emit("cardcreated");
+          let newCard = response.data.cards;
+          console.log(response);
           this.cards.push(newCard);
+          //this.$emit("cardcreated");
           this.cardData = "";
           this.editCardId = "";
         });
@@ -249,16 +266,24 @@ export default {
         });
     },
     updateCardItem() {
+        const updatedcards={
+        id:this.updateCardId ,
+        name:this.cardName
+      }
       let token = localStorage.getItem("token");
       axios
         .put("/card/" + this.updateCardId + "?api_token=" + token, {
           name: this.cardName,
         })
         .then((response) => {
+          console.log(response);
+            const index = this.cards.findIndex(card => card.id === updatedcards.id);
+               if(index !== -1){
+            this.cards.splice(index, 1, updatedcards);
+          }
           this.cardName = "";
           this.updateCardId = null;
-          console.log(response);
-          this.$emit("cardcreated");
+          
         });
     },
   },

@@ -14,7 +14,7 @@
           <br />
         </div>
         <br />
-        <div
+        <!-- <div
           v-if="
             Object.keys(currentRole).length !== 0 && currentRole !== undefined
           "
@@ -22,11 +22,11 @@
           <div
             class="mr-10 mt-5 sm:mr-60 xl:ml-40"
             style=""
-            v-if="currentRole[0].pivot.role_id == 1"
-          >
-            <projectModal v-on:boardcreated="currentBoard()"></projectModal>
-          </div>
-        </div>
+            v-if="currentRole[0].pivot.role_id == 1" v-on:boardcreated="currentBoard()"
+          > -->
+            <projectModal></projectModal>
+          <!-- </div>
+        </div> -->
         <div
           class="flex justify-end items-end xl:ml-96 lg:ml-96 md:ml-80"
           style=""
@@ -79,8 +79,8 @@
       <div
         class="mon ml-5"
         style=""
-        v-for="(currentUserBoard, $boardIndex) in filteredProjects"
-        :key="$boardIndex"
+        v-for="board in allBoards"
+        :key="board.key"
       >
         <div
           class="w-72 h-56 border-t-4 border-yellow-800
@@ -93,7 +93,7 @@
           <div>
             <!-- <div class="w-200 h-40"></div> -->
             <router-link
-              :to="{ name: 'singleDash', params: { id: currentUserBoard.id } }"
+              :to="{ name: 'singleDash', params: { id: board.id } }"
             >
               <button
                 class="sm:px-5 px-6  w-72 focus:outline-none mt-2 ml-4 m-auto 
@@ -108,7 +108,7 @@
                 <!-- <button
                   class="sm:px-5 focus:outline-none mt-10 ml-4 m-auto transform capitalize font-semibold hover:scale-110"
                 > -->
-                {{ currentUserBoard.name }}
+                {{ board.name }}
                 <!-- </button> -->
               </button>
             </router-link>
@@ -125,74 +125,98 @@
 <script>
 //import boardMixin from "@/mixins/boardMixin";
 //import Layout from "../layouts/main";
-import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
-});
+//import axiosLib from "axios";
+// const axios = axiosLib.create({
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api",
+// });
 // const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
 //import { searchName } from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
+import {mapGetters,mapActions} from 'vuex'
+//import { response } from 'express';
 export default {
+  name:"Boards",
   data: () => ({
     search: "",
     isSearch: false,
-    boards: [],
+    //boards: [],
   }),
   // async created() {
   //   let token = localStorage.getItem("token");
   //   axios.get("/boards/?api_token=" + token);
   //   let { data } = await axios.get("/boards/?api_token=" + token);
   //   this.boards = data.boards;
-     created(){
-      // this.currentBoard();
-        let token = localStorage.getItem("token");
-      axios.get("/boards?api_token=" + token)
-            .then((response) => {
-              console.log(response)
-              this.boards = response.data.boards;
-              console.log(this.boards)});
-    },
+    //  created(){
+    //    this.fetchData();
+      //   let token = localStorage.getItem("token");
+      // axios.get("/boards?api_token=" + token)
+      //       .then((response) => {
+      //         console.log(response)
+      //         this.boards = response.data.boards;
+      //         console.log(this.boards)});
+       //this.$store.dispatch("users/currrentUserRole");
+      //this.getBard();
+      // .then((response)=>{
+      //    this.boards = response.data.boards;
+      //     console.log(this.boards);
+      // });
+      
+    //},
   //},
-  computed: {
-    currentRole: {
-      get() {
-        return this.$store.state.users.role;
-      },
-    },
-    filteredProjects() {
-      let normalizedQuery = this.search.trim().toLowerCase();
-      if (normalizedQuery.length) {
-        return this.boards.filter(({ name }) =>
-          name.toLowerCase().startsWith(normalizedQuery)
-        );
-      }
-      return this.boards;
-    },
-  },
+  //  computed: mapState([
+  //       'role',
+  //       'boards'
+  //   ]),
+  // computed: {
+  //   currentRole: {
+  //     get() {
+  //       return this.$store.state.users.role;
+  //     },
+  //   boardData:{
+  //     get() {
+  //       return this.$store.state.admin.boards;
+  //     }
+  //   }
+  //   },
+  //   filteredProjects() {
+  //     let normalizedQuery = this.search.trim().toLowerCase();
+  //     if (normalizedQuery.length) {
+  //       return this.boards.filter(({ name }) =>
+  //         name.toLowerCase().startsWith(normalizedQuery)
+  //       );
+  //     }
+  //     return this.boards;
+  //   },
+  // },
+  computed:mapGetters(["allBoards"]),
    methods: {
-    getBard(){
-           let token = localStorage.getItem("token");
-      axios.get("/boards?api_token=" + token)
-            .then((response) => {
-              console.log(response)
-              this.boards = response.data.boards
-              console.log(this.boards)});
-    },
+     ...mapActions(["fetchData"]),
+        getBard(){
+    //        let token = localStorage.getItem("token");
+    //   axios.get("/boards?api_token=" + token)
+    //         .then((response) => {
+    //           console.log(response)
+    //           this.boards = response.data.boards
+    //           console.log(this.boards)});
+    // 
+    //this.$store.dispatch("admin/getBoardData");},
     // async getBard() {
     //   let token = localStorage.getItem("token");
     //   axios.get("/boards/?api_token=" + token);
     //   let { data } = await axios.get("/boards/?api_token=" + token);
     //   this.boards = data.boards;
-    // },
+     },
     searching: function() {
       this.isSearch = !this.isSearch;
     },
-    currentBoard() {
-     this.getBard();
-    },
+    // currentBoard() {
+    //  this.getBard();
+    // },
   },
+      created(){
+       this.fetchData();},
   components: {
     projectModal,
     //Layout

@@ -27,8 +27,8 @@
     >
       <div
         class="past text-white bg-yellow-300 bg-opacity-75 font-bold"
-        v-for="list in lists"
-        :key="list"
+        v-for="(list,$listIndex) in lists"
+        :key="$listIndex"
         style="height:500px; width:330px;"
       >
         <!-- <div
@@ -103,10 +103,9 @@
         </div>
 
         <board-column
-          class=""
-          :list="list"
-          v-on:cardcreated="getData"
-        ></board-column>
+         v-on:cardcreated="getData()"
+         :list="list"
+         ></board-column>
       </div>
       <!-- <div
         class="listhide bg-white shadow-xl w-64 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
@@ -165,6 +164,8 @@ export default {
         if (board.id == this.boardId) {
           return (this.lists = board.lists);
         }
+        // console.log("u just say so");
+        // console.log(this.lists);
       });
     },
     getData() {
@@ -173,8 +174,8 @@ export default {
       axios.get("/boards?api_token=" + token).then((response) => {
         this.boards = response.data.boards;
         this.getLists();
-        console.log("shotsssss");
-        console.log(this.boards);
+        // console.log("shotsssss");
+        // console.log(this.boards);
 
       });
     },
