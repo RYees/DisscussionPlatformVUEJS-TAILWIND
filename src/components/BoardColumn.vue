@@ -91,7 +91,7 @@
         class="w-full overflow-hidden h-16 p-1 border-2 border-yellow-900 bg-white text-gray-700 text-sm tracking-wider"
         placeholder="+ Enter new issue"
         @click.stop
-        v-model="cardDataqqqqq"
+        v-model="cardData"
         required
         @click="showSave"
       />
