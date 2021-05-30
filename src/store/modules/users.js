@@ -16,12 +16,12 @@ const getters = {
   //   return state.role
   // }
 };
-// const axios = axiosLib.create({
-//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-// });
 const axios = axiosLib.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 });
+// const axios = axiosLib.create({
+//   baseURL: "http://localhost:8000/api",
+// });
 const actions = {
     CurrentUserData({commit}){
         let token = localStorage.getItem('token');
