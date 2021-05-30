@@ -16,13 +16,13 @@
         <br />
         <div
           v-if="
-            Object.keys(currentRole).length !== 0 && currentRole !== undefined
+            Object.keys(allRoles).length !== 0 && allRoles !== undefined
           "
         >
           <div
             class="mr-10 mt-5 sm:mr-60 xl:ml-40"
             style=""
-            v-if="currentRole[0].pivot.role_id == 1"
+            v-if="allRoles[0].pivot.role_id == 1"
           >
             <projectModal v-on:boardcreated="currentBoard()"></projectModal>
           </div>
@@ -132,6 +132,7 @@ const axios = axiosLib.create({
 // const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
+import { mapGetters, mapActions } from "vuex";
 //import { searchName } from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
 export default {
@@ -146,7 +147,7 @@ export default {
   //   let { data } = await axios.get("/boards/?api_token=" + token);
   //   this.boards = data.boards;
      created(){
-      // this.currentBoard();
+       this.currrentUserRole();
         let token = localStorage.getItem("token");
       axios.get("/boards?api_token=" + token)
             .then((response) => {
@@ -156,6 +157,7 @@ export default {
     },
   //},
   computed: {
+    ...mapGetters(["allRoles"]),
     currentRole: {
       get() {
         return this.$store.state.users.role;
@@ -172,6 +174,7 @@ export default {
     },
   },
    methods: {
+       ...mapActions(["currrentUserRole"]),
     getBard(){
            let token = localStorage.getItem("token");
       axios.get("/boards?api_token=" + token)

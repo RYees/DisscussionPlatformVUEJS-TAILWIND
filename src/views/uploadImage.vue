@@ -129,7 +129,6 @@
 
 <script>
 import axiosLib from "axios";
-
 const axios = axiosLib.create({
   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 });

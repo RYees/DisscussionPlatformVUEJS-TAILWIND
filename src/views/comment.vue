@@ -42,7 +42,7 @@
         <button
           class="focus:outline-none cursor-pointer hover:bg-white hover:bg-opacity-30"
           @click="deleteListId = list.id"
-          v-if="currentRole[0].pivot.role_id == 1"
+          v-if="allRoles[0].pivot.role_id == 1"
           @click.stop="deleteList()"
         >
           <svg
@@ -127,6 +127,7 @@ const axios = axiosLib.create({
 // const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
+import { mapGetters, mapActions} from "vuex";
 import draggable from "vuedraggable";
 export default {
   components: { "board-column": BoardColumn, draggable },
@@ -149,16 +150,19 @@ export default {
   created() {
     this.boardId = this.$route.params.id;
     //console.log(this.boardId);
+    this.currrentUserRole();
     this.getData();
   },
   computed: {
-    currentRole: {
-      get() {
-        return this.$store.state.users.role;
-      },
-    },
+    ...mapGetters(["allRoles"]),
+    // currentRole: {
+    //   get() {
+    //     return this.$store.state.users.role;
+    //   },
+    // },
   },
   methods: {
+    ...mapActions(["currrentUserRole"]),
     getLists() {
       this.boards.map((board) => {
         if (board.id == this.boardId) {

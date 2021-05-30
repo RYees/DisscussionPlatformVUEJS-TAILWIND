@@ -1,10 +1,10 @@
 import axiosLib from "axios";
-// const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
-// });
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+  baseURL: "http://localhost:8000/api",
 });
+// const axios = axiosLib.create({
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+// });
 
 const state = {
     boards: [],

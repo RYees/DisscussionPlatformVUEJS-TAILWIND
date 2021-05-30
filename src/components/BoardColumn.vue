@@ -91,7 +91,7 @@
         class="w-full overflow-hidden h-16 p-1 border-2 border-yellow-900 bg-white text-gray-700 text-sm tracking-wider"
         placeholder="+ Enter new issue"
         @click.stop
-        v-model="cardData.name"
+        v-model="cardDataqqqqq"
         required
         @click="showSave"
       />
@@ -190,9 +190,9 @@ export default {
     // this.getCards();
   },
    computed: {
-    cardCount: function() {
-      return this.cards.length;
-    },
+    // cardCount: function() {
+    //   return this.cards.length;
+    // },
   },
   methods: {
     showSave: function() {

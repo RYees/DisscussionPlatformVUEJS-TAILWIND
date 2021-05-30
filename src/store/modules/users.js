@@ -1,7 +1,7 @@
 import axiosLib from "axios";
 const state = {
      user:{},
-     role:{},
+    //  role:[],
      board:{},
      login:{},
      invites: {},
@@ -11,13 +11,17 @@ const state = {
      comment:{},
      comments:{}
 };
-const getters = {};
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
+const getters = {
+  // allRoles: (state) => {
+  //   return state.role
+  // }
+};
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 const actions = {
     CurrentUserData({commit}){
         let token = localStorage.getItem('token');
@@ -66,14 +70,15 @@ const actions = {
                      
               });
             },
-    currrentUserRole({commit}){
-        let token = localStorage.getItem("token");
-        axios
-        .get("/usersroles/"+token+"?api_token="+token)
-        .then((response) => {
-          commit('setRole',response.data.user);
-     })
-},
+//    async currrentUserRole({commit}){
+//         let token = localStorage.getItem("token");
+//       const response = await axios .get("/usersroles/"+token+"?api_token="+token)
+//         // .then((response) => {
+//           console.log("it is beutiful");
+//           console.log(response);
+//           commit('setRole',response.data.user);
+//     //  })
+// },
 // getBoardData({commit}) {
 //   let token = localStorage.getItem("token");
 //   axios.get("/boards?api_token=" + token)
@@ -174,9 +179,8 @@ const mutations={
     setUser( state, data ){
         state.user = data;
     },
-    setRole( state, data ){
-        state.role = data;
-    },
+    // setRole:( state, data)=>(state.role = data),
+   
     setBoard( state, data ){
       state.board = data;
   },

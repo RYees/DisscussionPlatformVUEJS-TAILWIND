@@ -41,7 +41,7 @@
 //import Spinner from '@/components/Spinner.vue';
 import comment from "@/views/comment.vue";
 import Invitation from "./Invitation.vue";
-import { mapGetters, mapActions, mapState } from "vuex";
+import { mapGetters, mapActions} from "vuex";
 export default {
   data() {
     return {    
@@ -49,7 +49,7 @@ export default {
   },
   computed:{
     ...mapGetters(["allRoles"]),
-     ...mapState(['boards']),
+     
     },
   methods: {
     ...mapActions(["currrentUserRole"]),
