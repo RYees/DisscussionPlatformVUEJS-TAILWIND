@@ -119,7 +119,7 @@ export default {
           password: this.login.password,
         })
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           let token = response.data.user.api_token;
           let user = response.data.user;
           localStorage.setItem("token", token);

@@ -46,9 +46,9 @@
         </p>
         <!-- <div v-for="user in user" :key="user"> -->
         <p class="p-3 inline-block ml-5 text-lg">
-          {{ currentUser.name }}
+          {{ allUsers.name }}
           <small class="ml-1 text-gray-500 leading-tight">{{
-            currentUser.email
+            allUsers.email
           }}</small
           ><br />
         </p>
@@ -89,23 +89,19 @@ const axios = axiosLib.create({
 // const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
+import { mapActions, mapGetters } from "vuex";
 export default {
-  //props:["user"],
   data: () => {
     return {
-      //user:'',
       isShow: false,
       isLoggingOut: false,
     };
   },
   computed: {
-    currentUser: {
-      get() {
-        return this.$store.state.users.user;
-      },
-    },
+    ...mapGetters(["allUsers"]),
   },
   methods: {
+    ...mapActions(["CurrentUserData"]),
     showModal: function() {
       this.isShow = !this.isShow;
     },
@@ -118,13 +114,11 @@ export default {
         console.log(response);
         localStorage.removeItem("token");
         this.$router.push("/");
-        // Event.$emit('logout');
       });
     },
   },
   created() {
-    this.$store.dispatch("users/CurrentUserData");
-    // console.log('not a lot');
+    this.CurrentUserData();
   },
 };
 </script>

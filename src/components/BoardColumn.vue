@@ -66,7 +66,7 @@
           {{ card.name }}
         </div>
         <div class="flex ml-56">
-          <div><upload-Image  :list="list" :card="card"></upload-Image></div>
+          <div><upload-Image :list="list" :card="card"></upload-Image></div>
           <div class="ml-4">
             <issue-Comments :list="list" :card="card"></issue-Comments>
           </div>
@@ -84,7 +84,7 @@
       <!-- <p> 1.To edit your issues click on the issue <br /></p> -->
       <!-- </div> -->
     </draggable>
- <div class="" @keyup.esc="editCardId = null" style="margin-top:5px;">
+    <div class="" @keyup.esc="editCardId = null" style="margin-top:5px;">
       <textarea
         type="text"
         title="put you text"
@@ -128,7 +128,6 @@
   </div>
 </template>
 <script>
-
 import issueComments from "@/views/issueComments";
 import uploadImage from "@/views/uploadImage";
 import axiosLib from "axios";
@@ -147,17 +146,16 @@ export default {
     "issue-Comments": issueComments,
     "upload-Image": uploadImage,
   },
-  data() {
+  data: () => {
     return {
-      cards: "",
-      boards: "",
+      cards: [],
       boardId: "",
       cardId: "",
       listId: "",
       isSave: false,
       cardData: "",
       cardName: "",
-      cardscount:"",
+      cardscount: "",
       updateCardId: "",
       editCardId: "",
       upMod: false,
@@ -168,12 +166,9 @@ export default {
     this.cards = this.list.cards;
     this.boardId = this.$route.params.id;
     this.listId = this.list.id;
-    // console.log("paluuuuuuuu");
-    // console.log(this.cards);
   },
-   mounted() {
+  mounted() {
     let token = localStorage.getItem("token");
-    console.log(this.boardId);
     axios
       .get(
         "/boards/" +
@@ -185,11 +180,11 @@ export default {
       )
       .then((response) => {
         this.cardscount = response.data.cards;
-        console.log(this.cardscount);
+        //console.log(this.cardscount);
       });
     // this.getCards();
   },
-   computed: {
+  computed: {
     // cardCount: function() {
     //   return this.cards.length;
     // },
@@ -199,8 +194,6 @@ export default {
       this.isSave = !this.isSave;
     },
     createCard() {
-      //console.log(listId);
-      //this.editCardId = listId;
       let token = localStorage.getItem("token");
       axios
         .post(
@@ -215,10 +208,10 @@ export default {
           }
         )
         .then((response) => {
-          let newCard = response.data.cards;
-          console.log(response);
-          this.cards.push(newCard);
           //this.$emit("cardcreated");
+          console.log(response);
+          let newCard = response.data.card;
+          this.cards.push(newCard);
           this.cardData = "";
           this.editCardId = "";
         });
@@ -226,23 +219,14 @@ export default {
     updateCard(cardId, listId) {
       let token = localStorage.getItem("token");
       console.log(listId);
-      console.log(cardId);
-      axios
-        .put("/card/" + cardId + "?api_token=" + token, {
-          lists_id: this.list.id,
-        })
-        .then((response) => {
-          console.log(response);
-        });
+      axios.put("/card/" + cardId + "?api_token=" + token, {
+        lists_id: this.list.id,
+      });
+      // .then((response) => {
+      //  console.log(response);
+      // });
     },
-    destroyCard(cardId) {
-      let token = localStorage.getItem("token");
-      axios
-        .delete("/card/" + cardId + "?api_token=" + token)
-        .then((response) => {
-          console.log(response);
-        });
-    },
+
     onAdd(evt) {
       console.log(evt);
       let fromListId = evt.from.getAttribute("listId");
@@ -257,19 +241,18 @@ export default {
         return card;
       });
       let token = localStorage.getItem("token");
-      axios
-        .patch("/card/update-all" + "?api_token=" + token, {
-          cards: newCards,
-        })
-        .then((response) => {
-          console.log(response);
-        });
+      axios.patch("/card/update-all" + "?api_token=" + token, {
+        cards: newCards,
+      });
+      // .then((response) => {
+      //   console.log(response);
+      // });
     },
     updateCardItem() {
-        const updatedcards={
-        id:this.updateCardId ,
-        name:this.cardName
-      }
+      const updatedcards = {
+        id: this.updateCardId,
+        name: this.cardName,
+      };
       let token = localStorage.getItem("token");
       axios
         .put("/card/" + this.updateCardId + "?api_token=" + token, {
@@ -277,13 +260,14 @@ export default {
         })
         .then((response) => {
           console.log(response);
-            const index = this.cards.findIndex(card => card.id === updatedcards.id);
-               if(index !== -1){
+          const index = this.cards.findIndex(
+            (card) => card.id === updatedcards.id
+          );
+          if (index !== -1) {
             this.cards.splice(index, 1, updatedcards);
           }
           this.cardName = "";
           this.updateCardId = null;
-          
         });
     },
   },

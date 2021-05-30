@@ -7,10 +7,7 @@
       updateListId = null;
     "
   >
-    <div
-      class="w-8 mb-3"
-      style=""
-    >
+    <div class="w-8 mb-3" style="">
       <input
         type="text"
         class="input p-1 px-10 mt-5 h-8 w-60 cursor-pointer rounded shadow-xl border border-white bg-white text-gray-900 text-sm tracking-wider"
@@ -27,7 +24,7 @@
     >
       <div
         class="past text-white bg-yellow-300 bg-opacity-75 font-bold"
-        v-for="(list,$listIndex) in lists"
+        v-for="(list, $listIndex) in lists"
         :key="$listIndex"
         style="height:500px; width:330px;"
       >
@@ -74,7 +71,7 @@
           class="inline-block tracking-wider transform uppercase
            ml-20 text-sm"
           style="top:0px;"
-          @click="(updateListId = list.id) && (listName = list.name)" 
+          @click="(updateListId = list.id) && (listName = list.name)"
           @click.stop="upModal = true"
           v-else
         >
@@ -102,13 +99,10 @@
           </div>
         </div>
 
-        <board-column
-         v-on:cardcreated="getData()"
-         :list="list"
-         ></board-column>
+        <board-column :list="list"></board-column>
       </div>
       <!-- <div
-        class="listhide bg-white shadow-xl w-64 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
+        class="listhide bg-white v-on:cardcreated="getD"  shadow-xl w-64 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
       >
         <p class="tracking-wider transform capitalize text-sm text-gray-500">
           you can drag your conversation and others from side to side
@@ -127,18 +121,18 @@ const axios = axiosLib.create({
 // const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
-import { mapGetters, mapActions} from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import draggable from "vuedraggable";
 export default {
   components: { "board-column": BoardColumn, draggable },
   data: () => {
     return {
-      boards: "",
+      boards: [],
       lists: [],
       cards: "",
       boardId: "",
       listId: "",
-      list:{name: ""},
+      list: { name: "" },
       newColumnName: "",
       listName: "",
       deleteMode: false,
@@ -149,17 +143,11 @@ export default {
   },
   created() {
     this.boardId = this.$route.params.id;
-    //console.log(this.boardId);
     this.currrentUserRole();
     this.getData();
   },
   computed: {
     ...mapGetters(["allRoles"]),
-    // currentRole: {
-    //   get() {
-    //     return this.$store.state.users.role;
-    //   },
-    // },
   },
   methods: {
     ...mapActions(["currrentUserRole"]),
@@ -168,24 +156,21 @@ export default {
         if (board.id == this.boardId) {
           return (this.lists = board.lists);
         }
-        // console.log("u just say so");
-        // console.log(this.lists);
       });
     },
     getData() {
       let token = localStorage.getItem("token");
-      // console.log(token);
       axios.get("/boards?api_token=" + token).then((response) => {
         this.boards = response.data.boards;
         this.getLists();
-        // console.log("shotsssss");
-        // console.log(this.boards);
-
       });
+    },
+    getD(){
+       this.getData();
     },
     createList() {
       let token = localStorage.getItem("token");
-      // console.log(this.boardId);
+
       axios
         .post("/boards/" + this.boardId + "/list?api_token=" + token, {
           name: this.listName,
@@ -194,12 +179,8 @@ export default {
           let newList = response.data.list;
           this.lists.push(newList);
           this.listName = "";
-          console.log(response);
+          //console.log(response);
         });
-      // this.$store.dispatch('users/createList',this.listName,this.boardId)
-      // .then(()=>{
-      //    this.listName = "";
-      // })
     },
     updateList() {
       let token = localStorage.getItem("token");
@@ -214,10 +195,10 @@ export default {
           { name: this.listName }
         )
         .then((response) => {
-          console.log(response);
+          //console.log(response);
+          this.updatedListed = response.data.message;
           this.updateListId = null;
           this.listName = "";
-
           this.getData();
         });
     },
@@ -233,21 +214,10 @@ export default {
             token
         )
         .then((response) => {
-          console.log(response);
+          this.deleteListed = response.data.message;
+          //console.log(response);
           this.deleteListId = null;
           this.getData();
-        });
-    },
-
-    updateCard(listId) {
-      let token = localStorage.getItem("token");
-      console.log(listId);
-      axios
-        .put("/list/" + this.list.id + "?api_token=" + token, {
-          id: this.list.id,
-        })
-        .then((response) => {
-          console.log(response);
         });
     },
   },

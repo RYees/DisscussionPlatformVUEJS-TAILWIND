@@ -1,5 +1,4 @@
 <template>
-  <!-- <layout title="my dashboard"> -->
   <div>
     <div
       class="back bg-opacity-30 flex justify-center items-center h-screen w-full"
@@ -15,9 +14,7 @@
         </div>
         <br />
         <div
-          v-if="
-            Object.keys(allRoles).length !== 0 && allRoles !== undefined
-          "
+          v-if="Object.keys(allRoles).length !== 0 && allRoles !== undefined"
         >
           <div
             class="mr-10 mt-5 sm:mr-60 xl:ml-40"
@@ -67,7 +64,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="absolute flex justify-center items-center" style=" margin-top:2950px;"> -->
+
     <div
       class="scroll fixed w-11/12 bg-white bg-opacity-75 
       grid grid-cols-1 grid-flow-row gap-32 ml-1  xl:grid xl:grid-cols-4 xl:grid-flow-row xl:gap-10 xl:ml-2
@@ -91,7 +88,6 @@
            "
         >
           <div>
-            <!-- <div class="w-200 h-40"></div> -->
             <router-link
               :to="{ name: 'singleDash', params: { id: currentUserBoard.id } }"
             >
@@ -105,26 +101,17 @@
                 hover:bg-white hover:bg-opacity-95 
                 hover:text-gray-500 text-gray-750 text-xl mb-10 lighten-2"
               >
-                <!-- <button
-                  class="sm:px-5 focus:outline-none mt-10 ml-4 m-auto transform capitalize font-semibold hover:scale-110"
-                > -->
                 {{ currentUserBoard.name }}
-                <!-- </button> -->
               </button>
             </router-link>
           </div>
         </div>
       </div>
     </div>
-    <!-- </div> -->
   </div>
-
-  <!-- </layout> -->
 </template>
 
 <script>
-//import boardMixin from "@/mixins/boardMixin";
-//import Layout from "../layouts/main";
 import axiosLib from "axios";
 const axios = axiosLib.create({
   baseURL: "https://zowidiscussionapi.herokuapp.com/api",
@@ -133,7 +120,6 @@ const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
 import { mapGetters, mapActions } from "vuex";
-//import { searchName } from "@/mixins/mixin.js";
 import projectModal from "@/views/projectModal";
 export default {
   data: () => ({
@@ -141,28 +127,17 @@ export default {
     isSearch: false,
     boards: [],
   }),
-  // async created() {
-  //   let token = localStorage.getItem("token");
-  //   axios.get("/boards/?api_token=" + token);
-  //   let { data } = await axios.get("/boards/?api_token=" + token);
-  //   this.boards = data.boards;
-     created(){
-       this.currrentUserRole();
-        let token = localStorage.getItem("token");
-      axios.get("/boards?api_token=" + token)
-            .then((response) => {
-              console.log(response)
-              this.boards = response.data.boards;
-              console.log(this.boards)});
-    },
-  //},
+  created() {
+    this.currrentUserRole();
+    let token = localStorage.getItem("token");
+    axios.get("/boards?api_token=" + token).then((response) => {
+      // console.log(response)
+      this.boards = response.data.boards;
+    });
+  },
+
   computed: {
-    ...mapGetters(["allRoles"]),
-    currentRole: {
-      get() {
-        return this.$store.state.users.role;
-      },
-    },
+    ...mapGetters(["allRoles", "allUs"]),
     filteredProjects() {
       let normalizedQuery = this.search.trim().toLowerCase();
       if (normalizedQuery.length) {
@@ -173,34 +148,26 @@ export default {
       return this.boards;
     },
   },
-   methods: {
-       ...mapActions(["currrentUserRole"]),
-    getBard(){
-           let token = localStorage.getItem("token");
-      axios.get("/boards?api_token=" + token)
-            .then((response) => {
-              console.log(response)
-              this.boards = response.data.boards
-              console.log(this.boards)});
+  methods: {
+    ...mapActions(["currrentUserRole"]),
+    getBard() {
+      let token = localStorage.getItem("token");
+      axios.get("/boards?api_token=" + token).then((response) => {
+        //console.log(response)
+        this.boards = response.data.boards;
+      });
     },
-    // async getBard() {
-    //   let token = localStorage.getItem("token");
-    //   axios.get("/boards/?api_token=" + token);
-    //   let { data } = await axios.get("/boards/?api_token=" + token);
-    //   this.boards = data.boards;
-    // },
+
     searching: function() {
       this.isSearch = !this.isSearch;
     },
     currentBoard() {
-     this.getBard();
+      this.getBard();
     },
   },
   components: {
     projectModal,
-    //Layout
   },
-  //mixins: [boardMixin,searchName],
 };
 </script>
 
@@ -223,7 +190,7 @@ export default {
     top: 200px;
     overflow: scroll;
   }
-   ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     background: transparent;
     width: 18px;
   }
@@ -243,7 +210,7 @@ export default {
   .scroll {
     width: 1040px;
     height: 415px;
-    top:50px;
+    top: 50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -266,7 +233,7 @@ export default {
   .scroll {
     width: 895px;
     height: 413px;
-    top:50px;
+    top: 50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -290,7 +257,7 @@ export default {
     width: 500px;
     height: 400px;
     margin-left: 110px;
-    top:50px;
+    top: 50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {
@@ -314,7 +281,7 @@ export default {
     width: 400px;
     height: 400px;
     margin-left: 0px;
-    top:50px;
+    top: 50px;
     overflow: scroll;
   }
   ::-webkit-scrollbar {

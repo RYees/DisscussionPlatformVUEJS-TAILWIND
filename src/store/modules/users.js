@@ -1,8 +1,5 @@
 import axiosLib from "axios";
 const state = {
-     user:{},
-    //  role:[],
-     board:{},
      login:{},
      invites: {},
      register: {},
@@ -12,9 +9,7 @@ const state = {
      comments:{}
 };
 const getters = {
-  // allRoles: (state) => {
-  //   return state.role
-  // }
+
 };
 const axios = axiosLib.create({
   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
@@ -23,15 +18,7 @@ const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
 // });
 const actions = {
-    CurrentUserData({commit}){
-        let token = localStorage.getItem('token');
-        axios.get("/users/"+token,{headers:{'Authorization':'Bearer' + token}})
-          .then(response => {
-              commit('setUser',response.data.user);
-           // console.log(response); console.log("yeresponse");
-            //this.user = response.data.user;
-          });
-        },
+  
         commentCounts({commit}){
           let token = localStorage.getItem('token');
           axios
@@ -70,27 +57,7 @@ const actions = {
                      
               });
             },
-//    async currrentUserRole({commit}){
-//         let token = localStorage.getItem("token");
-//       const response = await axios .get("/usersroles/"+token+"?api_token="+token)
-//         // .then((response) => {
-//           console.log("it is beutiful");
-//           console.log(response);
-//           commit('setRole',response.data.user);
-//     //  })
-// },
-// getBoardData({commit}) {
-//   let token = localStorage.getItem("token");
-//   axios.get("/boards?api_token=" + token)
-//         .then((response) => {
-//           console.log(response)
-//           //this.boards = response.data.boards;
-   
-//       commit('setBoard',response.data.boards);
-//       //console.log(response);
-//       //Event.$emit('boardsLoaded',this.boards);
-//     });
-// },
+
     enter({commit,dispatch},login){
         console.log(commit);
         console.log(dispatch);
@@ -176,14 +143,7 @@ const actions = {
 };
 
 const mutations={
-    setUser( state, data ){
-        state.user = data;
-    },
-    // setRole:( state, data)=>(state.role = data),
-   
-    setBoard( state, data ){
-      state.board = data;
-  },
+
     setMessage( state, data ){
       state.errorMessage = data;
     },

@@ -23,61 +23,81 @@
         >create project
       </button>
     </div>
-     
-    <form @submit.prevent="createBoard"
-      v-if="isShow" 
+
+    <form
+      @submit.prevent="createBoard"
+      v-if="isShow"
       class="flex justify-center ml-20 mr-10 sm:ml-5 sm:w-96 lg:mr-64 xl:mr-80 z-40 bg-white bg-opacity-95 absolute border border-yellow-200 rounded-lg h-40 sm:h-56 w-2/3 mt-56 sm:mt-72 p-6 overflow-hidden shadow-xl transform transition-all"
- 
       role="dialog"
       aria-modal="false"
       aria-labelledby="modal-headline"
     >
-  <div>
-      <input
-        type="text"
-        class="w-48 hover:bg-white hover:bg-opacity-30 hover:text-dark text-sm sm:w-80 rounded-lg px-4 h-12 border border-indgo-300 focus:outline-none"
-        name=""
-        id=""
-        placeholder="Project Name"
-        v-model="newProject"
-        required
-      />
-      <span class="inline-block">
-        <button type="submit" class="sm:ml-12 transition duration-700 ease-in-out hover:bg-green-700 hover:text-lg text-sm px-1 w-28 ml-4 h-10 mt-10 transform hover:scale-110 tracking-wider focus:outline-none rounded-lg text-white bg-yellow-500"
-        
-        >
-          Create
-        </button>
-      </span> 
+      <div>
+        <input
+          type="text"
+          class="w-48 hover:bg-white hover:bg-opacity-30 hover:text-dark text-sm sm:w-80 rounded-lg px-4 h-12 border border-indgo-300 focus:outline-none"
+          name=""
+          id=""
+          placeholder="Project Name"
+          v-model="newProject"
+          required
+        />
+        <span class="inline-block">
+          <button
+            type="submit"
+            class="sm:ml-12 transition duration-700 ease-in-out hover:bg-green-700 hover:text-lg text-sm px-1 w-28 ml-4 h-10 mt-10 transform hover:scale-110 tracking-wider focus:outline-none rounded-lg text-white bg-yellow-500"
+          >
+            Create
+          </button>
+        </span>
       </div>
     </form>
   </div>
 </template>
 <script>
-import {mapActions} from 'vuex'
+import { mapActions, mapGetters } from "vuex";
+import axiosLib from "axios";
+const axios = axiosLib.create({
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
+});
+// const axios = axiosLib.create({
+//   baseURL: "http://localhost:8000/api",
+// });
 export default {
-  props:["user"],
+  //props: ["user"],
   data: () => {
     return {
-      newProject:'',
+      newProject: "",
       isShow: false,
-      usersss:null
+      usersss: null,
     };
   },
-  created(){
-    this.$store.dispatch('users/CurrentUserData');
-   },
+  created() {
+    this.CurrentUserData();
+    //this.$store.dispatch("users/CurrentUserData");
+  },
+  computed: {
+    ...mapGetters(["allUsers"]),
+  },
   methods: {
-    ...mapActions(["createB"]),
+    ...mapActions(["createB", "CurrentUserData"]),
     showModal: function() {
       this.isShow = !this.isShow;
     },
-     createBoard() {
-       this.createB(this.newProject);
-       this.newProject = '';
-         
-      },
-   },
-  
+    createBoard() {
+      //this.createB(this.newProject);
+      let token = localStorage.getItem("token");
+      axios
+        .post("/boards/" + this.allUsers.id + "?api_token=" + token, {
+          name: this.newProject,
+        })
+        .then((response) => {
+          let board_token = response.data.board.board_token;
+          localStorage.setItem("board_token", board_token);
+          this.$emit("boardcreated");
+          this.newProject = "";
+        });
+    },
+  },
 };
 </script>
