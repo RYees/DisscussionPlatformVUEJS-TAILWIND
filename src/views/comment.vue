@@ -24,8 +24,8 @@
     >
       <div
         class="past text-white bg-yellow-300 bg-opacity-75 font-bold"
-        v-for="(list, $listIndex) in lists"
-        :key="$listIndex"
+        v-for="list in lists"
+        :key="list"
         style="height:500px; width:330px;"
       >
         <!-- <div
@@ -99,10 +99,10 @@
           </div>
         </div>
 
-        <board-column :list="list"></board-column>
+        <board-column v-on:cardcreated="getData" :list="list"></board-column>
       </div>
       <!-- <div
-        class="listhide bg-white v-on:cardcreated="getD"  shadow-xl w-64 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
+        class="listhide bg-white   shadow-xl w-64 h-20 mb-96 p-4 border border-yellow-300 border-opacity-30"
       >
         <p class="tracking-wider transform capitalize text-sm text-gray-500">
           you can drag your conversation and others from side to side

@@ -208,7 +208,7 @@ export default {
           }
         )
         .then((response) => {
-          //this.$emit("cardcreated");
+          this.$emit("cardcreated");
           console.log(response);
           let newCard = response.data.card;
           this.cards.push(newCard);
