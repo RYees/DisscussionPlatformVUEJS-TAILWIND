@@ -113,12 +113,12 @@
 
 <script>
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
-});
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api",
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 import { mapGetters, mapActions } from "vuex";
 import projectModal from "@/views/projectModal";
 export default {

@@ -149,12 +149,12 @@
 import issueComments from "@/views/issueComments";
 import uploadImage from "@/views/uploadImage";
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-});
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 import draggable from "vuedraggable";
 
 export default {

@@ -57,15 +57,14 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
-});
 // const axios = axiosLib.create({
-//   baseURL: "http://localhost:8000/api",
+//   baseURL: "https://zowidiscussionapi.herokuapp.com/api",
 // });
+const axios = axiosLib.create({
+  baseURL: "http://localhost:8000/api",
+});
 export default {
-  //props: ["user"],
-  data: () => {
+ data: () => {
     return {
       newProject: "",
       isShow: false,
