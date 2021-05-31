@@ -43,24 +43,25 @@
         aria-modal="false"
         aria-labelledby="modal-headline"
       >
+        <div class="flex justify-between">
         <div
-          class="inline-block text-sm text-gray-700 ml-2 tracking-wider transform capitalize p-1"
-          style="top:0px;"
+          class="inline-block text-sm text-gray-700 tracking-wider transform capitalize p-1"
+          style=""
         >
           <p class="inline-block text-lg">{{ list.name }}</p>
           upload image
         </div>
         <div
-          class="inline-block mt-3"
-          style="top:0px; left:0px; margin-left:440px"
+          class="inline-block"
+          style=""
         >
           <button
-            class="focus:outline-none hover:bg-gray-600 w-5 hover:bg-opacity-30"
+            class="focus:outline-none hover:bg-gray-600 w-6 hover:bg-opacity-30"
             title="comment"
             style="left:0px;"
           >
             <svg
-              class="h-5 w-5"
+              class="h-5 w-6"
               style="left:0px"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -74,6 +75,7 @@
               />
             </svg>
           </button>
+        </div>
         </div>
         <hr />
         <div class="">

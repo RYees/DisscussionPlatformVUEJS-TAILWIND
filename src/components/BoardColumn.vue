@@ -23,6 +23,24 @@
         :cardId="card.id"
         class="card hover:border-green-300  cursor-pointer bg-white bg-opacity-30 hover:border-opacity-30 border-8 border-gray-50 border-opacity-30"
       >
+        <button
+          class="inline-block text-sm hover:bg-gray-600 hover:bg-opacity-30 hover:rounded"
+          v-if="isEdit"
+          @click="updateCardItem"
+          @click.stop="showEdit"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="inline-block h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M9.707 7.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L13 8.586V5h3a2 2 0 012 2v5a2 2 0 01-2 2H8a2 2 0 01-2-2V7a2 2 0 012-2h3v3.586L9.707 7.293zM11 3a1 1 0 112 0v2h-2V3z"
+            />
+            <path d="M4 9a2 2 0 00-2 2v5a2 2 0 002 2h8a2 2 0 002-2H4V9z" /></svg
+          >Save
+        </button>
         <input
           type="text"
           v-model="cardName"
@@ -32,7 +50,6 @@
           placeholder="Write here"
           label="List Name"
           v-if="updateCardId == card.id"
-          @keyup.enter="updateCardItem"
         />
         <div
           v-else
@@ -40,6 +57,7 @@
           @click.stop="upMod = true"
         >
           <button
+            @click="showEdit"
             class="focus:outline-none w-5 hover:bg-gray-600 hover:bg-opacity-30"
             title="Edit issue"
           >
@@ -73,7 +91,7 @@
         </div>
       </div>
       <!-- <div
-        class="cardhide bg-white shadow-xl w-80 h-24 mb-96 p-4 border border-yellow-300 border-opacity-30"
+        class="cardhide bg-white v-on:cardgetting="getCard" shadow-xl w-80 h-24 mb-96 p-4 border border-yellow-300 border-opacity-30"
       >
         <p
           class="tracking-wider transform capitalize font-normal text-sm text-gray-500"
@@ -153,6 +171,7 @@ export default {
       cardId: "",
       listId: "",
       isSave: false,
+      isEdit: false,
       cardData: "",
       cardName: "",
       cardscount: "",
@@ -192,6 +211,12 @@ export default {
   methods: {
     showSave: function() {
       this.isSave = !this.isSave;
+    },
+    showEdit: function() {
+      this.isEdit = !this.isEdit;
+    },
+    getCard() {
+      this.cards = this.list.cards;
     },
     createCard() {
       let token = localStorage.getItem("token");
