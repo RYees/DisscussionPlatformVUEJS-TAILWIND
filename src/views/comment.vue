@@ -59,7 +59,7 @@
         <input
           type="text"
           @click.stop
-          v-model="listName"
+          v-model="editName"
           placeholder="Edit you name here"
           style="padding:15px;"
           class="text-gray-600 h-5 w-60 border-4 border-yellow-700"
@@ -71,7 +71,7 @@
           class="inline-block tracking-wider transform uppercase
            ml-20 text-sm"
           style="top:0px;"
-          @click="(updateListId = list.id) && (listName = list.name)"
+          @click="(updateListId = list.id) && (editName = list.name)"
           @click.stop="upModal = true"
           v-else
         >
@@ -115,12 +115,12 @@
 <script>
 import BoardColumn from "@/components/BoardColumn";
 import axiosLib from "axios";
-// const axios = axiosLib.create({
-//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
-// });
 const axios = axiosLib.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
 });
+// const axios = axiosLib.create({
+//   baseURL: "http://localhost:8000/api",
+// });
 import { mapGetters, mapActions } from "vuex";
 import draggable from "vuedraggable";
 export default {
@@ -135,6 +135,7 @@ export default {
       list: { name: "" },
       newColumnName: "",
       listName: "",
+      editName: "",
       deleteMode: false,
       updateListId: "",
       deleteListId: "",
@@ -192,13 +193,13 @@ export default {
             this.updateListId +
             "?api_token=" +
             token,
-          { name: this.listName }
+          { name: this.editName }
         )
         .then((response) => {
           //console.log(response);
           this.updatedListed = response.data.message;
           this.updateListId = null;
-          this.listName = "";
+          this.editName = "";
           this.getData();
         });
     },

@@ -4,12 +4,12 @@ import users from "./modules/users";
 import admin from "./modules/admin";
 import boards from "./modules/boards";
 import axiosLib from "axios";
-const axios = axiosLib.create({
-  baseURL: "http://localhost:8000/api",
-});
 // const axios = axiosLib.create({
-//   baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+//   baseURL: "http://localhost:8000/api",
 // });
+const axios = axiosLib.create({
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+});
 Vue.use(Vuex);
 
 export default new Vuex.Store({
