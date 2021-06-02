@@ -36,26 +36,29 @@
             Delete
           </div> -->
         <!-- <div v-if="currentRole[0].pivot.role_id == 1"> -->
-        <button
-          class="focus:outline-none cursor-pointer hover:bg-white hover:bg-opacity-30"
-          @click="deleteListId = list.id"
-          v-if="allRoles[0].pivot.role_id == 1"
-          @click.stop="deleteList()"
+        <div
+          v-if="Object.keys(allRoles).length !== 0 && allRoles !== undefined"
         >
-          <svg
-            class="h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="green"
+          <button
+            class="focus:outline-none cursor-pointer hover:bg-white hover:bg-opacity-30"
+            @click="deleteListId = list.id"
+            v-if="allRoles[0].pivot.role_id == 1"
+            @click.stop="deleteList()"
           >
-            <path
-              fill-rule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
-        <!-- </div> -->
+            <svg
+              class="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="green"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
         <input
           type="text"
           @click.stop
@@ -116,7 +119,7 @@
 import BoardColumn from "@/components/BoardColumn";
 import axiosLib from "axios";
 const axios = axiosLib.create({
-  baseURL: "https://zowidiscussionapi.herokuapp.com/api"
+  baseURL: "https://zowidiscussionapi.herokuapp.com/api",
 });
 // const axios = axiosLib.create({
 //   baseURL: "http://localhost:8000/api",
@@ -166,8 +169,8 @@ export default {
         this.getLists();
       });
     },
-    getD(){
-       this.getData();
+    getD() {
+      this.getData();
     },
     createList() {
       let token = localStorage.getItem("token");
